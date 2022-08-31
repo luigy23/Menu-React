@@ -1,0 +1,77 @@
+.contenedor-canasta{
+display: block;
+width: 100%;
+min-height: 100px;
+background-color: aliceblue;
+margin-top: 40px;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+
+
+
+
+.contenedor-lista{
+
+    width: 100%;
+    min-height: 100px;
+
+    margin-top: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+ 
+
+}
+
+
+.btn-pedir{
+    margin-top: 20px;
+    display: flex;
+    font-size: 18px;
+    background-color: transparent;
+    font-weight: 600;
+    padding: 10px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    margin: 5px;
+    cursor: pointer; 
+
+    transition: all 0.2s ease;
+}
+
+.btn-pedir:hover{
+
+background-color: rgb(10, 165, 131);
+}
+
+.titulo-pedido{
+
+    text-align: left;
+    margin-left: 20px;
+    color: #003e1d;
+}
+
+
+
+.separador{
+    color: black;
+    font-weight: bold;
+}
+.lista-productos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+.item-canasta{    
+    background-color: rgb(255, 243, 114);
+    padding: 5px;
+    border-radius: 20px;
+    margin: 5px;
+    display: flex;
+    cursor: pointer;
+    column-gap: 20px;
+}

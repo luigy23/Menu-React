@@ -1,0 +1,30 @@
+
+/*button{
+
+    width: 250px;
+    height: 80px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: #ffff;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    margin: 5px;
+    cursor: pointer; 
+    font-size: 35px;
+}
+
+button:hover{
+    color: #fff;
+    background-color: rgb(39, 169, 74);
+}*/
+
+.btn-principal{
+    color: rgb(22, 21, 21);
+    background-color: #fff;
+}
+.btn-reiniciar{
+
+    background-color: rgb(22, 21, 21);
+
+}
+
