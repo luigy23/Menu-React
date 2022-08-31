@@ -10,20 +10,7 @@ import { TYPES } from "../Actions/canastaAction";
 export const canastaInicialState = {
 
   productos: [ 
-/*    {
-      titulo: "Pollo Frito",
-      img: "https://cutt.ly/UXCkzM7",
-      id: "pollo1",
-      precio: 26000
-    },
 
-    {
-      titulo: "Hamburguesa XL",
-      img: "https://cutt.ly/WXCnRSg",
-      id: "hamburguesa34",
-      precio: 15000
-    }
-*/
   ],
 
 
