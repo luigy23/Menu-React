@@ -11,16 +11,9 @@ import axios from "axios";
 
 
 function Display() {
-  const [productList,setProductList] = useState([])
+  const [productList,setProductList] = useState([]) //llamados a la api para traer los productos.
   const [cargado,setCargado]= useState(false)
   useEffect(()=>{
-    /*const cargarProductos = async ()=>{
-      const res = await axios("http://localhost:4000/productos")
-      const data = await res.data
-      setProductList(data)
-      
-    }*/
-
     fetch("https://api-menu-a.herokuapp.com/productos")
       .then((response) => response.json())
       .then((data) => {
@@ -40,7 +33,6 @@ function Display() {
 
   },[cargado]);
   
-
 
   const [state, dispatch] = useReducer(canastaReducer, canastaInicialState)
   const {productos, canasta} = state;
