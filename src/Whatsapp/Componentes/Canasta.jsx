@@ -1,12 +1,10 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import "../Estilos/Canasta.css"
 
 import ItemCanasta from "./ItemCanasta";
 
 
-const Canasta = ({canasta, delToCart,enviarPedido}) => {
+const Canasta = ({canasta, delToCart,enviarPedido, addToCart}) => {
   
 
  
@@ -28,7 +26,7 @@ const visible = false;
         {
           canasta.map((producto, index)=>
        
-          <ItemCanasta delToCart={delToCart} key={index}  data={producto} index={index}/>
+          <ItemCanasta delToCart={delToCart} key={index} addToCart={addToCart} data={producto} index={index}/>
   
           
           )

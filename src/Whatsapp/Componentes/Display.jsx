@@ -47,7 +47,8 @@ function Display() {
 
     dispatch({ type: TYPES.CARGAR_PRODUCTOS, payload: productList }) //Guardamos los productos en el estado del Reducer
   }
-  const addToCart = (id, cantidad) => {
+  const addToCart = (id, cantidad,opcion) => {
+    if(opcion==1){cantidad=1}
     let datos = [id, cantidad]
     dispatch({ type: TYPES.AÑADIR_A_CANASTA, payload: datos })
 
@@ -68,24 +69,13 @@ function Display() {
 
   }
 
-/*
-  const delOneToCart = (id,cantidad) => {
-    console.log(id,cantidad)
-    if(cantidad> 1){
-      alert("hay mas de 1")
-    }else{ alert("hay menos de 1")}
-    
-    
-    
-    /*dispatch({ type: TYPES.BORRAR_UNO_CANASTA, payload: id })
-    : delToCart(id);*/
-    
+
     const delOne = (id,cantidad) => {
 
       
   
     }
-  
+
   
   const enviarPedido = () => {
 
@@ -117,7 +107,7 @@ function Display() {
 
         </div>
 
-        <Canasta canasta={canasta} delToCart={delToCart}  enviarPedido={enviarPedido} delOne={delOne} />
+        <Canasta canasta={canasta} delToCart={delToCart} addToCart={addToCart}  enviarPedido={enviarPedido} delOne={delOne} />
 
       </PedidosProvider>
 

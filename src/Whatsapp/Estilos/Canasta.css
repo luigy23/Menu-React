@@ -2,8 +2,9 @@
 display: block;
 width: 100%;
 min-height: 100px;
-background-color: aliceblue;
+background-color: #f0f8ff;
 margin-top: 40px;
+padding-bottom: 20px;
 align-items: center;
 justify-content: center;
 flex-direction: column;
@@ -56,6 +57,8 @@ background-color: rgb(10, 165, 131);
 
 
 
+
+/*ESTILOS PARA ITEMS*/
 .separador{
     color: black;
     font-weight: bold;
@@ -64,14 +67,37 @@ background-color: rgb(10, 165, 131);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 
 }
 .item-canasta{    
-    background-color: rgb(255, 243, 114);
-    padding: 5px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
     border-radius: 20px;
+    box-shadow:  2px 2px 4px #ccd3d9,
+    -2px -2px 4px #ffffff; 
     margin: 5px;
     display: flex;
-    cursor: pointer;
+    
     column-gap: 20px;
+}
+.btnItem{
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+   
+}
+.btnBorrar{
+    color: red;
+}
+.btnRestar, .btnRestar:active{
+    color:#fdd132
+}
+.btnRestar:hover{
+    color:#e8b00a
+}
+.btnSumar{
+    color: #2ad93e;
 }
