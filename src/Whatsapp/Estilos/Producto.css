@@ -60,4 +60,27 @@
     transition: opacity .3s;
    }
    
+.producto-descripcion{
+    text-align:center;
+    padding: 10px;
    
+    
+}
+.descripcion-contenedor{
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: 0.5em;
+    margin-bottom: 00.5em;
+    color: #777;
+    padding: 10px 15px 5px 15px;
+    height: 80px;
+    overflow:scroll;
+    width: 100%;
+    
+    
+}
+::-webkit-scrollbar {
+    display: none;
+    }

@@ -3,96 +3,122 @@ import "../Estilos/Display.css"
 import Producto from "./Producto";
 import Canasta from "./Canasta";
 import PedidosProvider from "../Contextos/PedidosContex";
-import { useReducer,useEffect } from "react";
-import {canastaReducer, canastaInicialState} from "../Reducers/canastaReducer.jsx" 
+import { useReducer, useEffect } from "react";
+import { canastaReducer, canastaInicialState } from "../Reducers/canastaReducer.jsx"
 import { TYPES } from "../Actions/canastaAction";
 import { useState } from "react";
 import axios from "axios";
 
 
 function Display() {
-  const [productList,setProductList] = useState([]) //llamados a la api para traer los productos.
-  const [cargado,setCargado]= useState(false)
-  useEffect(()=>{
-    fetch("https://api-menu-a.herokuapp.com/productos")
+
+
+  const [productList, setProductList] = useState([]) //Aquí guardamos los productros que llamamos de la pai
+  const [cargado, setCargado] = useState(false)  //Estado de cuando los productos están cargados
+
+
+
+  useEffect(() => {
+    fetch("https://api-menu-a.herokuapp.com/productos") //traemos productos de API
       .then((response) => response.json())
       .then((data) => {
-        setProductList(data);
+        setProductList(data); //Llamada a metodo para actualizar los productos
         console.log(productList)
         setCargado(true)
       })
-        
 
+
+
+    /*
+        cargarProductos();*/
+
+    cargadeProductos();
+
+
+
+  }, [cargado]);
+
+
+  const [state, dispatch] = useReducer(canastaReducer, canastaInicialState) //Traemos el estado incial y los metodos del Reducer
+  const { productos, canasta } = state;
+
+
+  const cargadeProductos = () => {
+
+    dispatch({ type: TYPES.CARGAR_PRODUCTOS, payload: productList }) //Guardamos los productos en el estado del Reducer
+  }
+  const addToCart = (id, cantidad) => {
+    let datos = [id, cantidad]
+    dispatch({ type: TYPES.AÑADIR_A_CANASTA, payload: datos })
+
+
+
+  }
+  const delToCart = (id,cantidad,opcion) => {
+    if(opcion==1){ ///Clic en Borrar todos
+      dispatch({ type: TYPES.BORRAR_TODOS_CANASTA, payload: id })
+    }else{ /// Clic en -1
+
+      cantidad> 1?dispatch({ type: TYPES.BORRAR_UNO_CANASTA, payload: id })
+      :dispatch({ type: TYPES.BORRAR_TODOS_CANASTA, payload: id });
+        
+ 
+    }
+    
+
+  }
 
 /*
-    cargarProductos();*/
+  const delOneToCart = (id,cantidad) => {
+    console.log(id,cantidad)
+    if(cantidad> 1){
+      alert("hay mas de 1")
+    }else{ alert("hay menos de 1")}
     
-    cargadeProductos();
     
     
+    /*dispatch({ type: TYPES.BORRAR_UNO_CANASTA, payload: id })
+    : delToCart(id);*/
+    
+    const delOne = (id,cantidad) => {
 
-  },[cargado]);
+      
   
-
-  const [state, dispatch] = useReducer(canastaReducer, canastaInicialState)
-  const {productos, canasta} = state;
+    }
   
-  const addToCart = (id,cantidad) =>{
-    let datos=  [id,cantidad]
-    dispatch({type:TYPES.AÑADIR_A_CANASTA, payload:datos})
-    
-    
-
-  }
-
-  const delToCart = (id)=>{
-    dispatch({type:TYPES.BORRAR_TODOS_CANASTA, payload:id})
-
-  }
-
- /* const delCart = ()=>{
-    dispatch({type:TYPES.BORRAR_TODOS_CANASTA})
-
-  }*/
-  const cargadeProductos = ()=>{
-    
-    dispatch({type:TYPES.CARGAR_PRODUCTOS,payload:productList})
-  }
+  
+  const enviarPedido = () => {
 
 
 
-  const enviarPedido = ()=>{
-    
-    
-
-   const pedido = canasta.map((item)=> 
-   ("-"+item.titulo.replace(" ","%20"))+`%20(${item.cantidad})`)
-    let pedidoWhatsapp= pedido.join("%0A")
+    const pedido = canasta.map((item) =>
+      ("-" + item.titulo.replace(" ", "%20")) + `%20(${item.cantidad})`)
+    let pedidoWhatsapp = pedido.join("%0A")
     console.log(pedido)
     window.open(`https://api.whatsapp.com/send?phone=573193896000&text=Hola%20mi%20pedido%20es%3A%0A${pedidoWhatsapp}%0AGracias❤`);
-    
+
   }
 
-  
+
 
   return (
 
-   
+
     <>
-  
-    
+
+
       <PedidosProvider>
         <h1 className="titulo">Bienvenido a Menu Virtual</h1>
         <div className="contenedor-productos">
 
-          {productos.map((producto) => 
-          <Producto key = {producto.id} data={producto} add_to_cart= {addToCart} />
+          {productos.map((producto) =>
+            <Producto key={producto.id} data={producto} add_to_cart={addToCart} />
           )}
-           
+
         </div>
 
-        <Canasta canasta={canasta} delToCart = {delToCart} enviarPedido={enviarPedido}/>
-        
+        <Canasta canasta={canasta} delToCart={delToCart}  enviarPedido={enviarPedido} delOne={delOne} />
+
       </PedidosProvider>
 
     </>
@@ -100,5 +126,5 @@ function Display() {
 
   );
 
-          }
+}
 export default Display;

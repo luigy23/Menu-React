@@ -41,7 +41,7 @@ const Producto=({data, add_to_cart, del_to_cart}) =>{
 
     <img className="imgProducto" src={data.img} alt="Imagen" />
     <h3>{data.titulo}</h3>
-    <p className="producto-descripcion">{data.descripcion}</p>
+    
     <p className="producto-precio">{formatPrecio(data.precio)}</p>
     
     
@@ -50,8 +50,11 @@ const Producto=({data, add_to_cart, del_to_cart}) =>{
    
     <Modal isOpen={isOpenModal}
     closeModal={closeModal}
-
+    
     >
+    <div className="descripcion-contenedor">
+       <p className="producto-descripcion">{data.descripcion}</p></div> 
+   
     <input onChange ={(e)=>{setCantidad(e.target.value)}} className="cantidad" type="number" placeholder="Cantidad"  />
     <button onClick={confirmarClick} className="btn-confimar">confirmar</button>
     </Modal>
