@@ -52,6 +52,7 @@ const Producto=({data, add_to_cart, del_to_cart}) =>{
     closeModal={closeModal}
     
     >
+      <h3 className='modal-titulo'>Cantidad:</h3>
     <div className="descripcion-contenedor">
        <p className="producto-descripcion">{data.descripcion}</p></div> 
    

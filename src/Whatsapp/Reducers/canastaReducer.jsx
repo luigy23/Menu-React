@@ -21,15 +21,6 @@ export const canastaInicialState = {
 };
 export function canastaReducer(state, action) {
 
-  const quitarElItem = (itemInCanasta) => {
-    if (itemInCanasta.cantidad < 1) {
-
-      return {
-        ...state, canasta: state.canasta.filter((item) => item.id !== itemInCanasta.id)
-      }
-    }
-
-  }
 
   switch (action.type) {
 
@@ -69,20 +60,10 @@ export function canastaReducer(state, action) {
 
       return {
         ...state, canasta: state.canasta.map((item) =>
-        item.id === itemInCanasta.id
-          ? { ...item, cantidad: item.cantidad - 1 }
-          : item),
+          item.id === itemInCanasta.id
+            ? { ...item, cantidad: item.cantidad - 1 }
+            : item),
       }
-
-
-      /*
-        ? { ...state, canasta: state.canasta.filter((item) => item.id !== itemInCanasta.id}
-        : {
-          ...state, canasta: state.canasta.map((item) =>
-            item.id === itemInCanasta.id
-              ? { ...item, cantidad: item.cantidad - 1 }
-              : item),
-        }*/
 
     }
 

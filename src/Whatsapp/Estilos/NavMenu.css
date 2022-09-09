@@ -1,0 +1,46 @@
+.navMenu{
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    width: 100%;
+    min-height: 2em;
+    background-color: rgb(12, 12, 50);
+    color: #fff;
+}
+
+.BuscarContenedor{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+.Buscar{
+    background-color: rgb(255, 255, 255);
+    color: #373737;
+    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    margin-bottom: 10px;
+    margin: 5px;
+    margin-top: 10px;
+    width: 80%;
+    outline: none;
+    padding: .2rem 1rem;
+    border-radius: 1rem;
+    border-color: #3e3f4177;
+    line-height: 20px;
+    border: 2px solid transparent;
+    border-bottom-color: #777;
+}
+.Buscar:focus::placeholder {
+   opacity: 0;
+    transition: opacity .3s;
+    background-color: transparent;
+    border: none;
+   }
+   
+.noVisible{
+    opacity: 0;
+}

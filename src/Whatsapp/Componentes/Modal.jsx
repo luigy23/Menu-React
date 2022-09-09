@@ -11,7 +11,7 @@ const Modal = (props) => {
        
       <div className='modal-contenedor '>
       <button onClick={props.closeModal} className="btnItem close-modal"><Icono icon= {faXmark}/></button>
-        <h3 className='modal-titulo'>Cantidad:</h3>
+        
         {props.children}
 
       </div>
