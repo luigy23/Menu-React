@@ -17,7 +17,7 @@ function Display() {
   const [productList, setProductList] = useState([]) //Aquí guardamos los productros que llamamos de la pai
   const [cargado, setCargado] = useState(false)  //Estado de cuando los productos están cargados
   useEffect(() => {
-    fetch("http://localhost:4000/productos"/*"https://api-menu-a.herokuapp.com/productos"*/) //traemos productos de API
+    fetch("https://api-menu-a.herokuapp.com/productos") //traemos productos de API
       .then((response) => response.json())
       .then((data) => {
         setProductList(data); //Llamada a metodo para actualizar los productos
