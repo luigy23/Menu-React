@@ -16,11 +16,8 @@ function Display() {
   
   const [productList, setProductList] = useState([]) //Aquí guardamos los productros que llamamos de la pai
   const [cargado, setCargado] = useState(false)  //Estado de cuando los productos están cargados
-  const [buscar,setBuscar] = useState([])
-
-
   useEffect(() => {
-    fetch("https://api-menu-a.herokuapp.com/productos") //traemos productos de API
+    fetch("http://localhost:4000/productos"/*"https://api-menu-a.herokuapp.com/productos"*/) //traemos productos de API
       .then((response) => response.json())
       .then((data) => {
         setProductList(data); //Llamada a metodo para actualizar los productos
@@ -86,12 +83,6 @@ function Display() {
     window.open(`https://api.whatsapp.com/send?phone=573193896000&text=Hola%20mi%20pedido%20es%3A%0A${pedidoWhatsapp}%0AGracias❤`);
 
   }
-  /*
-  const buscarProductos = (nombre) => {
-    let resultadosBusqueda= productos.filter((item)=> item.nombre.includes(nombre))
-    setBuscar("")
-    console.log(buscar)
-  }*/
 
 
 //INTERFAZ

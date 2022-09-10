@@ -9,7 +9,7 @@ const Modal = (props) => {
   return (
     <article className={`modal ${props.isOpen && "is-open"}`}>
        
-      <div className='modal-contenedor '>
+      <div className={`modal-contenedor ${props.estilo}`}>
       <button onClick={props.closeModal} className="btnItem close-modal"><Icono icon= {faXmark}/></button>
         
         {props.children}

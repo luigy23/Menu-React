@@ -8,6 +8,7 @@
     min-height: 2em;
     background-color: rgb(12, 12, 50);
     color: #fff;
+    z-index: 999;
 }
 
 .BuscarContenedor{

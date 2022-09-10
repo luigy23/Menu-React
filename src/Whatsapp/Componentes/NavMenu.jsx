@@ -52,7 +52,7 @@ const NavMenu = ({productos,addToCart}) => {
 
     </div>
 
-    <Modal isOpen={isOpenModal} closeModal={closeModal}>
+    <Modal isOpen={isOpenModal} estilo={"busqueda"} closeModal={closeModal}>
     
     {
        filtro.map((producto) =>

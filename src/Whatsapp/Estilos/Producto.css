@@ -81,6 +81,6 @@
     
     
 }
-::-webkit-scrollbar {
+.descripcion-contenedor::-webkit-scrollbar {
     display: none;
     }

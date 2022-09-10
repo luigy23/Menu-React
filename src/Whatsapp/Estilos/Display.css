@@ -14,14 +14,3 @@ align-items: center;
 justify-content: center;
 
 }
-.navMenu{
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0px;
-    width: 100%;
-    min-height: 2em;
-    background-color: rgb(12, 12, 50);
-    color: #fff;
-}
