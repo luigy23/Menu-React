@@ -1,8 +1,6 @@
 
 import './App.css';
-import DisplayContador from './Componentes/DisplayContador';
-import Display from "./Whatsapp/Componentes/Display.jsx"
-
+import Display from "./App/Componentes/Display.jsx"
 
 function App() {
 
@@ -11,7 +9,7 @@ function App() {
   return (
     <div className="App">
 
-    {/*<DisplayContador/>*/}
+
 
     <Display/>
 
