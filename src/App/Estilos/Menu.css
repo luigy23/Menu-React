@@ -1,0 +1,30 @@
+
+.titulo{
+
+color: #fff;
+
+}
+
+.contenedor-productos{
+padding-top: 20px; 
+flex-wrap: wrap;
+display: flex;
+row-gap: 20px;
+column-gap: 20px;
+align-items: center;
+justify-content: center;
+
+}
+
+
+@media only screen and (max-width: 400px) {
+    .contenedor-productos{
+        flex-wrap: wrap;
+        display: flex;
+        row-gap: 15px;
+        column-gap: 5px;
+        align-items: center;
+        justify-content: center;
+        
+        }
+  }

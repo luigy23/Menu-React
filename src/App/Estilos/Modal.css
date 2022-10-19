@@ -41,6 +41,7 @@
     min-width: auto;
     min-height: auto;
     max-width: 80% !important;
+    padding: 40px;
 }
 
 .modal-contenedor::-webkit-scrollbar {

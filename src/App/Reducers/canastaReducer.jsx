@@ -16,7 +16,8 @@ export const canastaInicialState = {
 
 
 
-  canasta: []
+  canasta: [],
+  total:0
 
 };
 export function canastaReducer(state, action) {
@@ -77,6 +78,16 @@ export function canastaReducer(state, action) {
     case TYPES.ENVIAR_PEDIDO: {
 
       return console.log(state.canasta)
+    }
+    case TYPES.CALCULAR_TOTAL:{
+
+      let totaliti=0
+      state.canasta.forEach(item => {
+        totaliti= totaliti + (item.precio*item.cantidad)
+      });
+
+
+      return {...state, total:totaliti}  
     }
 
 

@@ -1,16 +1,13 @@
 import React from "react";
 import '../Estilos/Producto.css';
-import { PedidosContex } from "../Contextos/PedidosContex";
-import { useContext } from "react";
 import Modal from "./Modal";
 import { useState } from "react";
 import { useModal } from "../Hooks/useModal";
 
 
-const Producto=({data, add_to_cart, del_to_cart}) =>{
+const Producto=({data, add_to_cart}) =>{
   const [cantidad,setCantidad]=useState(1)
-  const {añadir} = useContext(PedidosContex);
-
+  
   const [isOpenModal,openModal,closeModal] = useModal(false);
 
   

@@ -1,23 +1,20 @@
 import React from "react";
-import "../Estilos/Display.css"
+import "../Estilos/Menu.css"
 import Producto from "./Producto";
 import Canasta from "./Canasta";
 import NavMenu from "./NavMenu";
-import PedidosProvider from "../Contextos/PedidosContex";
 import { useReducer, useEffect } from "react";
 import { canastaReducer, canastaInicialState } from "../Reducers/canastaReducer.jsx"
 import { TYPES } from "../Actions/canastaAction";
 import { useState } from "react";
-import axios from "axios";
 
 
-function Display() {
-
+function Menu() {
   
-  const [productList, setProductList] = useState([]) //Aquí guardamos los productros que llamamos de la pai
+  const [productList, setProductList] = useState([]) //Aquí guardamos los productros que llamamos de la api
   const [cargado, setCargado] = useState(false)  //Estado de cuando los productos están cargados
   useEffect(() => {
-    fetch("https://api-menu-a.herokuapp.com/productos") //traemos productos de API
+    fetch("http://localhost:4000/productos") //traemos productos de API
       .then((response) => response.json())
       .then((data) => {
         setProductList(data); //Llamada a metodo para actualizar los productos
@@ -27,18 +24,15 @@ function Display() {
 
 
 
-    /*
-        cargarProductos();*/
-
     cargadeProductos();
 
 
 
   }, [cargado]);
 
-
+ 
   const [state, dispatch] = useReducer(canastaReducer, canastaInicialState) //Traemos el estado incial y los metodos del Reducer
-  const { productos, canasta } = state;
+  const { productos, canasta, total } = state;
 
 
   //METODOS
@@ -47,9 +41,16 @@ function Display() {
     dispatch({ type: TYPES.CARGAR_PRODUCTOS, payload: productList }) //Guardamos los productos en el estado del Reducer
   }
   const addToCart = (id, cantidad, opcion) => {
-    if (opcion == 1) { cantidad = 1 }
+    if (opcion == 1) { cantidad = 1 
+      
+
+    }
+    
+
     let datos = [id, cantidad]
     dispatch({ type: TYPES.AÑADIR_A_CANASTA, payload: datos })
+    console.log("agregado a add", canasta)
+   calcularTotal()
 
 
 
@@ -57,6 +58,8 @@ function Display() {
   const delToCart = (id, cantidad, opcion) => {
     if (opcion == 1) { ///Clic en Borrar todos
       dispatch({ type: TYPES.BORRAR_TODOS_CANASTA, payload: id })
+      
+
     } else { /// Clic en -1
 
       cantidad > 1 ? dispatch({ type: TYPES.BORRAR_UNO_CANASTA, payload: id })
@@ -64,37 +67,49 @@ function Display() {
 
 
     }
+    
+    calcularTotal()
 
-
-  }
-  const delOne = (id, cantidad) => {
-
-
+    
 
   }
+
   const enviarPedido = () => {
+  
+    let O_pedido = {}
+    let productos = []
+    
+    const pedido = canasta.map((item) => 
+      //("-" + item.titulo.replace(" ", "%20")) + `%20(${item.cantidad})`)
+      (`Titulo: ${item.titulo} Cantidad ${item.cantidad} precio: ${(item.precio*item.cantidad)}`)    )
+
+    //let pedidoWhatsapp = pedido.join("%0A")
+    //console.log(pedido)
+    //window.open(`https://api.whatsapp.com/send?phone=573193896000&text=Hola%20mi%20pedido%20es%3A%0A${pedidoWhatsapp}%0AGracias❤`);
+    O_pedido={Mesa:"5", Productos:pedido}
+    console.log("pedido=",O_pedido)
+
+    calcularTotal()
 
 
-
-    const pedido = canasta.map((item) =>
-      ("-" + item.titulo.replace(" ", "%20")) + `%20(${item.cantidad})`)
-    let pedidoWhatsapp = pedido.join("%0A")
-    console.log(pedido)
-    window.open(`https://api.whatsapp.com/send?phone=573193896000&text=Hola%20mi%20pedido%20es%3A%0A${pedidoWhatsapp}%0AGracias❤`);
 
   }
 
+  const calcularTotal=()=>{
+  dispatch({ type: TYPES.CALCULAR_TOTAL })
+    
+  }
 
 //INTERFAZ
   return (
     <>
 
 
-      <PedidosProvider>
+      
         <NavMenu productos={productos} addToCart={addToCart}>
         </NavMenu>
       
-        <h1 className="titulo">Bienvenido a Menu Virtual</h1>
+       
         <div className="contenedor-productos">
 
           {
@@ -105,9 +120,9 @@ function Display() {
 
         </div>
 
-        <Canasta canasta={canasta} delToCart={delToCart} addToCart={addToCart} enviarPedido={enviarPedido} delOne={delOne} />
-
-      </PedidosProvider>
+        <Canasta canasta={canasta} delToCart={delToCart} addToCart={addToCart} enviarPedido={enviarPedido}  />
+        <h3>total = {total}</h3>
+      
 
     </>
 
@@ -115,4 +130,4 @@ function Display() {
   );
 
 }
-export default Display;
+export default Menu;
