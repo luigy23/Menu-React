@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Menu React
+
+Este menú permite seleccionar y añadir productos a la canasta, aumentar / restar cantidad, eliminar, buscador de productos por nombre. Los productos se optienen de una api, al dar finalizar pedido, se envía un mensaje de Whatsapp con el pedido (Productos y Cantidad)
+
+----------------------------------------------
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
