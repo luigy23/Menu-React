@@ -1,5 +1,5 @@
 import React from 'react'
-import Mesa from './Mesa'
+import Mesa from '../Componentes/Mesa'
 
 export const Mesas = () => {
   return (

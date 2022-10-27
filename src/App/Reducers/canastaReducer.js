@@ -1,4 +1,5 @@
 import { TYPES } from "../Actions/canastaAction";
+import { CARGAR_PRODUCTOS,AÑADIR_A_CANASTA, BORRAR_TODOS_CANASTA, BORRAR_UNO_CANASTA, BORRAR_CANASTA, ENVIAR_PEDIDO, CALCULAR_TOTAL } from "../Types";
 
 
 
@@ -6,7 +7,7 @@ import { TYPES } from "../Actions/canastaAction";
 
 
 
-export const canastaInicialState = {
+export const inicialState = {
 
   productos: [
 
@@ -19,20 +20,20 @@ export const canastaInicialState = {
   total: 0
 
 };
-export function canastaReducer(state, action) {
+export function canastaReducer(state = inicialState, action) {
 
 
   switch (action.type) {
 
-    case TYPES.CARGAR_PRODUCTOS: {
+    case CARGAR_PRODUCTOS: {
 
 
       return { ...state, productos: action.payload }
 
     }
-    case TYPES.AÑADIR_A_CANASTA: {
+    case AÑADIR_A_CANASTA : {
       let newItem = state.productos.find(producto => producto.id === action.payload[0])
-
+      console.log("new item ", action.payload)
       let itemInCanasta = state.canasta.find((item) => item.id === newItem.id);
 
       return itemInCanasta ?
@@ -47,12 +48,12 @@ export function canastaReducer(state, action) {
         : { ...state, canasta: [...state.canasta, { ...newItem, cantidad: action.payload[1] }], }
 
     }
-    case TYPES.BORRAR_TODOS_CANASTA: {
+    case BORRAR_TODOS_CANASTA : {
 
       return { ...state, canasta: state.canasta.filter((item) => item.id !== action.payload) }
 
     }
-    case TYPES.BORRAR_UNO_CANASTA: {
+    case BORRAR_UNO_CANASTA : {
 
       let itemInCanasta = state.canasta.find((item) => item.id === action.payload);
 
@@ -64,18 +65,18 @@ export function canastaReducer(state, action) {
       }
 
     }
-    case TYPES.BORRAR_CANASTA: {
+    case BORRAR_CANASTA : {
 
-      return canastaInicialState;
+      return inicialState;
 
 
 
     }
-    case TYPES.ENVIAR_PEDIDO: {
+    case ENVIAR_PEDIDO : {
 
       return console.log(state.canasta)
     }
-    case TYPES.CALCULAR_TOTAL: {
+    case CALCULAR_TOTAL : {
 
       let totaliti = 0
       state.canasta.forEach(item => {

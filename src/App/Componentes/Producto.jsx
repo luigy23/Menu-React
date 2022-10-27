@@ -3,17 +3,17 @@ import '../Estilos/Producto.css';
 import Modal from "./Modal";
 import { useState } from "react";
 import { useModal } from "../Hooks/useModal";
+import  {useDispatch} from "react-redux"
+import { addToCart, calcularTotal} from "../Actions/canastaActions";
 
 
-const Producto=({data, add_to_cart}) =>{
+const Producto=({data}) =>{
   const [cantidad,setCantidad]=useState(1)
   
   const [isOpenModal,openModal,closeModal] = useModal(false);
 
-  
 
-
-
+  const dispatch = useDispatch()
   //metodos
   const click = ()=>{
     
@@ -25,10 +25,12 @@ const Producto=({data, add_to_cart}) =>{
   }
 
   const confirmarClick = ()=>{
-
-    add_to_cart(data.id, parseInt(cantidad))
-    closeModal()
-
+    console.log(data)
+   // add_to_cart(data.id, parseInt(cantidad))
+   dispatch(addToCart(data.id, parseInt(cantidad)))
+   closeModal()
+  dispatch(calcularTotal())
+    
 
   }
 
