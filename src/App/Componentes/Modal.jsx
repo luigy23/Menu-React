@@ -1,5 +1,5 @@
 import React from 'react'
-import "../Estilos/Modal.css"
+import "../Estilos/Modal.scss"
 import { FontAwesomeIcon as Icono}  from '@fortawesome/react-fontawesome'
 import {  faXmark} from '@fortawesome/free-solid-svg-icons'
 const Modal = (props) => {

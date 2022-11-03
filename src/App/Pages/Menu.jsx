@@ -1,94 +1,84 @@
 import React from "react";
-import "../Estilos/Menu.css"
+import "../Estilos/Menu.scss";
 import Producto from "../Componentes/Producto";
 import Canasta from "../Componentes/Canasta";
-import NavMenu from "../Componentes/NavMenu";
-import  {useSelector, useDispatch} from "react-redux"
-import { addToCart, calcularTotal, delToCart } from "../Actions/canastaActions";
-
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart, buscarProductos, calcularTotal, delToCart } from "../Actions/canastaActions";
+import { Link } from "react-router-dom";
+import Buscador from "../Componentes/Buscador";
 
 function Menu() {
-  
-  
- /* useEffect(() => {
-    fetch("http://localhost:4000/productos") //traemos productos de API
-      .then((response) => response.json())
-      .then((data) => {
-        setProductList(data); //Llamada a metodo para actualizar los productos
-        console.log(productList)
-        setCargado(true)
-      })
-
-
-
-    cargadeProductos();
-
-
-
-  }, [cargado]);
-*/
-  const state = useSelector(state => state)
-  const dispatch = useDispatch()
-  const { productos, canasta, total } = state.canasta;
-
-
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const { productos, canasta, total, mesa, filtro } = state.canasta;
+  const [textoBusqueda, setTextoBusqueda] = useState("")
   //METODOS
- const enviarPedido = () => {
-  console.log("Estadooo:")
-  console.log(state)
-    let O_pedido = {}
-    //let productos = []
+  const enviarPedido = () => {
 
-    const pedido = canasta.map((item) =>
+
+
+    let O_pedido = {};
+    const pedido = canasta.map(
+      (item) =>
         //("-" + item.titulo.replace(" ", "%20")) + `%20(${item.cantidad})`)
-        (`Titulo: ${item.titulo} Cantidad ${item.cantidad} precio: ${(item.precio * item.cantidad)}`))
-
+        `Titulo: ${item.titulo} Cantidad ${item.cantidad} precio: ${
+          item.precio * item.cantidad
+        }`
+    );
     //let pedidoWhatsapp = pedido.join("%0A")
     //console.log(pedido)
     //window.open(`https://api.whatsapp.com/send?phone=573193896000&text=Hola%20mi%20pedido%20es%3A%0A${pedidoWhatsapp}%0AGracias❤`);
-    O_pedido = { Mesa: "5", Productos: pedido }
-    console.log("pedido=", O_pedido)
 
-    dispatch(calcularTotal())
+    O_pedido = { Mesa: mesa, Productos: canasta };
+    console.log("pedido=", O_pedido);
 
+    dispatch(calcularTotal());
+  };
+  const buscar = () =>{
+    dispatch(buscarProductos(textoBusqueda))
+    
+  }
 
-
-}
-
-//INTERFAZ
+  //INTERFAZ
   return (
-    <>
+    <div className="page-menu">
+      {//<NavMenu productos={productos} addToCart={() => dispatch(addToCart())} />
+      }
+      <Buscador evento={()=>buscar()} setTexto={(texto)=>setTextoBusqueda(texto)}></Buscador>
+      <div className="contenedor-productos">
+        {textoBusqueda.length=="" ?
+          productos.map((producto) => (
+            <Producto key={producto.id} data={producto} />))
+        
+        : filtro.map((producto) => (
+          <Producto key={producto.id} data={producto} /> ))
+        }
 
 
-      
-        <NavMenu productos={productos} addToCart={()=>dispatch(addToCart())}>
-        </NavMenu>
-      
-       
-        <div className="contenedor-productos">
-
-          {
-          
-          productos.map((producto) =>
-            <Producto key={producto.id} data={producto} add_to_cart={()=>dispatch(addToCart())} />
-          )}
-
-        </div>
-
-        <Canasta producto={productos} canasta={canasta} delToCart={()=>dispatch(delToCart())} addToCart={()=>dispatch(addToCart())} enviarPedido={enviarPedido}  />
-        <h3>total = {total}</h3>
-      
-
-    </>
 
 
+      </div>
+
+      <Canasta
+        producto={productos}
+        canasta={canasta}
+        enviarPedido={enviarPedido}
+      />
+      <div className="contenedor-detalles">
+        <h3>Total = ${total}</h3>
+        <Link className="Link" to={"/Mesas"}>
+          <div>
+            <h3>{mesa}</h3>
+          </div>
+        </Link>
+        <button onClick={() => enviarPedido()} className="btn-pedir">
+          Finalizar Pedido
+        </button>
+      </div>
+    </div>
   );
-
 }
 export default Menu;
 
-
 //pruebas
-
-
-

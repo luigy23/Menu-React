@@ -1,23 +1,15 @@
-import { TYPES } from "../Actions/canastaAction";
-import { CARGAR_PRODUCTOS,AÑADIR_A_CANASTA, BORRAR_TODOS_CANASTA, BORRAR_UNO_CANASTA, BORRAR_CANASTA, ENVIAR_PEDIDO, CALCULAR_TOTAL } from "../Types";
-
-
-
+import { CARGAR_PRODUCTOS,AÑADIR_A_CANASTA, BORRAR_TODOS_CANASTA, BORRAR_UNO_CANASTA, BORRAR_CANASTA, ENVIAR_PEDIDO, CALCULAR_TOTAL, SELECCIONAR_MESA, BUSCAR_PRODUCTOS } from "../Types";
 
 
 
 
 export const inicialState = {
 
-  productos: [
-
-  ],
-
-
-
-
+  productos: [],
   canasta: [],
-  total: 0
+  total: 0, 
+  mesa:0,
+  filtro:[]
 
 };
 export function canastaReducer(state = inicialState, action) {
@@ -85,6 +77,17 @@ export function canastaReducer(state = inicialState, action) {
 
 
       return { ...state, total: totaliti }
+    }
+    case SELECCIONAR_MESA :{
+      
+       return{...state, mesa: action.payload}
+    }
+    case BUSCAR_PRODUCTOS:{
+      let texto = action.payload
+      let busqueda = state.productos.filter((producto) => producto.titulo.toUpperCase().includes(texto.toUpperCase()))
+  
+      return{...state, filtro: busqueda}
+
     }
 
 

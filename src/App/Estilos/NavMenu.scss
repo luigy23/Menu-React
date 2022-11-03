@@ -1,4 +1,5 @@
-.navMenu{
+@import "../Commons.scss";
+.navMenu {
     position: sticky;
     display: flex;
     align-items: center;
@@ -6,24 +7,22 @@
     top: 0px;
     width: 100%;
     min-height: 2em;
-    background-color: rgb(12, 12, 50);
+    background-color: $fondoBarras;
     color: #fff;
     z-index: 999;
-}
-
-.BuscarContenedor{
-    
+  }
+  
+  .BuscarContenedor {
     display: flex;
     justify-content: center;
     align-items: center;
-
-
-}
-.Buscar{
+  }
+  
+  .Buscar {
     background-color: rgb(255, 255, 255);
     color: #373737;
-    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    margin-bottom: 10px;
+    transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    margin-bottom: 0px;
     margin: 5px;
     margin-top: 10px;
     width: 80%;
@@ -34,14 +33,17 @@
     line-height: 20px;
     border: 2px solid transparent;
     border-bottom-color: #777;
-}
-.Buscar:focus::placeholder {
-   opacity: 0;
-    transition: opacity .3s;
-    background-color: transparent;
-    border: none;
-   }
-   
-.noVisible{
+  
+    &:focus::placeholder {
+      opacity: 0;
+      transition: opacity .3s;
+      background-color: transparent;
+      border: none;
+    }
+  }
+  
+  .noVisible {
     opacity: 0;
-}
+    
+  }
+  

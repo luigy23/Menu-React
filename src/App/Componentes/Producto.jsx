@@ -1,5 +1,5 @@
 import React from "react";
-import '../Estilos/Producto.css';
+import '../Estilos/Producto.scss';
 import Modal from "./Modal";
 import { useState } from "react";
 import { useModal } from "../Hooks/useModal";
@@ -39,7 +39,7 @@ const Producto=({data}) =>{
   <div onClick={click} id={data.id} className="contenedor-p">
 
     <img className="imgProducto" src={data.img} alt="Imagen" />
-    <h3>{data.titulo}</h3>
+    <h3 className="titulo">{data.titulo}</h3>
     
     <p className="producto-precio">{formatPrecio(data.precio)}</p>
     

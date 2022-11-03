@@ -1,24 +1,23 @@
-.modal{
+.modal {
     top: 0;
     left: 0;
     position: fixed;
     z-index: 999;
-    cursor:default;
+    cursor: default;
     width: 100%;
     min-height: 100vh;
-
     background-color: rgba(39, 50, 96, 0.275);
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.modal.is-open{
-
-    display: flex;
-}
-
-.modal-contenedor{
+  
+    &.is-open {
+      display: flex;
+    }
+  }
+  
+  .modal-contenedor {
     display: flex;
     flex-direction: column;
     min-width: 350px;
@@ -30,11 +29,10 @@
     justify-content: stretch;
     overflow: scroll;
     padding-top: 20px;
-
     border-radius: 20px;
-}
-
-.busqueda{
+  }
+  
+  .busqueda {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -42,22 +40,29 @@
     min-height: auto;
     max-width: 80% !important;
     padding: 40px;
-}
+    overflow: scroll;
 
-.modal-contenedor::-webkit-scrollbar {
+    row-gap: 20px;
+    column-gap: 20px;
+    align-items: center;
+    justify-content: center;
+
+
+  }
+  
+  .modal-contenedor::-webkit-scrollbar {
     display: none;
-    }
-.close-modal{
+  }
+  
+  .close-modal {
     color: red;
     padding: 4px;
     top: 0.5rem;
     right: 0.5rem;
     position: absolute;
-
-}
-
-.btn-confimar{
-    
+  }
+  
+  .btn-confimar {
     cursor: pointer;
     bottom: 0px;
     width: 100%;
@@ -68,19 +73,15 @@
     font-size: 18px;
     font-weight: 500;
     color: #fff;
-
-}
-.btn-confimar:hover{
-    background-color: rgb(101, 203, 123);
-}
-
-
-
-
-
-@media only screen and (max-width: 400px) {
-    .modal-contenedor{
-        min-width: 80%;
-        max-width: 80%;
+  
+    &:hover {
+      background-color: rgb(101, 203, 123);
+    }
+  }
+  
+  @media only screen and (max-width: 400px) {
+    .modal-contenedor {
+      min-width: 80%;
+      max-width: 80%;
     }
   }

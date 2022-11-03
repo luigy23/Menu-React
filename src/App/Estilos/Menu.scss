@@ -1,0 +1,52 @@
+@import "../Commons.scss";
+.page-menu {
+    padding-bottom: 200px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .titulo {
+    color: #fff;
+  }
+  
+  .contenedor-productos {
+    padding-top: 20px;
+    flex-wrap: wrap;
+    display: flex;
+    row-gap: 20px;
+    column-gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .contenedor-detalles {
+    background-color: #fff;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  
+    div {
+      border-style: solid;
+      border-width: 2px;
+      border-color: rgb(64, 144, 38);
+      padding: 5px;
+      border-radius: 15px;
+      color: darkslategray;
+    }
+  }
+  
+  @media only screen and (max-width: 400px) {
+    .contenedor-productos {
+      flex-wrap: wrap;
+      display: flex;
+      row-gap: 15px;
+      column-gap: 5px;
+      align-items: center;
+      justify-content: center;
+    }
+  }

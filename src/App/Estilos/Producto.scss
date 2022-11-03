@@ -1,0 +1,103 @@
+.contenedor-p {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    background: rgb(255, 255, 255);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .imgProducto {
+    max-width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+.titulo{
+  max-width: 100%;
+  max-height: 50%;
+  color: #0d0c22;
+  font-size:larger;
+  overflow: hidden;
+}
+
+  .contenedor-p:hover .imgProducto {
+    transform: scale(1.2);
+    transform: translateY(-20px);
+  }
+  
+  .producto-precio {
+    font-weight: 500;
+    color: rgb(3, 169, 83);
+  }
+  
+  .cantidad {
+    line-height: 28px;
+    border: 2px solid transparent;
+    border-bottom-color: #777;
+    background-color: transparent;
+    color: #0d0c22;
+    transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    margin-bottom: 10px;
+    margin: 5px;
+    margin-top: 10px;
+    width: 50%;
+    outline: none;
+    padding: .2rem 1rem;
+    border-radius: 1rem;
+    border-color: #3e3f4177;
+  
+    &::placeholder {
+      color: #777;
+    }
+  
+    &:focus::placeholder {
+      opacity: 0;
+      transition: opacity .3s;
+    }
+  }
+  
+  .producto-descripcion {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .descripcion-contenedor {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5em;
+    margin-bottom: 00.5em;
+    color: #777;
+    padding: 10px 15px 5px 15px;
+    height: 80px;
+    overflow: scroll;
+    width: 100%;
+  
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  @media only screen and (max-width: 415px) {
+    .contenedor-p {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      cursor: pointer;
+      width: 30%;
+      height: 8em;
+      justify-content: center;
+      background: rgb(255, 255, 255);
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 20px;
+    }
+  }
+

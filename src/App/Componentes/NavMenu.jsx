@@ -1,6 +1,5 @@
 import React from 'react'
-import "../Estilos/NavMenu.css"
-
+import "../Estilos/NavMenu.scss"
 import { useState } from 'react'
 import Modal from './Modal'
 import { useModal } from '../Hooks/useModal'

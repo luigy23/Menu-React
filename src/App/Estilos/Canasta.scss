@@ -1,0 +1,113 @@
+@import "../Commons.scss";
+/*.overlay-canasta{
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 999;
+  cursor: default;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(39, 50, 96, 0.275);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}*/
+.contenedor-canasta {
+  display: block;
+
+  width: 100%;
+  min-height: 100px;
+  background-color: #f0f8ff;
+  margin-top: 40px;
+  padding-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.contenedor-lista {
+  width: 100%;
+  min-height: 100px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-pedir {
+  margin-top: 20px;
+  display: flex;
+  font-size: 18px;
+  background-color: #2b72b0;
+  font-weight: 600;
+  padding: 10px;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  margin: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $verde;
+  }
+}
+
+.titulo-pedido {
+  text-align: left;
+  margin-left: 20px;
+  color: #003e1d;
+}
+
+/*ESTILOS PARA ITEMS*/
+
+.separador {
+  color: black;
+  font-weight: bold;
+}
+
+.lista-productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-canasta {
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px #ccd3d9, -2px -2px 4px #ffffff;
+  margin: 5px;
+  display: flex;
+  column-gap: 20px;
+}
+
+.btnItem {
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.btnBorrar {
+  color: red;
+}
+
+.btnRestar {
+  color: #fdd132;
+
+  &:active {
+    color: #fdd132;
+  }
+
+  &:hover {
+    color: #e8b00a;
+  }
+}
+
+.btnSumar {
+  color: #2ad93e;
+}

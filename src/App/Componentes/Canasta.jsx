@@ -1,15 +1,13 @@
 import React from "react";
-import "../Estilos/Canasta.css"
+import "../Estilos/Canasta.scss"
 
 import ItemCanasta from "./ItemCanasta";
 
 
-const Canasta = ({canasta, delToCart,enviarPedido, addToCart}) => {
+const Canasta = ({canasta, enviarPedido}) => {
   
 
  
-
-
 
 
 const visible = false;
@@ -19,6 +17,7 @@ const visible = false;
     
  
     <>
+    <div className="overlay-canasta">
     <div className="contenedor-canasta">
       <h2 className="titulo-pedido">Tu pedido:</h2>
       <div className="contenedor-lista">
@@ -26,7 +25,7 @@ const visible = false;
         {
           canasta.map((producto, index)=>
        
-          <ItemCanasta delToCart={delToCart} key={index} addToCart={addToCart} data={producto} index={index}/>
+          <ItemCanasta  key={index}  data={producto} index={index}/>
   
           
           )
@@ -35,7 +34,7 @@ const visible = false;
         </ul>
       </div>
     </div>
-    <button onClick={()=> enviarPedido()} className="btn-pedir">Finalizar Pedido</button>
+    </div>
 
 
     </>

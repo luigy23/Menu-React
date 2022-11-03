@@ -1,17 +1,23 @@
 import React from 'react'
 import { FontAwesomeIcon as Icono } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import "../Estilos/NavMenu.css"
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import "../Estilos/NavMenu.scss"
 
 const Buscador = ({evento,setTexto}) => {
 
 
-    
-    const enter = (e)=>{
+    const limpiar = ()=>{
+     
 
+      setTexto("")
+      const buscador = document.getElementById("buscador")
+      buscador.value =""
+    }
+    const enter = (e)=>{
+      setTexto(e.target.value)
+      evento();
         if (e.key==="Enter"){
-           
-          evento();
+     
         }
       }
     
@@ -21,11 +27,10 @@ const Buscador = ({evento,setTexto}) => {
 
   return (
     <div className='BuscarContenedor'>
-    <input className='Buscar' onChange ={(e)=>{setTexto(e.target.value)}} onKeyDown={(e)=>enter(e)}  type="text" placeholder="Hamburguesa">
+    <input id='buscador' className='Buscar' onChange={(e)=>enter(e)} onKeyDown={(e)=>enter(e)}  type="text" placeholder="Escribe aquí el producto">
     </input>
-    
-    {/*<button className='btnItem' style={{color:"#fff"}}><Icono onClick={mostrar()} icon={faSearch}></Icono></button>*/}
-    </div>  )
+    <button className='btnItem' ><Icono onClick={()=>limpiar()} icon={faXmark}></Icono></button>
+</div>  )
 }
 
 export default Buscador

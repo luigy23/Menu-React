@@ -1,0 +1,42 @@
+@import "../Commons.scss";
+.menu-nav {
+  background-color: $fondoBarras;
+  display: flex;
+  padding:10px ;
+  justify-content: center;
+  position: sticky;
+  top: 0px;
+  z-index: 999;
+
+  & ul {
+    color: aliceblue;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: 3rem;
+    padding-top: 5px;
+    li {
+      list-style: none;
+      color: aliceblue;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 5px;
+      border-radius: 15px;
+      &:hover {
+        background-color: darkgoldenrod;
+      }
+      &:active:before {
+        background-color: darkgoldenrod;
+      }
+    }
+  }
+
+}
+@media only screen and (max-width: 400px) {
+.menu-nav{
+  ul {
+    display: none;
+  }
+}
+}

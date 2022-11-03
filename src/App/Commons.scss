@@ -1,0 +1,15 @@
+$fondoBarras: #427AA1;
+$dorado:#FAD449;
+$verde:#679436;
+.icon{
+    width: 40px;
+    height: auto;
+    fill: aliceblue;
+    transition: all 0.2s ease-in-out ;
+    &:hover{
+        transform: scale(1.1);
+    }
+    &:active{
+        transform: scale(1);
+    }
+}
