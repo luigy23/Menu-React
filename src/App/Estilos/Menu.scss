@@ -3,12 +3,22 @@
     padding-bottom: 200px;
     justify-content: center;
     align-items: center;
+
   }
   
   .titulo {
     color: #fff;
   }
-  
+  .texto-confirmar{
+    font-weight: 600;
+    color: rgb(61, 61, 61);
+  }
+  .lista-confirmar{
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+  }
+
   .contenedor-productos {
     padding-top: 20px;
     flex-wrap: wrap;

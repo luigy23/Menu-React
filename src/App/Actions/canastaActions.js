@@ -18,7 +18,7 @@ export const addToCart = (id, cantidad, opcion) => {
   }
 
   let datos = [id, cantidad];
-  console.log("datos: " + id + " " + cantidad);
+  //console.log("datos: " + id + " " + cantidad);
   return { type: AÑADIR_A_CANASTA, payload: datos };
 };
 export const delToCart = (id, cantidad, opcion) => {

@@ -5,9 +5,7 @@ import { Mesas } from "./App/Pages/Mesas";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cargadeProductos } from "./App/Actions/canastaActions";
-import axios from "axios";
-import BottomMenu from "./App/Componentes/BottomMenu";
-import MenuNav from "./App/Componentes/MenuNav";
+import Productos from "./App/Pages/Productos";
 
 function App() {
   const state = useSelector((state) => state);
@@ -17,11 +15,11 @@ function App() {
   const [cargado, setCargado] = useState(false); //Estado de cuando los productos están cargados
 
   useEffect(() => {
-    fetch("http://localhost:4000/productos") //traemos productos de API
+    fetch("https://apimen.up.railway.app/productos") //traemos productos de API
       .then((response) => response.json())
       .then((data) => {
         setProductList(data); //Llamada a metodo para actualizar los productos
-        console.log(productList);
+        //console.log(productList);
         setCargado(true);
       });
 
@@ -32,10 +30,11 @@ function App() {
     <>
       <Router>
         <div id="principal">
-        <MenuNav />
+        
         <Routes>
           <Route path="/" element={<Menu productList={productList}></Menu>} />
           <Route path="/Mesas" element={<Mesas></Mesas>} />
+          <Route path="/productos" element={<Productos/>} />
         </Routes>
         </div>
       </Router>

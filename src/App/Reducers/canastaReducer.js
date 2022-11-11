@@ -8,7 +8,7 @@ export const inicialState = {
   productos: [],
   canasta: [],
   total: 0, 
-  mesa:0,
+  mesa:"No hay Mesa",
   filtro:[]
 
 };
@@ -25,7 +25,7 @@ export function canastaReducer(state = inicialState, action) {
     }
     case AÑADIR_A_CANASTA : {
       let newItem = state.productos.find(producto => producto.id === action.payload[0])
-      console.log("new item ", action.payload)
+      //console.log("new item ", action.payload)
       let itemInCanasta = state.canasta.find((item) => item.id === newItem.id);
 
       return itemInCanasta ?
