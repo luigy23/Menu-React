@@ -68,7 +68,7 @@ function Menu() {
           evento={() => buscar()}
           setTexto={(texto) => setTextoBusqueda(texto)}
           />
-        <div className="contenedor-productos">
+ <div className="contenedor-productos">
           {textoBusqueda.length == ""
             ? productos.map((producto) => (
                 <Producto key={producto.id} data={producto} />
