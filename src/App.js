@@ -19,10 +19,12 @@ function App() {
   const [socket, setSocket] = useState(null);
   const [response, setResponse] = useState(null);
 
+const api= process.env.REACT_APP_API;
+const apisocket= process.env.REACT_APP_SOCKET;
 
   useEffect(() => {
      //Conectarse al servidor Socket
-    const socket = io('http://localhost:3636' );
+    const socket = io(apisocket);
     setSocket(socket);
     socket.on('connect', () => {
       console.log('connected to server');
@@ -31,7 +33,7 @@ function App() {
 
 
  
-    fetch("http://localhost:3636/productos") //traemos productos de API
+    fetch(api) //traemos productos de API
       .then((response) => response.json())
       .then((data) => {
         setProductList(data); //Llamada a metodo para actualizar los productos
