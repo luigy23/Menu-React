@@ -1,10 +1,10 @@
 import {combineReducers} from "redux"
 import { canastaReducer} from "./canastaReducer.js";
-import mesaReducer from "./mesaReducer.js"
+import { pedidosReducer } from "./pedidosReducer.js";
 
 const reducer = combineReducers(
     {
         canasta:canastaReducer,
-        mesa:mesaReducer
+        pedidos:pedidosReducer
     })
 export default reducer;

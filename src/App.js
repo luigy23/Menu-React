@@ -1,60 +1,56 @@
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import "./App.scss";
+
+// Pages
 import Menu from "./App/Pages/Menu.jsx";
 import { Mesas } from "./App/Pages/Mesas";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { cargadeProductos } from "./App/Actions/canastaActions";
 import Admin from "./App/Pages/Admin";
-import { io } from "socket.io-client";
+// Actions
+import { cargadeProductos } from "./App/Actions/canastaActions";
+// Hooks
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+//otros
 
 function App() {
-  const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const [productList, setProductList] = useState([]); //Aquí guardamos los productros que llamamos de la pai
+//Aquí guardamos los productros que llamamos de la pai
   const [cargado, setCargado] = useState(false); //Estado de cuando los productos están cargados
+  const state = useSelector((state) => state);
 
   //socket.io
-  const [socket, setSocket] = useState(null);
-  const [response, setResponse] = useState(null);
 
-const api= process.env.REACT_APP_API;
-const apisocket= process.env.REACT_APP_SOCKET;
+  const api = process.env.REACT_APP_API;
 
   useEffect(() => {
-     //Conectarse al servidor Socket
-    const socket = io(apisocket);
-    setSocket(socket);
-    socket.on('connect', () => {
-      console.log('connected to server');
-    });
-
-
-
- 
-    fetch(api) //traemos productos de API
+    //request a la api
+    fetch(api+"/productos") //traemos productos de API
       .then((response) => response.json())
       .then((data) => {
-        setProductList(data); //Llamada a metodo para actualizar los productos
+        //Llamada a metodo para actualizar los productos
+        dispatch(cargadeProductos(data));
         //console.log(productList);
         setCargado(true);
       });
 
-    dispatch(cargadeProductos(productList));
+
+
+    //dispatch(cargadeProductos(productList));
   }, [cargado]);
 
   return (
     <>
       <Router>
         <div id="principal">
-        
-        <Routes>
-          <Route path="/" element={<Menu productList={productList}></Menu>} />
-          <Route path="/Mesas" element={<Mesas></Mesas>} />
-          <Route path="/admin" element={<Admin/>} />
-          <Route path="/pedidos" element = {<Admin/>}/>
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Menu ></Menu>} />
+            <Route path="/Mesas" element={<Mesas></Mesas>} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/pedidos" element={<Admin />} />
+          </Routes>
         </div>
       </Router>
     </>

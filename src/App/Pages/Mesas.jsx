@@ -13,11 +13,11 @@ export const Mesas = () => {
     <MenuNav/>
     <h1>{mesa}</h1>
     <div className='contenedor-mesas'>
-    <Mesa nombre= "Mesa 1" estado="libre"></Mesa>
-    <Mesa nombre= "Mesa 2" estado="libre"></Mesa>
-    <Mesa nombre= "Mesa 3" estado="ocupado"></Mesa>
-    <Mesa nombre= "Mesa 4" estado="libre"></Mesa>
-    <Mesa nombre= "Mesa 5" estado="pendiente"></Mesa>
+    <Mesa nombre= "1" estado="libre"></Mesa>
+    <Mesa nombre= "2" estado="libre"></Mesa>
+    <Mesa nombre= "3" estado="ocupado"></Mesa>
+    <Mesa nombre= "4" estado="libre"></Mesa>
+    <Mesa nombre= "5" estado="pendiente"></Mesa>
     </div>
     </>
   )

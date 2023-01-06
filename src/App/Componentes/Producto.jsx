@@ -22,14 +22,13 @@ const Producto = ({ data }) => {
       currency: "COP",
     }).format(precio);
   };
-
   const confirmarClick = (e) => {
     //console.log(data)
     // add_to_cart(data.id, parseInt(cantidad))
 
     e.preventDefault();
 
-    dispatch(addToCart(data.id, parseInt(cantidad)));
+    dispatch(addToCart(data.id, parseInt(cantidad),0,comentario));
     closeModal();
     dispatch(calcularTotal());
   };
@@ -37,7 +36,7 @@ const Producto = ({ data }) => {
   return (
     <>
       <div onClick={click} id={data.id} className="contenedor-p">
-        <img  className="imgProducto" src={data.img} alt="Imagen" />
+        <img className="imgProducto" src={data.img} alt="Imagen" />
         <h3 className="titulo">{data.titulo}</h3>
         <p className="producto-precio">{formatPrecio(data.precio)}</p>
       </div>
@@ -56,7 +55,10 @@ const Producto = ({ data }) => {
             type="number"
             placeholder="Cantidad"
           />
-          <input className="cantidad" type="text" placeholder="comentario" />
+          <input 
+          onChange={(e)=>setComentario(e.target.value)}
+          value={comentario}
+          className="cantidad" type="text" placeholder="comentario" />
           <button onClick={confirmarClick} className="btn-confimar">
             confirmar
           </button>

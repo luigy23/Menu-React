@@ -1,13 +1,36 @@
+import { format } from "date-fns";
 import React from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Pedido from "./Pedido";
 
 const Pedidos = () => {
+  const state = useSelector((state) => state); //estado
+  const { pedidos } = state.pedidos;
+
+  useEffect(() => {
+    //request a la api
+    console.log("cargado la interfaz");
+    console.log(pedidos)
+    //dispacht
+  }, [pedidos]);
+
   return (
     <>
-      <div className="neomorfismo w-full bg-white h-4/5 rounded-3xl py-8 items-start text-start px-5">
-        <h1 className="font-semibold text-xl">Pedidos en cola:</h1>
-
-    <Pedido mesero={"Juan"} hora={"12:43pm"} />
+      <div className="contenedorPedidos neomorfismo">
+        <div className="Pedidos w-full flex flex-wrap">
+          {!pedidos.length
+            ? "Cargando..."
+            : pedidos.map((pedido) => (
+                <Pedido
+                  key={pedido.idPedido}
+                  mesa={pedido.idMesa}
+                  mesero={pedido.Usuario}
+                  hora={format(new Date(pedido.Fecha), "h:mm a")}
+                  productos = {pedido.Productos}
+                />
+              ))}
+        </div>
       </div>
     </>
   );

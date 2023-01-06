@@ -8,17 +8,19 @@ import {
   SELECCIONAR_MESA,
 } from "../Types";
 
-export const cargadeProductos = (productList) => {
-  return { type: CARGAR_PRODUCTOS, payload: productList }; //Guardamos los productos en el estado del Reducer
+export const cargadeProductos = (listaProductos) => {
+  return { type: CARGAR_PRODUCTOS, payload: listaProductos }; //Guardamos los productos en el estado del Reducer
 };
 
-export const addToCart = (id, cantidad, opcion) => {
-  if (opcion === 1) {
-    cantidad = 1;
+export const addToCart = (idProducto, cantidadProducto, opcionAñadir, comentario) => {
+  if (opcionAñadir === 1) {
+    cantidadProducto = 1;
   }
 
-  let datos = [id, cantidad];
-  //console.log("datos: " + id + " " + cantidad);
+  // Crea un array con el ID del producto y la cantidad a añadir a la canasta
+  const datos = [idProducto, cantidadProducto, comentario];
+
+  // Devuelve una acción con el tipo AÑADIR_A_CANASTA y el array de datos como payload
   return { type: AÑADIR_A_CANASTA, payload: datos };
 };
 export const delToCart = (id, cantidad, opcion) => {
@@ -32,7 +34,6 @@ export const delToCart = (id, cantidad, opcion) => {
       ? { type: BORRAR_UNO_CANASTA, payload: id }
       : { type: BORRAR_TODOS_CANASTA, payload: id };
   }
-
 };
 
 /*export const enviarPedido = () => {
@@ -54,8 +55,8 @@ export const calcularTotal = () => {
 };
 
 export const seleccionarMesa = (id) => {
-  return { type: SELECCIONAR_MESA, payload: id};
+  return { type: SELECCIONAR_MESA, payload: id };
 };
 export const buscarProductos = (busqueda) => {
-  return { type: BUSCAR_PRODUCTOS, payload: busqueda};
+  return { type: BUSCAR_PRODUCTOS, payload: busqueda };
 };

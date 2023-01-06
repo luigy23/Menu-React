@@ -6,10 +6,13 @@
   .itemMenu {
     @apply cursor-pointer w-full rounded-md border-slate-200 border-2 text-gray-800 hover:bg-sky-500 hover:text-green-50 active:bg-cyan-900 flex px-2 transition-colors select-none font-medium xl:justify-start justify-center;
   }
-
+.contenedorPedidos {
+  @apply  w-full bg-white h-4/5 rounded-3xl py-8 items-start text-start px-5 flex flex-col overflow-y-scroll max-h-screen overflow-x-hidden
+ 
+}
   .sideBar {
 
-    @apply bg-white col-span-2 z-10 border-gray-200 border-r min-h-full w-[80px] pt-8 px-2 flex flex-col xl:items-start gap-8 justify-center pl-3 xl:w-[250px];
+    @apply bg-white col-span-2 z-10 border-gray-200 border-r min-h-full w-[80px] pt-8 px-2 flex flex-col xl:items-start gap-8  pl-3 xl:w-[250px];
 
   }
 
@@ -36,4 +39,11 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.contenedorPedidos::-webkit-scrollbar-thumb {
+	background: #677b82;
+	border-radius: 5px;
+}
+.contenedorPedidos::-webkit-scrollbar {
+	width: 7px;
 }

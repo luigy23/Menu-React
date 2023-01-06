@@ -4,7 +4,7 @@ import "../Estilos/Canasta.scss"
 import ItemCanasta from "./ItemCanasta";
 
 
-const Canasta = ({canasta, enviarPedido}) => {
+const Canasta = ({canasta}) => {
   
 
  
