@@ -63,7 +63,7 @@ function Menu() {
   return (
     <>
       <MenuNav />
-      <Modal isOpen={isOpenModal} closeModal={closeModal}>
+      <Modal estilo={"max-w-xs"}  isOpen={isOpenModal} closeModal={closeModal}>
         <input //Mesero
           type="text"
           value={mesero}

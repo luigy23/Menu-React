@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Switch } from "react-router-dom";
 
 import "./App.scss";
 
@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 //otros
+import { SocketProvider } from "./App/Contextos/SocketProvider";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,12 +44,16 @@ function App() {
 
   return (
     <>
+    
       <Router>
         <div id="principal">
           <Routes>
+          
             <Route path="/" element={<Menu ></Menu>} />
             <Route path="/Mesas" element={<Mesas></Mesas>} />
-            <Route path="/admin" element={<Admin />} />
+           
+            <Route path="/admin" element={ <Admin /> } />
+     
             <Route path="/pedidos" element={<Admin />} />
           </Routes>
         </div>

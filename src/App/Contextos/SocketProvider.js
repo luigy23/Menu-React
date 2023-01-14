@@ -11,8 +11,12 @@ export const SocketProvider = ({ children }) => {
     const socket = io(apisocket);
     setSocket(socket);
     socket.on('connect', () => {
-      console.log('connected to server');
+      console.log('connected to server ');
     });
+    
+
+
+
   }, []);
 
   return (

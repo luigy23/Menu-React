@@ -34,7 +34,7 @@ const NavMenu = ({ productos, addToCart }) => {
         </div>
       </div>
 
-      <Modal isOpen={isOpenModal} estilo={"busqueda"} closeModal={closeModal}>
+      <Modal isOpen={isOpenModal} estilo={"busqueda max-w-xs "} closeModal={closeModal}>
 
         {
           filtro.length>0 ? filtro.map((producto) => <Producto key={producto.id} data={producto} add_to_cart={addToCart} />):<h3>No se encuentra</h3>

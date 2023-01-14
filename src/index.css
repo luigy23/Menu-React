@@ -12,7 +12,7 @@
 }
   .sideBar {
 
-    @apply bg-white col-span-2 z-10 border-gray-200 border-r min-h-full w-[80px] pt-8 px-2 flex flex-col xl:items-start gap-8  pl-3 xl:w-[250px];
+    @apply bg-white col-span-2 z-10 border-gray-200 border-r min-h-full  pt-8 px-2 flex flex-col xl:items-start gap-8  pl-3 ;
 
   }
 
@@ -23,6 +23,28 @@
   }
 
 }
+
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #677b82;
+    border-radius: 5px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+}
+
 
 /**/
 
@@ -40,10 +62,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.contenedorPedidos::-webkit-scrollbar-thumb {
-	background: #677b82;
-	border-radius: 5px;
-}
-.contenedorPedidos::-webkit-scrollbar {
-	width: 7px;
+
+
+.btn{
+  @apply flex items-center
+  justify-center
+   px-4 py-2 font-medium tracking-wide
+   text-white 
+   capitalize 
+   transition-colors
+    duration-300 transform
+     rounded-lg  
 }

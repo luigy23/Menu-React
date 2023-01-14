@@ -7,13 +7,22 @@ import axios from "axios";
 import NavBar from "../Componentes/Dash/NavBar";
 import Pedidos from "../Componentes/Dash/Vistas/Pedidos";
 import { cargadePedidos } from "../Actions/pedidosActions";
+import {SocketContext} from "../Contextos/SocketContext.js"
+import {useContext} from "react";
 
 const Admin = () => {
+
   const dispatch = useDispatch(); //// Acciones de dispatch para modificar el estado de la canasta
   const [cargado, setCargado] = useState(false);
+  const socket = useContext(SocketContext);
+  socket.on('actualizado', (data) => {
+    setCargado(!cargado)
+  });
 
 
   const state = useSelector((state) => state);
+  //const socket = useContext(SocketContext);
+
 
 
   const api = process.env.REACT_APP_API;

@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  
+    
     &.is-open {
       display: flex;
     }
@@ -22,13 +22,15 @@
     flex-direction: column;
     min-width: 350px;
     min-height: 120px;
-    max-width: 350px;
+    max-height: 28em;
+   
+    //max-width: 350px;
     position: relative !important;
     background-color: #fff;
     align-items: center;
     justify-content: stretch;
     overflow: scroll;
-    padding-top: 20px;
+    //padding-top: 20px;
     border-radius: 20px;
   }
   
