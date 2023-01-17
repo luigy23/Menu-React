@@ -14,7 +14,7 @@ const Pedidos = () => {
     //request a la api
 
     console.log("cargado la interfaz");
-    console.log(pedidos);
+    //console.log(pedidos);
     //dispacht
 
 
@@ -28,8 +28,9 @@ const Pedidos = () => {
         <div className="Pedidos w-full flex flex-wrap">
           {!pedidos.length
             ? "Cargando..."
-            : pedidos.map((pedido) => (
+            : pedidos.map((pedido, index) => (
                 <Pedido
+                key={index}
                   pedido={pedido}
                   hora={format(new Date(pedido.Fecha), "h:mm a")}
                 />

@@ -6,20 +6,25 @@
   .itemMenu {
     @apply cursor-pointer w-full rounded-md border-slate-200 border-2 text-gray-800 hover:bg-sky-500 hover:text-green-50 active:bg-cyan-900 flex px-2 transition-colors select-none font-medium xl:justify-start justify-center;
   }
-.contenedorPedidos {
-  @apply  w-full bg-white h-4/5 rounded-3xl py-8 items-start text-start px-5 flex flex-col overflow-y-scroll max-h-screen overflow-x-hidden
- 
-}
+
+  .contenedorPedidos {
+    @apply w-full bg-white h-4/5 rounded-3xl py-8 items-start text-start px-5 flex flex-col overflow-y-scroll max-h-screen overflow-x-hidden
+  }
+
   .sideBar {
 
-    @apply bg-white col-span-2 z-10 border-gray-200 border-r min-h-full  pt-8 px-2 flex flex-col xl:items-start gap-8  pl-3 ;
+    @apply bg-white col-span-2 z-10 border-gray-200 border-r min-h-full pt-8 px-2 flex flex-col xl:items-start gap-8 pl-3;
 
   }
 
   .cardPedido {
     background: #24E186;
     box-shadow: -1px -1px 2px rgba(148, 255, 161, 0.3), 1px 1px 2px rgba(126, 217, 137, 0.5), inset 11px -11px 22px rgba(126, 217, 137, 0.2), inset -11px 11px 22px rgba(126, 217, 137, 0.2), inset 11px 11px 22px rgba(148, 255, 161, 0.9), inset -11px -11px 28px rgba(126, 217, 137, 0.9);
-    @apply  xl:w-full p-4 rounded-3xl ;
+    @apply xl:w-full p-4 rounded-3xl;
+  }
+  .neomorfismo {
+    background-color: #FFFFFF;
+    box-shadow: 1px 1px 2px #ffffff4d, -1px -1px 2px #e7e7e780, inset -4px 4px 8px #e7e7e733, inset 4px -4px 8px #e7e7e733, inset -4px -4px 8px #ffffffe6, inset 4px 4px 12px #e7e7e7e6;
   }
 
 }
@@ -43,6 +48,8 @@
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #c0a0b9;
   }
+
+
 }
 
 
@@ -64,13 +71,6 @@ code {
 }
 
 
-.btn{
-  @apply flex items-center
-  justify-center
-   px-4 py-2 font-medium tracking-wide
-   text-white 
-   capitalize 
-   transition-colors
-    duration-300 transform
-     rounded-lg  
+.btn {
+  @apply flex items-center justify-center px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg
 }

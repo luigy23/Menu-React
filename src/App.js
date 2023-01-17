@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, HashRouter } from "react-router-dom";
 
 import "./App.scss";
 
@@ -12,7 +12,7 @@ import { cargadeProductos } from "./App/Actions/canastaActions";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-//otros
+//otross
 import { SocketProvider } from "./App/Contextos/SocketProvider";
 
 function App() {
@@ -46,6 +46,7 @@ function App() {
     <>
     
       <Router>
+     
         <div id="principal">
           <Routes>
           
@@ -57,6 +58,7 @@ function App() {
             <Route path="/pedidos" element={<Admin />} />
           </Routes>
         </div>
+
       </Router>
     </>
   );

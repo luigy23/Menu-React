@@ -12,8 +12,20 @@ export const SocketProvider = ({ children }) => {
     setSocket(socket);
     socket.on('connect', () => {
       console.log('connected to server ');
-    });
+      
     
+    });
+
+
+    return () => {
+      
+      socket.off('connect', () => {
+        console.log('connected to server ');
+        
+      
+      })
+
+    }
 
 
 

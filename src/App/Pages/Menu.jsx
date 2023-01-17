@@ -19,6 +19,7 @@ import Buscador from "../Componentes/Buscador";
 import { SocketContext } from "../Contextos/SocketContext"; 
 
 import { buscarProductos, calcularTotal } from "../Actions/canastaActions"; // Acciones de canasta
+import axios from "axios";
 
 function Menu() {
   const state = useSelector((state) => state); //estado
@@ -33,7 +34,18 @@ function Menu() {
   const [mesero, setMesero] = useState("");
 
   //METODOS
-  const enviarPedido = () => {
+  const enviarPedidoAPI = (pedido)=>{
+    axios
+      .post(process.env.REACT_APP_API + "/nuevo/pedido", pedido)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const clickEnviarPedido = () => {
     
     let pedido = {};
     let mesero = "JPEREZ";
@@ -48,9 +60,8 @@ function Menu() {
     });
 
     pedido = { Mesero: mesero, Mesa: mesa, Productos: productosPedido };
-    console.log("pedido=", pedido);
-    socket.emit("pedido", pedido);
-
+    //console.log("pedido=", pedido);
+    enviarPedidoAPI(pedido)
     closeModal();
     dispatch(calcularTotal());
   };
@@ -79,7 +90,7 @@ function Menu() {
           ))}
         </ul>
         <p className="texto-confirmar">Mesa: {mesa}</p>
-        <button onClick={() => enviarPedido()} className="btn-confimar">
+        <button onClick={() => clickEnviarPedido()} className="btn-confimar">
           confirmar Pedido
         </button>
       </Modal>

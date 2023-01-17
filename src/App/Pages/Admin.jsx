@@ -1,5 +1,5 @@
 import React from "react";
-import "../Estilos/Productos.scss";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -15,9 +15,7 @@ const Admin = () => {
   const dispatch = useDispatch(); //// Acciones de dispatch para modificar el estado de la canasta
   const [cargado, setCargado] = useState(false);
   const socket = useContext(SocketContext);
-  socket.on('actualizado', (data) => {
-    setCargado(!cargado)
-  });
+
 
 
   const state = useSelector((state) => state);
@@ -27,6 +25,15 @@ const Admin = () => {
 
   const api = process.env.REACT_APP_API;
   useEffect(() => {
+
+    const recibirActualización = () =>{
+      setCargado(!cargado)
+      console.log("actualizado")
+
+    }
+    socket.on('actualizado', recibirActualización);
+
+
     //request a la api
     axios
       .get(api + "/pedidos")
@@ -35,6 +42,12 @@ const Admin = () => {
         setCargado(true)
         console.log("cargados los pedidosss")
       });
+
+
+      return ()=>{
+
+        socket.off('actualizado', recibirActualización);
+      }
 
     //dispacht
   }, [cargado]);

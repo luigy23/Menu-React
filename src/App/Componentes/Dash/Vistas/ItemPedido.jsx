@@ -20,7 +20,7 @@ const ItemPedido = ({
     e.preventDefault();
     alert("clock derecho");
   };
-  const api = "http://192.168.1.6:4000";
+  
   const productoListo = () => {
     axios
       .post(process.env.REACT_APP_API + "/ProductoListo", {
@@ -54,7 +54,7 @@ const ItemPedido = ({
           Listo <Icono className="w-5" icon={faCheck}></Icono>
         </button>
         <button className="btn w-full bg-red-500 hover:bg-red-400 ">
-          Cancelar <Icono className="w-5" icon={faXmark}></Icono>
+          Eliminar <Icono className="w-5" icon={faXmark}></Icono>
         </button>
       </div>
     </div>
@@ -70,7 +70,7 @@ const ItemPedido = ({
       <div className="space-y-1">
         Listo <Icono className="w-5" icon={faCheck}></Icono>
         <button className="btn w-full bg-red-500 hover:bg-red-400 ">
-          Cancelar <Icono className="w-5" icon={faXmark}></Icono>
+          Eliminar <Icono className="w-5" icon={faXmark}></Icono>
         </button>
       </div>
     </div>
