@@ -15,7 +15,11 @@ export const SocketProvider = ({ children }) => {
       
     
     });
-
+    socket.on('connect_error', (err) => {
+      console.log('error de conexion ', err);
+      
+    
+    });
 
     return () => {
       

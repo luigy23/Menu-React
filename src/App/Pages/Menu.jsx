@@ -1,6 +1,6 @@
 import React from "react";
 import { useModal } from "../Hooks/useModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -69,6 +69,15 @@ function Menu() {
   const buscar = () => {
     dispatch(buscarProductos(textoBusqueda));
   };
+
+useEffect(() => {
+  console.log("cargando menu")
+
+  return () => {
+    console.log("listo menu")
+  }
+}, [])
+
 
   //INTERFAZ
   return (

@@ -17,6 +17,10 @@ const Pedido = ({ hora, pedido }) => {
     setModal(true);
     console.log("abierto modal");
   };
+  const clickDerecho = (e) =>{
+    e.preventDefault();
+    
+  }
 
   const { idMesa, Productos, Usuario } = pedido;
 
@@ -24,6 +28,7 @@ const Pedido = ({ hora, pedido }) => {
     <>
       <div
         onClick={click}
+        onContextMenu={(e) => clickDerecho(e)}
         className="contenedorPedido w-44 hover:scale-105 transition-transform m-5 cursor-pointer"
       >
         <div className=" cardPedido divide-y-2 ">
@@ -39,14 +44,14 @@ const Pedido = ({ hora, pedido }) => {
                   <li className="" key={index}>
                     <b>x{item.Cantidad}</b> {item.Nombre}
                   </li>
-                ) : (
+                ) : item.Estado == "Listo" ? (
                   <li
                     className=" line-through decoration-solid decoration-black	"
                     key={index}
                   >
                     <b>x{item.Cantidad}</b> {item.Nombre}
                   </li>
-                )
+                ):null
               )}
             </ul>
           </div>
@@ -56,7 +61,7 @@ const Pedido = ({ hora, pedido }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 class="-ml-1 mr-1.5 h-4 w-4"
               >
@@ -85,7 +90,9 @@ const Pedido = ({ hora, pedido }) => {
           <p className="text-slate-700 font-semibold">Mesa: {idMesa}</p>
         </div>
       </div>
-      {modal ? (
+      {
+      modal 
+      ? (
         <Modal
           estilo={"w-4/5   "}
           isOpen={isOpenModal}
@@ -112,9 +119,9 @@ const Pedido = ({ hora, pedido }) => {
             </div>
           </div>
         </Modal>
-      ) : (
-        ""
-      )}
+      ) 
+      : ""
+      }
     </>
   );
 };
