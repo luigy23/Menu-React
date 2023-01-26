@@ -7,7 +7,6 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
 const ItemPedido = ({
   Cantidad,
   Nombre,
@@ -23,7 +22,7 @@ const ItemPedido = ({
   
   const productoListo = () => {
     axios
-      .post(process.env.REACT_APP_API + "/ProductoListo", {
+      .put(process.env.REACT_APP_API+"/ProductoListo", {
         codProducto: codProducto,
         idPedido: idPedido,
       })
@@ -31,13 +30,13 @@ const ItemPedido = ({
         console.log(response);
       })
       .catch(function (error) {
-        console.log("error con axios:",error);
+        console.log("error en Producto Listo: ",error);
       });
   };
 
   const productoCancelado = () => {
     axios
-      .post(process.env.REACT_APP_API + "/ProductoCancelado", {
+      .put(process.env.REACT_APP_API+"/ProductoCancelado", {
         codProducto: codProducto,
         idPedido: idPedido,
       })

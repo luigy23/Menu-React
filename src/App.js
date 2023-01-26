@@ -13,7 +13,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 //otross
-import { SocketProvider } from "./App/Contextos/SocketProvider";
+import { ioSocket } from "./App/Socket";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,16 @@ function App() {
 
   useEffect(() => {
     //request a la api
+    ioSocket.on('connect', () => {
+      console.log('connected to server importado');
+      
+    
+    });
+    ioSocket.on('connect_error', (err) => {
+      console.log('error de conexion importado ', err);
+      
+    
+    });
     fetch(api+"/productos") //traemos productos de API
       .then((response) => response.json())
       .then((data) => {

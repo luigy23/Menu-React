@@ -22,7 +22,7 @@ const Pedido = ({ hora, pedido }) => {
     
   }
 
-  const { idMesa, Productos, Usuario } = pedido;
+  const { idMesa, Productos, Usuario,idPedido, Estado } = pedido;
 
   return (
     <>
@@ -31,14 +31,14 @@ const Pedido = ({ hora, pedido }) => {
         onContextMenu={(e) => clickDerecho(e)}
         className="contenedorPedido w-44 hover:scale-105 transition-transform m-5 cursor-pointer"
       >
-        <div className=" cardPedido divide-y-2 ">
-          <div className=" pedidoDatos w-full justify-between flex p-2 text-sm">
-            <h3 className=" font-semibold text-slate-50">{hora} </h3>
-            <h3 className=" font-semibold text-slate-50">{Usuario} </h3>
+        <div   className={`xl:w-full p-4 rounded-3xl divide-y-2 text-slate-50 font-semibold ${Estado=="Pendiente" ?"cardPedidoPendiente": "cardPedidoEntregado" }`}  >
+          <div name="pedidoDatos" 
+          className="  w-full justify-between flex p-2 text-sm">
+            <h3 >{hora} </h3>  
+            <h3 >{Usuario} </h3>
           </div>
-
-          <div className="pedidoProductos">
-            <ul className="text-slate-50 font-semibold ">
+          <div name="pedidoProductos" >
+            <ul className=" ">
               {Productos.map((item, index) =>
                 item.Estado == "Pendiente" ? (
                   <li className="" key={index}>
@@ -55,7 +55,8 @@ const Pedido = ({ hora, pedido }) => {
               )}
             </ul>
           </div>
-          <div className="pedidoComentarios py-1">
+          <div name="pedidoComentarios" 
+          className=" py-1 justify-center items-centers">
             <span className="inline-flex items-center justify-center rounded-full bg-purple-100 px-2.5 py-0.5 text-purple-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +64,7 @@ const Pedido = ({ hora, pedido }) => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                class="-ml-1 mr-1.5 h-4 w-4"
+                className="-ml-1 mr-1.5 h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -84,15 +85,22 @@ const Pedido = ({ hora, pedido }) => {
                 )}
               </p>
             </span>
+            <span className="inline-flex items-center justify-center rounded-full bg-purple-100 px-2.5 py-0.5 text-purple-700">
+              <p className="text-sm whitespace-nowrap">
+                  #{idPedido}
+              </p>
+            </span>
           </div>
         </div>
         <div className="Mesa rounded-md text-center bg-slate-white shadow-slate- shadow-md w-full">
           <p className="text-slate-700 font-semibold">Mesa: {idMesa}</p>
         </div>
       </div>
+      
+
       {
       modal 
-      ? (
+      ? 
         <Modal
           estilo={"w-4/5   "}
           isOpen={isOpenModal}
@@ -119,7 +127,7 @@ const Pedido = ({ hora, pedido }) => {
             </div>
           </div>
         </Modal>
-      ) 
+       
       : ""
       }
     </>

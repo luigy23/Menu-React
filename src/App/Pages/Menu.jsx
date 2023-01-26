@@ -5,18 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 // Estilos
-import "../Estilos/Menu.scss"; 
+import "../Estilos/Menu.scss";
 
 //componentes
-import Producto from "../Componentes/Producto"; 
-import Canasta from "../Componentes/Canasta"; 
-import MenuNav from "../Componentes/MenuNav"; 
-import Modal from "../Componentes/Modal"; 
-import ItemCanasta from "../Componentes/ItemCanasta"; 
-import Buscador from "../Componentes/Buscador"; 
+import Producto from "../Componentes/Producto";
+import Canasta from "../Componentes/Canasta";
+import MenuNav from "../Componentes/MenuNav";
+import Modal from "../Componentes/Modal";
+import ItemCanasta from "../Componentes/ItemCanasta";
+import Buscador from "../Componentes/Buscador";
 
 // Contexto de socket
-import { SocketContext } from "../Contextos/SocketContext"; 
 
 import { buscarProductos, calcularTotal } from "../Actions/canastaActions"; // Acciones de canasta
 import axios from "axios";
@@ -27,7 +26,6 @@ function Menu() {
   const { productos, canasta, total, mesa, filtro } = state.canasta; //destructuración del estado
 
   //
-  const socket = useContext(SocketContext); //traemos el socket
   //utilidades :
   const [isOpenModal, openModal, closeModal] = useModal(false);
   const [textoBusqueda, setTextoBusqueda] = useState("");

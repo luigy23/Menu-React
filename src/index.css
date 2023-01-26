@@ -17,11 +17,24 @@
 
   }
 
-  .cardPedido {
+  .cardPedidoEntregado {
     background: #24E186;
     box-shadow: -1px -1px 2px rgba(148, 255, 161, 0.3), 1px 1px 2px rgba(126, 217, 137, 0.5), inset 11px -11px 22px rgba(126, 217, 137, 0.2), inset -11px 11px 22px rgba(126, 217, 137, 0.2), inset 11px 11px 22px rgba(148, 255, 161, 0.9), inset -11px -11px 28px rgba(126, 217, 137, 0.9);
-    @apply xl:w-full p-4 rounded-3xl;
+
   }
+
+  .cardPedidoPendiente {
+    background: linear-gradient(148.81deg, #FFED4B 0%, #FFF48D 104.93%);
+    box-shadow: -1px -1px 2px rgba(255, 255, 83, 0.3), 1px 1px 2px rgba(227, 211, 67, 0.5), inset 8px -8px 16px rgba(227, 211, 67, 0.2), inset -8px 8px 16px rgba(227, 211, 67, 0.2), inset 8px 8px 16px rgba(255, 255, 83, 0.9), inset -8px -8px 20px rgba(227, 211, 67, 0.9);
+    border-radius: 35px;
+    @apply text-gray-700
+  }
+
+
+
+
+
+
   .neomorfismo {
     background-color: #FFFFFF;
     box-shadow: 1px 1px 2px #ffffff4d, -1px -1px 2px #e7e7e780, inset -4px 4px 8px #e7e7e733, inset 4px -4px 8px #e7e7e733, inset -4px -4px 8px #ffffffe6, inset 4px 4px 12px #e7e7e7e6;
