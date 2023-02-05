@@ -4,22 +4,18 @@ import axios from "axios";
   const api = process.env.REACT_APP_API;
 
 
-export const traerProductos = ()=>{
-   return axios(api+"/productos").then((res) => {
-     const productos= res.data
+export const traerProductos = async()=>{
+   const res= await axios(api+"/productos")
+    const productos= res.data
     const productos2 = productos.map((producto)=>{
-     return {...producto, Imagen:imagenProducto(producto.Imagen)}
-    }
-   
-     )
-     return productos2
-
-   
-   }
+   return {...producto, Imagen:imagenProducto(producto.Imagen)}
+  }
+   )
+   return productos2
    
   
    
-  );
+  
   }
 
 
