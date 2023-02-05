@@ -33,8 +33,9 @@ export const traerProductos = ()=>{
     
   }
 
- export const imagenProducto = imagen =>{
-  if(imagen.startsWith("http")) return imagen
+ export const imagenProducto = async(imagen) =>{
+  const http =await imagen.startsWith("http")
+  if(http) return imagen
   else return (api+imagen)
   
 
