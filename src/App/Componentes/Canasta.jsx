@@ -1,14 +1,15 @@
 import React from "react";
 import "../Estilos/Canasta.scss"
 
+import { useSelector} from "react-redux";
 import ItemCanasta from "./ItemCanasta";
 
 
-const Canasta = ({canasta}) => {
+const Canasta = () => {
   
 
- 
-
+  const state = useSelector((state) => state)
+  const { canasta } = state.canasta;
 
 const visible = false;
 
@@ -25,7 +26,7 @@ const visible = false;
         {
           canasta.map((producto, index)=>
        
-          <ItemCanasta  key={index}  data={producto} index={index}/>
+          <ItemCanasta  key={index}  data={producto} index={producto.Nombre}/>
   
           
           )

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, HashRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./App.scss";
 
@@ -14,62 +14,64 @@ import { useDispatch, useSelector } from "react-redux";
 
 //otross
 import { ioSocket } from "./App/Socket";
-
+import Pedidos from "./App/Componentes/Dash/Vistas/Pedidos";
+import { Productos } from "./App/Componentes/Dash/Vistas/Productos/Productos";
+import { traerProductos } from "./App/Services/ApiProductos";
 
 function App() {
   const dispatch = useDispatch();
 
-//Aquí guardamos los productros que llamamos de la pai
-  const [cargado, setCargado] = useState(false); //Estado de cuando los productos están cargados
+  //Aquí guardamos los productros que llamamos de la pai
   const state = useSelector((state) => state);
-
-  //socket.io
-
-  const api = process.env.REACT_APP_API;
+  const [cargado, setCargado] = useState(false)
+  const cargarProductos = () =>{
+    traerProductos().then(data => {
+      console.log(data)
+      dispatch(cargadeProductos(data))
+    })
+  }
+  const recibirActualización = () =>{
+    cargadeProductos()
+    console.log("Productos Actualizados")
+    setCargado(!cargado)
+  }
 
   useEffect(() => {
     //request a la api
-    ioSocket.on('connect', () => {
-      console.log('connected to server importado');
-      
-    
+    ioSocket.on("connect", () => {
+      console.log("connected to server importado");
     });
-    ioSocket.on('connect_error', (err) => {
-      console.log('error de conexion importado ', err);
-      
-    
+    ioSocket.on("connect_error", (err) => {
+      console.log("error de conexion importado ", err);
     });
-    fetch(api+"/productos") //traemos productos de API
-      .then((response) => response.json())
-      .then((data) => {
-        //Llamada a metodo para actualizar los productos
-        dispatch(cargadeProductos(data));
-        //console.log(productList);
-        setCargado(true);
-      });
+
+    ioSocket.on("productos",recibirActualización);
 
 
-
+    cargarProductos()
+ 
+    return () => {
+      ioSocket.off("productos", recibirActualización);
+    };
+      
     //dispatch(cargadeProductos(productList));
   }, [cargado]);
 
   return (
     <>
-    
       <Router>
-     
         <div id="principal">
           <Routes>
-          
-            <Route path="/" element={<Menu ></Menu>} />
+            <Route path="/" element={<Menu></Menu>} />
             <Route path="/Mesas" element={<Mesas></Mesas>} />
-           
-            <Route path="/admin" element={ <Admin /> } />
-     
+            <Route path="/admin" element={<Admin />}>
+              <Route index element={<Pedidos />} />
+              <Route path="productos" element={<Productos />} />
+            </Route>
+
             <Route path="/pedidos" element={<Admin />} />
           </Routes>
         </div>
-
       </Router>
     </>
   );

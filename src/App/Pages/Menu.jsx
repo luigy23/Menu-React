@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Estilos
 import "../Estilos/Menu.scss";
 
@@ -30,36 +33,45 @@ function Menu() {
   const [isOpenModal, openModal, closeModal] = useModal(false);
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [mesero, setMesero] = useState("");
+  // Mensajes Toast
+ 
 
   //METODOS
-  const enviarPedidoAPI = (pedido)=>{
-    axios
-      .post(process.env.REACT_APP_API + "/nuevo/pedido", pedido)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const enviarPedidoAPI = async (pedido) => {
+    try {
+      const response = await toast.promise(
+        axios.post(process.env.REACT_APP_API + "/nuevo/pedido", pedido),
+        {
+          pending: "Promise is pending",
+          success: "Pedido Enviado 👌",
+          error: {render({data}){
+            return `Error: ${data.response.data}`
+          }},
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log("error al enviar pedido: ", error);
+    }
   };
 
   const clickEnviarPedido = () => {
-    
     let pedido = {};
     let mesero = "JPEREZ";
 
     const productosPedido = canasta.map((item) => {
       return {
-        id: item.id,
+        id: item.codProducto,
         cantidad: item.cantidad,
-        precio: item.precio,
+        precio: item.Precio,
         comentario: item.comentario,
+        
       };
     });
 
-    pedido = { Mesero: mesero, Mesa: mesa, Productos: productosPedido };
+    pedido = { Mesero: mesero, Mesa: mesa, Productos: productosPedido, Total: total };
     //console.log("pedido=", pedido);
-    enviarPedidoAPI(pedido)
+    enviarPedidoAPI(pedido);
     closeModal();
     dispatch(calcularTotal());
   };
@@ -68,20 +80,19 @@ function Menu() {
     dispatch(buscarProductos(textoBusqueda));
   };
 
-useEffect(() => {
-  console.log("cargando menu")
+  useEffect(() => {
+    console.log("cargando menu");
 
-  return () => {
-    console.log("listo menu")
-  }
-}, [])
-
+    return () => {
+      console.log("listo menu");
+    };
+  }, []);
 
   //INTERFAZ
   return (
     <>
       <MenuNav />
-      <Modal estilo={"max-w-xs"}  isOpen={isOpenModal} closeModal={closeModal}>
+      <Modal estilo={"max-w-xs"} isOpen={isOpenModal} closeModal={closeModal}>
         <input //Mesero
           type="text"
           value={mesero}
@@ -101,22 +112,23 @@ useEffect(() => {
           confirmar Pedido
         </button>
       </Modal>
-      <div className="page-menu">
+      <div className="page-menu ">
         <Buscador
           evento={() => buscar()}
           setTexto={(texto) => setTextoBusqueda(texto)}
         />
-        <div className="contenedor-productos">
+        <div className="contenedor-productos ">
           {textoBusqueda.length == ""
             ? productos.map((producto) => (
-                <Producto key={producto.id} data={producto} />
+                <Producto key={producto.codProducto} producto={producto} />
               ))
             : filtro.map((producto) => (
-                <Producto key={producto.id} data={producto} />
+                <Producto key={producto.codProducto} producto={producto} />
               ))}
         </div>
 
         <Canasta producto={productos} canasta={canasta} />
+        <ToastContainer autoClose={1600} />
         <div className="contenedor-detalles">
           <h3>Total = ${total}</h3>
           <Link className="Link" to={"/Mesas"}>
@@ -127,6 +139,7 @@ useEffect(() => {
           <button onClick={() => openModal()} className="btn-pedir">
             Finalizar Pedido
           </button>
+          
         </div>
       </div>
     </>

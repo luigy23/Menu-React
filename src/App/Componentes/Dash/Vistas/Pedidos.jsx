@@ -29,14 +29,14 @@ const Pedidos = () => {
     })
     }
 
-const todosPedidos = ()=>{
-  setEstadoPedido(null)
+  const todosPedidos = ()=>{
+    traerLosPedidos(null)
 }
 
-    const recibirActualización = () => {
-      traerLosPedidos()
-      console.log("actualizado");
-    };
+  const recibirActualización = () => {
+    traerLosPedidos()
+    console.log("actualizado");
+  };
 
   useEffect(() => {
 
@@ -53,7 +53,7 @@ const todosPedidos = ()=>{
     };
 
     //dispacht
-  }, [estadoPedido]);
+  }, []);
   return (
     <>
    

@@ -5,8 +5,9 @@ import { useState } from "react";
 import { useModal } from "../Hooks/useModal";
 import { useDispatch } from "react-redux";
 import { addToCart, calcularTotal } from "../Actions/canastaActions";
+import { formatPrecio } from "../Services/formatPrecio";
 
-const Producto = ({ data }) => {
+const Producto = ({ producto }) => {
   const [cantidad, setCantidad] = useState(1);
   const [comentario, setComentario] = useState("");
   const [isOpenModal, openModal, closeModal] = useModal(false);
@@ -14,36 +15,37 @@ const Producto = ({ data }) => {
   const dispatch = useDispatch();
   //metodos
   const click = () => {
-    openModal();  };
-  const formatPrecio = (precio) => {
-    return new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-    }).format(precio);
+    openModal();  
   };
+
   const confirmarClick = (e) => {
-    //console.log(data)
-    // add_to_cart(data.id, parseInt(cantidad))
+    //console.log(producto)
+    // add_to_cart(producto.id, parseInt(cantidad))
 
     e.preventDefault();
 
-    dispatch(addToCart(data.id, parseInt(cantidad), 0, comentario));
+    dispatch(addToCart(producto.codProducto, parseInt(cantidad), 0, comentario));
     closeModal();
     dispatch(calcularTotal());
   };
 
   return (
     <>
-      <div onClick={click} id={data.id} className="contenedor-p">
-        <img className="imgProducto" src={data.img} alt="Imagen" />
-        <h3 className="titulo">{data.titulo}</h3>
-        <p className="producto-precio">{formatPrecio(data.precio)}</p>
+      <div onClick={click} id={producto.codProducto} className="contenedor-p ">
+        <div className="w-4/5 overflow-hidden">
+        <img className="  imgProducto " src={producto.Imagen} alt="Imagen" />
+        </div>
+        <h3 className="titulo">{producto.Nombre}</h3>
+        <p className="producto-precio">{formatPrecio(producto.Precio)}</p>
       </div>
-      {isOpenModal ? (
+      
+      {
+      
+      isOpenModal ? (
         <Modal estilo={"max-w-xs"} isOpen={isOpenModal} closeModal={closeModal}>
-          <h3 className="modal-titulo py-3">{data.titulo}</h3>
+          <h3 className="modal-titulo py-3">{producto.Nombre}</h3>
           <div className="descripcion-contenedor">
-            <p className="producto-descripcion">{data.descripcion}</p>
+            <p className="producto-descripcion">{producto.Descripcion}</p>
           </div>
           <form className="formulario" onSubmit={confirmarClick}>
             <input

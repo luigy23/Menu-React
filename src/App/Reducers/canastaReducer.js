@@ -23,10 +23,10 @@ export function canastaReducer(state = inicialState, action) {
       return { ...state, productos: action.payload };
     }
     case AÑADIR_A_CANASTA: {
-      const [id, cantidad, comentario] = action.payload;
-      const producto = state.productos.find((producto) => producto.id === id);
+      const [codProducto, cantidad, comentario] = action.payload;
+      const producto = state.productos.find((producto) => producto.codProducto === codProducto);
       const productoEnCanasta = state.canasta.find(
-        (item) => item.id === producto.id
+        (item) => item.codProducto === producto.codProducto
       );
 
       return productoEnCanasta
@@ -35,7 +35,7 @@ export function canastaReducer(state = inicialState, action) {
             ...state, // Crea una copia del estado actual
             canasta: state.canasta.map( // Crea una copia del array canasta
               (item) => 
-                item.id === producto.id // Si el ID del producto coincide con el ID del item en la canasta
+                item.codProducto === producto.codProducto // Si el ID del producto coincide con el ID del item en la canasta
                   ? { ...item, cantidad: item.cantidad + cantidad, comentario } // Crea una copia del item y actualiza la cantidad
                   : item // Si no coincide, devuelve el item sin cambios
             ),
@@ -52,18 +52,18 @@ export function canastaReducer(state = inicialState, action) {
     case BORRAR_TODOS_CANASTA: {
       return {
         ...state,
-        canasta: state.canasta.filter((item) => item.id !== action.payload),
+        canasta: state.canasta.filter((producto) => producto.codProducto !== action.payload),
       };
     }
     case BORRAR_UNO_CANASTA: {
       let itemInCanasta = state.canasta.find(
-        (item) => item.id === action.payload
+        (producto) => producto.codProducto === action.payload
       );
 
       return {
         ...state,
         canasta: state.canasta.map((item) =>
-          item.id === itemInCanasta.id
+          item.codProducto === itemInCanasta.codProducto
             ? { ...item, cantidad: item.cantidad - 1 }
             : item
         ),
@@ -77,8 +77,8 @@ export function canastaReducer(state = inicialState, action) {
     }
     case CALCULAR_TOTAL: {
       let totaliti = 0;
-      state.canasta.forEach((item) => {
-        totaliti = totaliti + item.precio * item.cantidad;
+      state.canasta.forEach((producto) => {
+        totaliti = totaliti + producto.Precio * producto.cantidad;
       });
 
       return { ...state, total: totaliti };
@@ -89,7 +89,7 @@ export function canastaReducer(state = inicialState, action) {
     case BUSCAR_PRODUCTOS: {
       let texto = action.payload;
       let busqueda = state.productos.filter((producto) =>
-        producto.titulo.toUpperCase().includes(texto.toUpperCase())
+        producto.Nombre.toUpperCase().includes(texto.toUpperCase())
       );
 
       return { ...state, filtro: busqueda };
