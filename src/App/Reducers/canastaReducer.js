@@ -20,7 +20,9 @@ export const inicialState = {
 export function canastaReducer(state = inicialState, action) {
   switch (action.type) {
     case CARGAR_PRODUCTOS: {
+      console.log("Productos en el reducer")
       return { ...state, productos: action.payload };
+      
     }
     case AÑADIR_A_CANASTA: {
       const [codProducto, cantidad, comentario] = action.payload;

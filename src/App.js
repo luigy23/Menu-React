@@ -23,15 +23,19 @@ function App() {
 
   //Aquí guardamos los productros que llamamos de la pai
   const state = useSelector((state) => state);
-  const [cargado, setCargado] = useState(false)
-  const cargarProductos = async() =>{
-   const data = await traerProductos()
-    dispatch(cargadeProductos(data))
-    setCargado(!cargado)
+  const [productos, setproductos] = useState(false)
+  const cargarProductos = () =>{
+    traerProductos().then(
+      (data)=>    { console.log("return de la api: ", data)
+      dispatch(cargadeProductos(data))}
+    )
+
+    
+    //setCargado(!cargado)
     }
-  }
+  
   const recibirActualización = () =>{
-    cargadeProductos()
+    cargarProductos()
     console.log("Productos Actualizados")
     
   }
@@ -55,7 +59,7 @@ function App() {
     };
       
     //dispatch(cargadeProductos(productList));
-  }, [cargado]);
+  }, []);
 
   return (
     <>

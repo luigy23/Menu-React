@@ -5,13 +5,28 @@ import axios from "axios";
 
 
 export const traerProductos = async()=>{
-   const res= await axios(api+"/productos")
-    const productos= res.data
-    const productos2 = productos.map((producto)=>{
-   return {...producto, Imagen:imagenProducto(producto.Imagen)}
-  }
-   )
-   return productos2
+    const res = await  axios(api+"/productos")
+
+    const productos = res.data
+    const productos2 =  productos.map((producto)=>{
+      const nuevaImagen= imagenProducto(producto.Imagen)
+      return{...producto, Imagen:nuevaImagen}
+    })
+    
+    
+    
+    return(productos2)
+
+    // productos.map((producto)=>{
+    //   return {...producto, Imagen:imagenProducto(producto.Imagen)}
+    //  })
+    
+    
+    
+
+
+   
+
    
   
    
@@ -29,8 +44,8 @@ export const traerProductos = async()=>{
     
   }
 
- export const imagenProducto = async(imagen) =>{
-  const http =await imagen.startsWith("http")
+ export const imagenProducto = (imagen) =>{
+  const http = imagen.startsWith("http")
   if(http) return imagen
   else return (api+imagen)
   

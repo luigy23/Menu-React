@@ -9,6 +9,7 @@ import {
 } from "../Types";
 
 export const cargadeProductos = (listaProductos) => {
+  console.log("Lista de prodcutos:",listaProductos)
   return { type: CARGAR_PRODUCTOS, payload: listaProductos }; //Guardamos los productos en el estado del Reducer
 };
 
