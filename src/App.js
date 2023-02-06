@@ -24,16 +24,16 @@ function App() {
   //Aquí guardamos los productros que llamamos de la pai
   const state = useSelector((state) => state);
   const [cargado, setCargado] = useState(false)
-  const cargarProductos = () =>{
-    traerProductos().then(data => {
-      console.log(data)
-      dispatch(cargadeProductos(data))
-    })
+  const cargarProductos = async() =>{
+   const data = await traerProductos()
+    dispatch(cargadeProductos(data))
+    setCargado(!cargado)
+    }
   }
   const recibirActualización = () =>{
     cargadeProductos()
     console.log("Productos Actualizados")
-    setCargado(!cargado)
+    
   }
 
   useEffect(() => {
