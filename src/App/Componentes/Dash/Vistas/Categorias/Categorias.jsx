@@ -50,8 +50,8 @@ export const Categorias = () => {
       },
     });
   };
-  const crearCategoria = (Nombre, Descripcion) => {
-
+  const crearCategoria = (e,Nombre, Descripcion) => {
+    e.preventDefault();
     toast.promise(agregarCategoria(Nombre, Descripcion), {
       pending: "Creando...",
       success: "Creado",
@@ -134,7 +134,7 @@ export const Categorias = () => {
         <Modal isOpen={isOpenModal2} closeModal={closeModal2}>
           <p>Crear Categoria</p>
 
-          <form >
+          <form onSubmit={(e) => crearCategoria(Nombre, descripcion)}>
 
           <label htmlFor="nombreCategoria" className="flex-col flex ">
               <span className="font-semibold  px-3 py-1 rounded-lg ">
@@ -163,7 +163,7 @@ export const Categorias = () => {
             </label>
             <button
               type="submit"
-              onClick={() => crearCategoria(Nombre, descripcion)}
+              
               className="btn bg-green-400 hover:bg-green-600 text-white bg w-full"
             >
               Guardar
