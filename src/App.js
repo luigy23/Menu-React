@@ -17,6 +17,8 @@ import { ioSocket } from "./App/Socket";
 import Pedidos from "./App/Componentes/Dash/Vistas/Pedidos";
 import { Productos } from "./App/Componentes/Dash/Vistas/Productos/Productos";
 import { traerProductos } from "./App/Services/ApiProductos";
+import { Categorias } from "./App/Componentes/Dash/Vistas/Categorias/Categorias";
+import Caja from "./App/Componentes/Dash/Vistas/Caja/Caja";
 
 function App() {
   const dispatch = useDispatch();
@@ -70,7 +72,9 @@ function App() {
             <Route path="/Mesas" element={<Mesas></Mesas>} />
             <Route path="/admin" element={<Admin />}>
               <Route index element={<Pedidos />} />
+              <Route path="caja" element={<Caja/>} />
               <Route path="productos" element={<Productos />} />
+              <Route path="categorias" element={<Categorias/>} />
             </Route>
 
             <Route path="/pedidos" element={<Admin />} />

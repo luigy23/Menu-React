@@ -6,7 +6,7 @@
     cursor: default;
     width: 100%;
     min-height: 100vh;
-    background-color: rgba(39, 50, 96, 0.275);
+    background-color: rgba(21, 26, 33, 0.453);
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -17,6 +17,12 @@
     }
   }
   
+
+
+.glass-modal {
+  @apply bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-gray-200
+  }
+
   .modal-contenedor {
     display: flex;
     flex-direction: column;
@@ -26,7 +32,7 @@
    
     //max-width: 350px;
     position: relative !important;
-    background-color: #fff;
+
     align-items: center;
     justify-content: stretch;
     overflow: scroll;
@@ -68,18 +74,20 @@
     cursor: pointer;
     bottom: 0px;
     width: 100%;
-    background-color: rgb(59, 171, 83);
+
     border: none;
     margin-top: 20px;
     padding: 10px;
     font-size: 18px;
     font-weight: 500;
     color: #fff;
-  
-    &:hover {
-      background-color: rgb(101, 203, 123);
-    }
+
+    @apply  bg-shamrock-600 hover:bg-shamrock-700   transition-all ease-in-out ;
+
+
   }
+
+
   
   @media only screen and (max-width: 400px) {
     .modal-contenedor {

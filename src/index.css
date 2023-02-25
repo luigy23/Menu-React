@@ -2,9 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("./App/Estilos/Componentes.css");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @layer components {
+
+  body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+
+  }
+
+button{
+  /* Quitando el seleccionar texto: */
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+
   .itemMenu {
     @apply cursor-pointer w-full rounded-md border-slate-200 border-2 text-gray-800 hover:bg-sky-500 hover:text-green-50 active:bg-cyan-900 flex px-2 transition-colors select-none font-medium xl:justify-start justify-center;
   }
@@ -71,14 +89,6 @@
 /**/
 
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -115,7 +125,51 @@ input{
 }
 
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 
+
+
+.menuIconos{
+@apply flex flex-row justify-center items-center gap-2 whitespace-nowrap font-bold text-lg;
+
+}
+
+.menuIconos li{
+  @apply flex 
+  whitespace-nowrap
+  gap-1
+  h-9 
+  text-base
+  font-medium
+  items-center
+  cursor-pointer 
+
+  px-2 py-1 
+  rounded-lg 
+
+
+  
+  }
+
+  .btnIcon{
+
+      @apply flex
+      items-center
+      justify-center
+      gap-1
+  }
+
+  .btnGreen{
+    @apply bg-green-500 text-white
+  }
 
 

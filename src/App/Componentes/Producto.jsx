@@ -6,7 +6,7 @@ import { useModal } from "../Hooks/useModal";
 import { useDispatch } from "react-redux";
 import { addToCart, calcularTotal } from "../Actions/canastaActions";
 import { formatPrecio } from "../Services/formatPrecio";
-
+import { ToastContainer, toast } from "react-toastify";
 const Producto = ({ producto }) => {
   const [cantidad, setCantidad] = useState(1);
   const [comentario, setComentario] = useState("");
@@ -21,10 +21,21 @@ const Producto = ({ producto }) => {
   const confirmarClick = (e) => {
     //console.log(producto)
     // add_to_cart(producto.id, parseInt(cantidad))
-
     e.preventDefault();
 
-    dispatch(addToCart(producto.codProducto, parseInt(cantidad), 0, comentario));
+    toast.success("Producto agregado al carrito", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+     
+      
+      })
+      dispatch(addToCart(producto.codProducto, parseInt(cantidad), 0, comentario))
+
+
+
     closeModal();
     dispatch(calcularTotal());
   };
@@ -63,7 +74,7 @@ const Producto = ({ producto }) => {
               type="text"
               placeholder="comentario"
             />
-            <button onClick={confirmarClick} className="btn-confimar">
+            <button onClick={confirmarClick} className="btn-confimar ">
               confirmar
             </button>
           </form>
@@ -71,6 +82,7 @@ const Producto = ({ producto }) => {
       ) : (
         ""
       )}
+ 
     </>
   );
 };

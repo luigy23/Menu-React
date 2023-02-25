@@ -11,7 +11,7 @@ const Canasta = () => {
   const state = useSelector((state) => state)
   const { canasta } = state.canasta;
 
-const visible = false;
+  const visible = false;
 
 
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import Mesa from '../Componentes/Mesa'
 import MenuNav from "../Componentes/MenuNav";
-import axios from 'axios';
+import { traerMesas } from '../Services/ApiMesas';
 import { useEffect, useState } from 'react';
 import { ioSocket } from '../Socket';
 
@@ -10,22 +10,19 @@ export const Mesas = () => {
   const state = useSelector((state) => state);
   const { mesa } = state.canasta;
   const [mesas, setMesas]= useState([])
-  const api = process.env.REACT_APP_API;
-  const traerMesas = () =>{
-    console.log("Traer mesas")
-    axios.get(api+"/Mesas")
-    .then((response) => {
-      setMesas(response.data)
-      console.log("cargados las mesas");
-    }).catch(function (error) {
-      console.log("error en get /mesas:",error);
+
+  const cargarMesas = () =>{
+    traerMesas()
+    .then((mesas) => {
+      setMesas(mesas)
     })
+
     }
   
 
   useEffect(() => {
     
-    traerMesas()
+    cargarMesas()
 
     ioSocket.on("mesas", traerMesas);
     //request a la api
@@ -57,9 +54,7 @@ export const Mesas = () => {
          mesas.map((mesa, index) => (
           <Mesa
             key={index}
-            idMesa={mesa.idMesa}
-            nombre={mesa.Descripcion}
-            estado={mesa.Estado}
+            Mesa={mesa}
           />))
       }
  

@@ -61,3 +61,8 @@ export const seleccionarMesa = (id) => {
 export const buscarProductos = (busqueda) => {
   return { type: BUSCAR_PRODUCTOS, payload: busqueda };
 };
+
+export const actualizarCanasta = (canasta) => {
+  return { type: "ACTUALIZAR_CANASTA", payload: canasta };
+  
+};

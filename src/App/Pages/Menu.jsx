@@ -3,36 +3,38 @@ import { useModal } from "../Hooks/useModal";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { formatPrecio } from "../Services/formatPrecio";
 // Estilos
 import "../Estilos/Menu.scss";
 
 //componentes
 import Producto from "../Componentes/Producto";
-import Canasta from "../Componentes/Canasta";
-import MenuNav from "../Componentes/MenuNav";
 import Modal from "../Componentes/Modal";
 import ItemCanasta from "../Componentes/ItemCanasta";
+import HeaderMenu  from "../Componentes/HeaderMenu";
 import Buscador from "../Componentes/Buscador";
 
 // Contexto de socket
 
-import { buscarProductos, calcularTotal } from "../Actions/canastaActions"; // Acciones de canasta
+import {  calcularTotal } from "../Actions/canastaActions"; // Acciones de canasta
 import axios from "axios";
+import MenuCategorias from "../Componentes/MenuCategorias";
+
+//IConos
+import Icarro from "../Assets/Icons/ICarro";
 
 function Menu() {
   const state = useSelector((state) => state); //estado
   const dispatch = useDispatch(); //// Acciones de dispatch para modificar el estado de la canasta
   const { productos, canasta, total, mesa, filtro } = state.canasta; //destructuración del estado
+  const [productosMenu, setProductosMenu] = useState([]); //productos del menu
+  const [filtroActivo,setFiltroActivo] = useState(false); //texto de busqueda
 
   //
   //utilidades :
   const [isOpenModal, openModal, closeModal] = useModal(false);
-  const [textoBusqueda, setTextoBusqueda] = useState("");
-  const [mesero, setMesero] = useState("");
   // Mensajes Toast
  
 
@@ -62,7 +64,7 @@ function Menu() {
     const productosPedido = canasta.map((item) => {
       return {
         id: item.codProducto,
-        cantidad: item.cantidad,
+        cantidad: item.Cantidad,
         precio: item.Precio,
         comentario: item.comentario,
         
@@ -76,75 +78,116 @@ function Menu() {
     dispatch(calcularTotal());
   };
 
-  const buscar = () => {
-    dispatch(buscarProductos(textoBusqueda));
+  useEffect(() => {
+    setProductosMenu(productos);
+
+  }, [productos]);
+
+  const buscar = (texto) => {
+    if (texto === "") {
+      setProductosMenu(productos);
+      console.log("filtro activo", filtroActivo);
+      return;
+    }
+    const productosF = productos.filter((producto) => {
+      return producto.Nombre.toLowerCase().includes(texto.toLowerCase());
+    });
+
+    setProductosMenu(productosF);
+  };
+  const filtrarCategoria = (idCategoria) => {
+    if (idCategoria === "all") {
+      setProductosMenu(productos);
+      return;
+    }
+    const productosF = productos.filter((producto) => {
+      return producto.idCategoria === idCategoria;
+    });
+    setProductosMenu(productosF);
   };
 
-  useEffect(() => {
-    console.log("cargando menu");
 
-    return () => {
-      console.log("listo menu");
-    };
-  }, []);
 
   //INTERFAZ
   return (
     <>
-      <MenuNav />
-      <Modal estilo={"max-w-xs"} isOpen={isOpenModal} closeModal={closeModal}>
-        <input //Mesero
-          type="text"
-          value={mesero}
-          placeholder="mesero"
-          onChange={(event) => setMesero(event.target.value)} // Función para actualizar el valor del input cuando el usuario escriba
-        />
+<Modal estilo={"max-w-lg bg-opacity-90"} isOpen={isOpenModal} closeModal={closeModal}>
+<div className="flex flex-col px-2">
+<div className="flex justify-center text-center gap-3 py-2 ">
+  <span className="bg-elm-200 px-2 rounded-md">Mesa: {mesa}</span>
+  <span className="bg-shamrock-300 px-2 rounded-md">{formatPrecio(total)}</span>
+  </div>
 
-        <p className="texto-confirmar">Este es tu pedido:</p>
-        <ul className="lista-confirmar">
-          {canasta.map((producto, index) => (
-            //<li key={index}>{producto.titulo} x{producto.cantidad}</li>
-            <ItemCanasta key={index} data={producto} index={index} />
-          ))}
-        </ul>
-        <p className="texto-confirmar">Mesa: {mesa}</p>
-        <button onClick={() => clickEnviarPedido()} className="btn-confimar">
-          confirmar Pedido
-        </button>
-      </Modal>
-      <div className="page-menu ">
-        <Buscador
-          evento={() => buscar()}
-          setTexto={(texto) => setTextoBusqueda(texto)}
-        />
-        <div className="contenedor-productos ">
-          {textoBusqueda.length == ""
-            ? productos.map((producto) => (
-                <Producto key={producto.codProducto} producto={producto} />
-              ))
-            : filtro.map((producto) => (
-                <Producto key={producto.codProducto} producto={producto} />
-              ))}
-        </div>
+  <ul className="lista-confirmar">
+    {canasta.map((producto, index) => (
+      //<li key={index}>{producto.titulo} x{producto.cantidad}</li>
+      <ItemCanasta key={index} data={producto} index={index} />
+    ))}
+  </ul>
 
-        <Canasta producto={productos} canasta={canasta} />
-        <ToastContainer autoClose={1600} />
-        <div className="contenedor-detalles">
-          <h3>Total = ${total}</h3>
-          <Link className="Link" to={"/Mesas"}>
-            <div>
-              <h3>{mesa}</h3>
-            </div>
-          </Link>
-          <button onClick={() => openModal()} className="btn-pedir">
-            Finalizar Pedido
-          </button>
-          
-        </div>
+
+</div>
+
+
+  <button onClick={() => clickEnviarPedido()} className="btn-confimar">
+    confirmar Pedido
+  </button>
+  </Modal>
+
+    <div className="w-full h-8 bg-slate-300 items-center px-4 py-2 flex ">
+      Menu
+    </div>
+    <HeaderMenu>
+    <Buscador buscar={buscar} />
+    <MenuCategorias filtrar={filtrarCategoria}/>
+    </HeaderMenu>
+    <div className="flex flex-col items-center justify-start bg-white min-h-screen">
+      <div className="productosContenedor flex flex-wrap gap-2 py-2 ">
+        {
+        productosMenu.map((producto) => (
+            <Producto
+              key={producto.codProducto}
+              producto={producto}
+              openModal={openModal}
+            />
+          ))
+        }
+
       </div>
+
+    </div>
+
+    <div className="w-full  bg-slate-50 nm-inset-white-sm items-center px-4 py-2 flex sticky bottom-0">
+      <nav className="w-full ">
+        <ul className="menuIconos ">
+          <li className="bg-shamrock-500 text-white">
+              <button onClick={() => openModal()} className="btnIcon">
+              <span className=" bg-scooter-700 text-xs w-4 h-4 rounded-full flex text-center justify-center items-center   ">{canasta.reduce((acc, item) => acc + item.Cantidad, 0)}</span>
+              <Icarro fill={"#fff"} />
+              <span className="">Canasta</span>
+               
+              
+              </button>
+            
+          </li>
+          <li className="">
+          <Link className="Link" to={"/Mesas"}>
+            <button onClick={() => openModal()} className="btnIcon">
+
+             <span className="font-medium">Mesa: <span className="font-semibold text-shamrock-600"> #{mesa}</span> </span>
+            </button>
+            </Link>
+          
+        </li>
+        </ul>
+      </nav>
+    </div>
+    <ToastContainer />
     </>
   );
 }
 export default Menu;
 
 //pruebas
+
+

@@ -44,6 +44,10 @@ export const traerProductos = async()=>{
     
   }
 
+  export const deleteProducto = (id) => {
+    return axios.delete(api+"/productos/"+id).then((res) => res.data);
+  }
+
  export const imagenProducto = (imagen) =>{
   const http = imagen.startsWith("http")
   if(http) return imagen

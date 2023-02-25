@@ -14,12 +14,12 @@ const Modal = (props) => {
   return (
     
     <article
-      className={`modal  ${props.isOpen && "is-open"}`}
+      className={`modal backdrop-blur-sm  ${props.isOpen && "is-open"}`}
       onClick={props.closeModal}
       //ref={ref}
     >
       <div
-        className={`modal-contenedor  ${props.estilo}`}
+        className={`modal-contenedor bg-white  ${props.estilo}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={props.closeModal} className="btnItem close-modal">
