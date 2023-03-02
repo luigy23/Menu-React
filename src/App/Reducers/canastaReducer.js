@@ -9,13 +9,14 @@ import {
   SELECCIONAR_MESA,
   BUSCAR_PRODUCTOS,
   ACTUALIZAR_CANASTA,
+  VACIAR_CANASTA,
 } from "../Types";
 
 export const inicialState = {
   productos: [],
   canasta: [],
   total: 0,
-  mesa: "No hay Mesa",
+  mesa: "sin mesa",
   filtro: [],
 };
 export function canastaReducer(state = inicialState, action) {
@@ -106,6 +107,9 @@ export function canastaReducer(state = inicialState, action) {
         console.log("Este prodcuto se suma:",producto);
       });
       return { ...state, canasta: action.payload, total: totaliti };
+    }
+    case "VACIAR_CANASTA": {
+      return { ...state, canasta: [] };
     }
 
     default:

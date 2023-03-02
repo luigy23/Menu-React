@@ -172,4 +172,8 @@ input{
     @apply bg-green-500 text-white
   }
 
+  .hoverNavMenu {
+    @apply   hover:bg-slate-200 transition-all 
+  }
+
 

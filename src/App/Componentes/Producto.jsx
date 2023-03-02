@@ -63,6 +63,7 @@ const Producto = ({ producto }) => {
               onChange={(e) => {
                 setCantidad(e.target.value);
               }}
+              min="1"
               className="cantidad"
               type="number"
               placeholder="Cantidad"

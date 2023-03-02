@@ -6,6 +6,7 @@ import {
   CALCULAR_TOTAL,
   CARGAR_PRODUCTOS,
   SELECCIONAR_MESA,
+  VACIAR_CANASTA,
 } from "../Types";
 
 export const cargadeProductos = (listaProductos) => {
@@ -65,4 +66,7 @@ export const buscarProductos = (busqueda) => {
 export const actualizarCanasta = (canasta) => {
   return { type: "ACTUALIZAR_CANASTA", payload: canasta };
   
+};
+export const vaciarCanasta = () => {
+  return { type: VACIAR_CANASTA };
 };

@@ -134,7 +134,7 @@ export const Categorias = () => {
         <Modal isOpen={isOpenModal2} closeModal={closeModal2}>
           <p>Crear Categoria</p>
 
-          <form onSubmit={(e) => crearCategoria(Nombre, descripcion)}>
+          <form onSubmit={(e) => crearCategoria(e,Nombre, descripcion)}>
 
           <label htmlFor="nombreCategoria" className="flex-col flex ">
               <span className="font-semibold  px-3 py-1 rounded-lg ">

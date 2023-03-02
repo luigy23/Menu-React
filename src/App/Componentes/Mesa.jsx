@@ -1,10 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import {  Link } from "react-router-dom";
-import { seleccionarMesa, actualizarCanasta, calcularTotal } from "../Actions/canastaActions";
+import { seleccionarMesa, actualizarCanasta, calcularTotal, vaciarCanasta } from "../Actions/canastaActions";
 import { ToastContainer, toast } from "react-toastify";
 import "../Estilos/Mesas.scss";
 import { traerProductosMesa } from "../Services/ApiMesas";
+import ca from "date-fns/esm/locale/ca/index.js";
 
 const Mesa = ({Mesa}) => {
   const { idMesa, Descripcion, Estado } = Mesa;
@@ -21,6 +22,8 @@ const Mesa = ({Mesa}) => {
   const disponible = () => {
     console.log("Mesa disponible");
     dispatch(seleccionarMesa(idMesa));
+    dispatch(vaciarCanasta())
+    dispatch(calcularTotal())
   }
   const bloqueada = () => {
 
@@ -28,7 +31,7 @@ const Mesa = ({Mesa}) => {
 
   const ocupada = () => {
     traerProductosMesa(idMesa).then((productos) => {
-      dispatch(actualizarCanasta(productos));
+      dispatch(vaciarCanasta());
       dispatch(seleccionarMesa(idMesa));
       dispatch(calcularTotal());
 

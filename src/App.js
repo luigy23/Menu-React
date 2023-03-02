@@ -19,6 +19,7 @@ import { Productos } from "./App/Componentes/Dash/Vistas/Productos/Productos";
 import { traerProductos } from "./App/Services/ApiProductos";
 import { Categorias } from "./App/Componentes/Dash/Vistas/Categorias/Categorias";
 import Caja from "./App/Componentes/Dash/Vistas/Caja/Caja";
+import Cuenta from "./App/Pages/Cuenta";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,13 +69,18 @@ function App() {
       <Router>
         <div id="principal">
           <Routes>
-            <Route path="/" element={<Menu></Menu>} />
-            <Route path="/Mesas" element={<Mesas></Mesas>} />
+            <Route path="/" element={<>
+
+            <Menu></Menu></>} />
+            <Route path="/Mesas" element={<Mesas></Mesas>} >
+              </Route>
+              <Route path="/Cuenta" element={<Cuenta/>} />
             <Route path="/admin" element={<Admin />}>
               <Route index element={<Pedidos />} />
               <Route path="caja" element={<Caja/>} />
               <Route path="productos" element={<Productos />} />
               <Route path="categorias" element={<Categorias/>} />
+              
             </Route>
 
             <Route path="/pedidos" element={<Admin />} />

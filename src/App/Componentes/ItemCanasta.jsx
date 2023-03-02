@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux"
 import { addToCart, calcularTotal, delToCart } from "../Actions/canastaActions";
 import { useEffect } from 'react';
 import "../Estilos/Canasta.scss"
-const ItemCanasta = ({ data, index }) => {
+const ItemCanasta = ({ data }) => {
 
   const dispatch = useDispatch()
   const {Nombre, Cantidad} = data
