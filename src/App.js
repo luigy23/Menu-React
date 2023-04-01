@@ -80,6 +80,7 @@ function App() {
               <Route path="caja" element={<Caja/>} />
               <Route path="productos" element={<Productos />} />
               <Route path="categorias" element={<Categorias/>} />
+             
               
             </Route>
 

@@ -19,7 +19,7 @@ const oldMenu = () => {
       <ItemCanasta key={index} data={producto} index={index} />
     ))}
   </ul>
-  <p className="texto-confirmar">Mesa: {mesa}</p>
+  <p className="texto-confirmar">Mesa: {mesa.idMesa}</p>
   <button onClick={() => clickEnviarPedido()} className="btn-confimar">
     confirmar Pedido
   </button>
@@ -45,7 +45,7 @@ const oldMenu = () => {
     <h3>Total = ${total}</h3>
     <Link className="Link" to={"/Mesas"}>
       <div>
-        <h3>{mesa}</h3>
+        <h3>{mesa.idMesa}</h3>
       </div>
     </Link>
     <button onClick={() => openModal()} className="btn-pedir">

@@ -126,6 +126,7 @@ const Pedido = ({ hora, pedido }) => {
                   Comentario={item.Comentario}
                   idPedido={pedido.idPedido}
                   codProducto={item.codProducto}
+                  idRegistro={item.idRegistro}
                 ></ItemPedido>
               ))}
             </div>

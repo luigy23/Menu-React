@@ -56,8 +56,8 @@ export const calcularTotal = () => {
   return { type: CALCULAR_TOTAL };
 };
 
-export const seleccionarMesa = (id) => {
-  return { type: SELECCIONAR_MESA, payload: id };
+export const seleccionarMesa = (mesa) => {
+  return { type: SELECCIONAR_MESA, payload: mesa };
 };
 export const buscarProductos = (busqueda) => {
   return { type: BUSCAR_PRODUCTOS, payload: busqueda };

@@ -56,13 +56,22 @@ export const traerProductos = async()=>{
 
  }
 
-  // const traerProductos = ()=>{
-  //   fetch(api+"/productos") //traemos productos de API
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       //Llamada a metodo para actualizar los productos
-  //       dispatch(cargadeProductos(data));
-  //       console.log(data);
-  //       setCargado(true);
-  //     });
-  // }
+export const productoListo = async (producto) => {
+  const { codProducto, idPedido, idRegistro } = producto;
+  const res = await axios.put(api+"/productos/listo", {
+    codProducto,
+    idPedido,
+    idRegistro,
+  });
+  return res.data;
+}
+
+export const productoCancelado = async (producto) => {
+  const { codProducto, idPedido, idRegistro } = producto;
+  const res = await axios.put(api+"/productos/cancelado", {
+    codProducto,
+    idPedido,
+    idRegistro,
+  });
+  return res.data;
+}

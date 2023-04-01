@@ -18,10 +18,10 @@ import Buscador from "../Componentes/Buscador";
 import MenuNav from "../Componentes/MenuNav";
 // Contexto de socket
 
-import { calcularTotal, vaciarCanasta } from "../Actions/canastaActions"; // Acciones de canasta
+import { calcularTotal, seleccionarMesa, vaciarCanasta } from "../Actions/canastaActions"; // Acciones de canasta
 import axios from "axios";
 import MenuCategorias from "../Componentes/MenuCategorias";
-
+import { nuevoPedido, añadirProductosPedido } from "../Services/ApiPedidos";
 //IConos
 import Icarro from "../Assets/Icons/ICarro";
 import Icuenta from "../Assets/Icons/Icuenta";
@@ -40,9 +40,36 @@ function Menu() {
 
   //METODOS
   const enviarPedidoAPI = async (pedido) => {
+
+    if (pedido.Productos.length === 0) {
+      toast.error("No hay productos en el pedido");
+      return;
+    }
+    if (mesa.Estado === "Ocupado") {
+      try {
+        const response = await toast.promise(
+          añadirProductosPedido(mesa.idMesa,pedido.Productos),
+          {
+            pending: "Promise is pending",
+            success: "Pedido Enviado 👌",
+            error: {
+              render({ data }) {
+                return `Error: ${data.response.data}`;
+              },
+            },
+          }
+        );
+        console.log("respuesta de añadir productos: ", response);
+        
+    }catch (error) {
+      console.log("error al enviar pedido: ", error);
+    }
+    return;
+  }
+
     try {
       const response = await toast.promise(
-        axios.post(process.env.REACT_APP_API + "/nuevo/pedido", pedido),
+        nuevoPedido(pedido),
         {
           pending: "Promise is pending",
           success: "Pedido Enviado 👌",
@@ -52,20 +79,24 @@ function Menu() {
             },
           },
         }
+       
       );
+      console.log("respuesta de nuevo pedido: ", response);
+      dispatch(seleccionarMesa({idMesa:mesa.idMesa,Estado:"Ocupado"}))
       dispatch(vaciarCanasta());
       dispatch(calcularTotal());
-      console.log(response);
+      
     } catch (error) {
       console.log("error al enviar pedido: ", error);
     }
   };
 
   const clickEnviarPedido = () => {
-    let pedido = {};
+    let pedido = {}; //objeto pedido
     let mesero = "JPEREZ";
+    alert("tengo esta mesa: " + mesa.Estado);
 
-    const productosPedido = canasta.map((item) => {
+    const productosPedido = canasta.map((item) => { //recorrer canasta y crear un objeto con los datos del pedido
       return {
         id: item.codProducto,
         cantidad: item.Cantidad,
@@ -74,16 +105,16 @@ function Menu() {
       };
     });
 
-    pedido = {
+    pedido = { //objeto pedido con los datos del pedido
       Mesero: mesero,
-      Mesa: mesa,
+      Mesa: mesa.idMesa,
       Productos: productosPedido,
       Total: total,
     };
     //console.log("pedido=", pedido);
-    enviarPedidoAPI(pedido);
-    closeModal();
-    dispatch(calcularTotal());
+    enviarPedidoAPI(pedido); //enviar pedido a la API
+    closeModal(); //cerrar modal
+    dispatch(calcularTotal()); //calcular total
   };
 
   useEffect(() => {
@@ -123,7 +154,7 @@ function Menu() {
       >
         <div className="flex flex-col px-2">
           <div className="flex justify-center text-center gap-3 py-2 ">
-            <span className="bg-elm-200 px-2 rounded-md">Mesa: {mesa}</span>
+            <span className="bg-elm-200 px-2 rounded-md">Mesa: {mesa.idMesa}</span>
             <span className="bg-shamrock-300 px-2 rounded-md">
               {formatPrecio(total)}
             </span>
@@ -158,7 +189,7 @@ function Menu() {
         <MenuCategorias filtrar={filtrarCategoria} />
       </HeaderMenu>
       <div className="flex flex-col items-center justify-start bg-white min-h-screen">
-        <div className="productosContenedor flex flex-wrap gap-2 py-2 ">
+        <div className="productosContenedor flex flex-wrap gap-2 py-2 items-center justify-center">
           {productosMenu.map((producto) => (
             <Producto
               key={producto.codProducto}
@@ -191,7 +222,7 @@ function Menu() {
                   Mesa:{" "}
                   <span className="font-semibold text-shamrock-600">
                     {" "}
-                    #{mesa}
+                    #{mesa.idMesa}
                   </span>{" "}
                 </span>
               </li>

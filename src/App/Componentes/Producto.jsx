@@ -43,7 +43,7 @@ const Producto = ({ producto }) => {
   return (
     <>
       <div onClick={click} id={producto.codProducto} className="contenedor-p ">
-        <div className="w-4/5 overflow-hidden">
+        <div className="w-4/5 overflow-hidden max-sm:w-3/4 items-center">
         <img className="  imgProducto " src={producto.Imagen} alt="Imagen" />
         </div>
         <h3 className="titulo">{producto.Nombre}</h3>

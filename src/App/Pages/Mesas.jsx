@@ -47,7 +47,7 @@ export const Mesas = () => {
 
 
     <div className='justify-center items-center text-center w-full bg-slate-700 h-screen py-8'>
-    <h1 className='text-xl text-slate-50'>{mesa}</h1>
+    <h1 className='text-xl text-slate-50'>{mesa.idMesa}</h1>
     
     <div className='contenedor-mesas space-x-2 space-y-1'>
       {

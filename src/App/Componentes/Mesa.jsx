@@ -21,7 +21,7 @@ const Mesa = ({Mesa}) => {
 
   const disponible = () => {
     console.log("Mesa disponible");
-    dispatch(seleccionarMesa(idMesa));
+    dispatch(seleccionarMesa(Mesa));
     dispatch(vaciarCanasta())
     dispatch(calcularTotal())
   }
@@ -32,7 +32,7 @@ const Mesa = ({Mesa}) => {
   const ocupada = () => {
     traerProductosMesa(idMesa).then((productos) => {
       dispatch(vaciarCanasta());
-      dispatch(seleccionarMesa(idMesa));
+      dispatch(seleccionarMesa(Mesa));
       dispatch(calcularTotal());
 
     })

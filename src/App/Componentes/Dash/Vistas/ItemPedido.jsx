@@ -7,7 +7,7 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../../Estilos/ItemPedido.css";
-import axios from "axios";
+import { productoListo, productoCancelado } from "../../../Services/ApiProductos";
 const ItemPedido = ({
   Cantidad,
   Nombre,
@@ -15,40 +15,30 @@ const ItemPedido = ({
   idPedido,
   codProducto,
   Estado,
+  idRegistro,
 }) => {
   const handleRigthClick = (e) => {
     e.preventDefault();
     alert("clock derecho");
   };
   
-  const productoListo = () => {
-    axios
-      .put(process.env.REACT_APP_API+"/ProductoListo", {
-        codProducto: codProducto,
-        idPedido: idPedido,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log("error en Producto Listo: ",error);
-      });
+  const clicListo = async () => {
+    try {
+      await productoListo({ codProducto, idPedido, idRegistro });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const productoCancelado = () => {
-    axios
-      .put(process.env.REACT_APP_API+"/ProductoCancelado", {
-        codProducto: codProducto,
-        idPedido: idPedido,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      console.log()
-  };
+  const clicCancelado = async() => {
+    try {
+      await productoCancelado({ codProducto, idPedido, idRegistro });
+
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
   return Estado == "Pendiente" 
   ? (
@@ -62,13 +52,13 @@ const ItemPedido = ({
   </div>
   <div className="space-y-1">
     <button
-      onClick={productoListo}
+      onClick={clicListo}
       onContextMenu={(e) => handleRigthClick(e)}
       className="btn w-full boton-listo"
     >
       Listo <Icono className="icono-listo" icon={faCheck}></Icono>
     </button>
-    <button onClick={productoCancelado} className="btn w-full boton-eliminar">
+    <button onClick={clicCancelado} className="btn w-full boton-eliminar">
       Eliminar <Icono className="icono-eliminar" icon={faXmark}></Icono>
     </button>
   </div>
@@ -86,7 +76,7 @@ const ItemPedido = ({
   </div>
   <div className="space-y-1">
     Listo <Icono className="w-5" icon={faCheck}></Icono>
-    <button onClick={productoCancelado} className="btn w-full boton-eliminar">
+    <button onClick={clicCancelado} className="btn w-full boton-eliminar">
       Eliminar <Icono className="w-5" icon={faXmark}></Icono>
     </button>
   </div>

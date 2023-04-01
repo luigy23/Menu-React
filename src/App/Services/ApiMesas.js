@@ -20,4 +20,5 @@ export const traerProductosMesa = async (id) => {
         console.log(error);
     }
 };
+
     

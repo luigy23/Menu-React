@@ -11,6 +11,7 @@
     // overflow: hidden;
     @apply flex flex-col w-40 h-44 
     shadow-lg 
+    py-2
     bg-white items-center 
     justify-center 
     cursor-pointer
@@ -18,7 +19,11 @@
     hover:scale-105
     ease-in-out
     transition-all
+    max-sm:w-36 max-sm:h-36
+
     ;
+    // tailwind responsive:
+    // max-sm:w-36 max-sm:h-36
     
     
 
@@ -27,8 +32,12 @@
   } 
   
   .imgProducto {
-    @apply object-cover w-full
+    @apply object-cover w-full 
+     ;
+    //tailwind responsive:
+    // max-sm:w-36 max-sm:h-36
   }
+  //tail
   
 .titulo{
   @apply text-base text-center px-2 font-semibold text-neutral-900

@@ -16,7 +16,7 @@ export const inicialState = {
   productos: [],
   canasta: [],
   total: 0,
-  mesa: "sin mesa",
+  mesa: {idMesa:0, Estado:""},
   filtro: [],
 };
 export function canastaReducer(state = inicialState, action) {
