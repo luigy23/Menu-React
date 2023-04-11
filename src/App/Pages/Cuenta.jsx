@@ -1,15 +1,17 @@
-import React from "react";
-
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
+import { ioSocket } from "../Socket";
+
 import MenuNav from "../Componentes/MenuNav";
+import Factura from "../Componentes/Funcionales/Factura";
+import TablaFactura from "../Componentes/Dash/Vistas/Caja/TablaFactura";
+
 import { formatPrecio } from "../Services/formatPrecio";
 import { traerProductosMesa } from "../Services/ApiMesas";
-import { Link } from "react-router-dom";
+
 import "../Estilos/Cuenta.css";
-import { ioSocket } from "../Socket";
-import { useReactToPrint } from "react-to-print";
-import Factura from "../Componentes/Funcionales/Factura";
 
 const Cuenta = () => {
   const [pedido, setPedido] = useState([]);
@@ -21,12 +23,7 @@ const Cuenta = () => {
     content: () => impresion.current,
     copyStyles: true,
   });
-  const estado = {
-    //objeto con los estados de los productos
-    Pendiente: "⏳",
-    Listo: "✅",
-    Cancelado: "❌",
-  };
+
 
   const cargarProductosMesa = () => {
     traerProductosMesa(mesa.idMesa).then((res) => {
@@ -70,46 +67,7 @@ const Cuenta = () => {
               )}
             </span>
           </div>
-          <table className="Tabla_Factura">
-            <thead>
-              <tr>
-                <th>E</th>
-                <th>Producto</th>
-                <th>Cant.</th>
-                <th>Precio u.</th>
-                <th>Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                //codigo de una forma de hacerlo en la que si se repite el nombre del item se suman las cantidades:
-                pedido.map((item) => {
-                  const subtotal = item.Precio * item.Cantidad;
-                  return (
-                    <tr key={item.codProducto}>
-                      <td>{estado[item.Estado]}</td>
-                      <td>{item.Nombre}</td>
-                      <td>{item.Cantidad}</td>
-                      <td>{formatPrecio(item.Precio)}</td>
-                      <td>{formatPrecio(subtotal)}</td>
-                    </tr>
-                  );
-                })
-              }
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colSpan="4">Total</td>
-                <td>
-                  {formatPrecio(
-                    pedido.reduce((total, item) => {
-                      return total + item.Precio * item.Cantidad;
-                    }, 0)
-                  )}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+          <TablaFactura pedido={pedido} />
         </div>
         <div
           name="botones"

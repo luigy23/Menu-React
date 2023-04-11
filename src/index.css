@@ -23,6 +23,12 @@ button{
 }
 
 
+input {
+  
+  @apply border-b-2 border-gray-300 focus:outline-none focus:border-t-rhino-300 ;
+}
+
+
   .itemMenu {
     @apply cursor-pointer w-full rounded-md border-slate-200 border-2 text-gray-800 hover:bg-sky-500 hover:text-green-50 active:bg-cyan-900 flex px-2 transition-colors select-none font-medium xl:justify-start justify-center;
   }

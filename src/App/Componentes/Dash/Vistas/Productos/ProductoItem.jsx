@@ -40,7 +40,7 @@ export const ProductoItem = ({ producto }) => {
         </div>
       </div>
       {isOpenModal 
-      ? (
+      && (
         <Modal estilo={"w-4/5 overflow-scroll scrollbar"} isOpen={isOpenModal} closeModal={closeModal}>
             
             <div className="   flex flex-column flex-wrap  w-full justify-center p-2 gap-1">
@@ -54,9 +54,7 @@ export const ProductoItem = ({ producto }) => {
 
 
         </Modal>
-      ): (
-        ""
-      )}
+)}
     </>
   );
 };

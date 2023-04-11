@@ -1,0 +1,50 @@
+.label-metodo-pago {
+    @apply px-2 py-1 shadow-md rounded-full transition-all ease-in-out cursor-pointer;
+  }
+
+/* cuando el label esté seleccionado: */
+.label-pago-selected {
+    @apply bg-blue-500 text-white;
+  }
+
+.label-metodo-pago > input[type="radio"] {
+    @apply hidden;
+  }
+
+  .label-total {
+    @apply text-xl font-semibold bg-blue-500 text-white;
+  }
+
+
+  .stepsul{
+    @apply flex flex-row gap-5 relative ;
+  }
+
+  .stepsul::before {
+    content: "";
+    top: 47%;
+    left: -8%;
+    z-index: 5;
+    
+    @apply 
+    w-36 rounded-xl h-1  absolute bg-scooter-200;
+   ;
+  }
+
+
+  .stepsul li {
+    z-index: 10;
+    @apply w-7 h-7 bg-white text-center rounded-full border-2 cursor-pointer ;
+  }
+  .stepsul li.active {
+    @apply bg-scooter-600 text-white border-scooter-600;
+  }
+  /* añadiremos una barra que una los steps: */
+
+  .btn-next{
+    @apply bg-scooter-500 text-white px-2 py-1  shadow-md hover:bg-scooter-600;
+  }
+
+  .btn-back{
+    @apply  px-2 py-1  shadow-md ;
+  }

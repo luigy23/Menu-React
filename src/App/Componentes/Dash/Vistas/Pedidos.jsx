@@ -21,17 +21,21 @@ const Pedidos = () => {
     });
   };
 
-  const todosPedidos = () => {
-    traerLosPedidos(null);
+
+
+
+  const seleccionarEstado = (e) => {
+    setEstadoPedido(e.target.value);
+    traerLosPedidos(e.target.value);
   };
 
   const recibirActualización = () => {
-    traerLosPedidos();
+    traerLosPedidos(estadoPedido);
     console.log("actualizado");
   };
 
   useEffect(() => {
-    traerLosPedidos(estadoPedido);
+    traerLosPedidos("Pendiente");
 
     ioSocket.on("actualizado", recibirActualización);
     //request a la api
@@ -44,9 +48,27 @@ const Pedidos = () => {
   }, []);
   return (
     <>
-      <button onClick={todosPedidos} className="bg-zinc-800 text-white">
-        Cargar pedidos
-      </button>
+      <form className="flex  gap-4">
+        <label className="font-semibold">Seleccionar Estado Pedido</label>
+        <label
+          className={`label-metodo-pago ${
+            estadoPedido === "Pendiente" ? "label-pago-selected" : ""
+          }`}
+        >
+          Pendiente
+          <input type="radio" name="estado" value="Pendiente" onChange={seleccionarEstado} />
+        </label>
+        <label
+          className={`label-metodo-pago ${
+            estadoPedido  ?  "" :"label-pago-selected"
+          }`}
+        >
+          Todos
+          <input type="radio" name="estado" value={null}  onChange={seleccionarEstado} />
+        </label>
+
+      </form>
+
       <div className="contenedorPedidos scrollbar neomorfismo">
         <div className="Pedidos w-full flex flex-wrap">
           {!pedidos.length

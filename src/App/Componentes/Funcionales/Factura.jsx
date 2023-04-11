@@ -11,13 +11,9 @@ const Factura = ({ pedido, impresion }) => {
 
   return (
     <div className="factura" ref={impresion}>
-      <div className="flex justify-center text-center gap-3 py-2 ">
+      <div className="flex flex-col text-center gap-2">
         <h1>Factura</h1>
-      </div>
-      <div className="flex justify-center text-center gap-3 py-2 ">
         <h2>Restaurante</h2>
-      </div>
-      <div className="flex justify-center text-center gap-3 py-2 ">
         <h3>Fecha: {new Date().toLocaleDateString()}</h3>
         <h3>Mesa:{mesa.idMesa}</h3>
       </div>
