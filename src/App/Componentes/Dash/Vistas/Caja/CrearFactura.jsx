@@ -6,7 +6,8 @@ import TablaFactura from "./TablaFactura";
 import "../../../../Estilos/Caja.css";
 import { formatPrecio } from "../../../../Services/formatPrecio";
 import { crearFactura } from "../../../../Services/ApiFacturas";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import { obtenerMetodosPago } from "../../../../Services/ApiMetodosPago";
 
 const CrearFactura = () => {
   const [pedido, setPedido] = useState([]);
@@ -90,9 +91,18 @@ const Cuenta = ({ setStep, mesa, pedido }) => {
 
 const Pago = ({ setStep, pedido, mesa }) => {
   const [pago, setPago] = useState("efectivo");
+  const [metodosPago, setMetodosPago] = useState([]);
   const [montoRecibido, setMontoRecibido] = useState(0);
   const [montoCambio, setMontoCambio] = useState(0);
   const [descuento, setDescuento] = useState(0);
+
+  useEffect(() => {
+    const cargarMetodosPago = async () => {
+      const resultado = await obtenerMetodosPago();
+      setMetodosPago(resultado.metodos_pago);
+    };
+    cargarMetodosPago();
+  }, []);
 
   const enviarFactura = async () => {
     //verificar que el monto recibido sea mayor al total
@@ -100,22 +110,45 @@ const Pago = ({ setStep, pedido, mesa }) => {
       alert("El monto recibido debe ser mayor al total");
       return;
     }
+
+    //sacar id de pago seleccionado:
+    const metodoPago = metodosPago.find((metodo) => metodo.Nombre === pago).idMetodoPago
+    console.log(metodoPago);
+
+
+
+
+
     const factura = {
-      idCaja: 1,
       mesa: mesa,
-      idMetodoPago: 1,
+      idMetodoPago: metodoPago,
       idUsuario: "JPEREZ",
       recibido: montoRecibido,
       descuento: descuento,
     };
-    const response = await crearFactura(factura);
+
+    const response = await toast.promise(crearFactura(factura), {
+      pending: "Facturando...",
+      success: "Factura creada 👌",
+      error: {
+        render({ data }) {
+          console.log(data);
+          return `Error: ${data.response.data.message}`;
+        },
+      },
+    });
+
     console.log(response);
   };
 
   const seleccionarPago = (e) => {
     setPago(e.target.value);
+    console.log(e.target.value);
+    //extraer nombre del id del metodo de pago
+ 
+
     //si no es efectivo, resetear el monto recibido y el cambio
-    if (e.target.value !== "efectivo") {
+    if (e.target.value.Nombre !== "Efectivo") {
       setMontoCambio(0);
       setMontoRecibido(calcularTotal());
     }
@@ -145,110 +178,138 @@ const Pago = ({ setStep, pedido, mesa }) => {
   };
 
   return (
-    <div className="flex flex-col p-4 gap-4">
-      <form className="flex  gap-4">
-        <label className="font-semibold">Seleccionar tipo de pago: </label>
-        <label
-          className={`label-metodo-pago ${
-            pago === "efectivo" ? "label-pago-selected" : ""
-          }`}
-        >
-          Efectivo
-          <input
-            type="radio"
-            name="pago"
-            value="efectivo"
-            onChange={seleccionarPago}
-          />
-        </label>
-        <label
-          className={`label-metodo-pago ${
-            pago === "tarjeta" ? "label-pago-selected" : ""
-          }`}
-        >
-          Tarjeta
-          <input
-            type="radio"
-            name="pago"
-            value="tarjeta"
-            onChange={seleccionarPago}
-          />
-        </label>
-        <label
-          className={`label-metodo-pago ${
-            pago === "transferencia" ? "label-pago-selected" : ""
-          }`}
-        >
-          Transferencia
-          <input
-            type="radio"
-            name="pago"
-            value="transferencia"
-            onChange={seleccionarPago}
-          />
-        </label>
-      </form>
-      {
-        //si el pago es efectivo, mostrar el input para el monto recibido y el cambio
-        pago === "efectivo" && (
-          <div className="flex gap-3">
-            <label>Monto recibido: </label>
-            <input
-              type="number"
-              onChange={handleMontoRecibido}
-              placeholder="$$"
-            />
-            <label>
-              Cambio:{" "}
-              <span className={montoCambio < 0 && "text-red-500"}>
-                {formatPrecio(montoCambio)}
-              </span>
-            </label>
-          </div>
-        )
-      }
-      <div className="flex gap-3">
-        <label className="flex gap-3">
-          Descuento:
-          <input
-            type="checkbox"
-            onChange={(e) => setDescuento(e.target.checked)}
-          />
-        </label>
+    <>
+      <div className="flex flex-col p-4 gap-4">
+        <form className="flex  gap-4">
+          <label className="font-semibold">Seleccionar tipo de pago: </label>
+          {
+            //si hay metodos de pago, mostrarlos
+            //si no hay metodos de pago, mostrar un mensaje
+            metodosPago.length > 0 ? (
+              metodosPago.map((metodo) => (
+                <label
+                  className={`label-metodo-pago ${
+                    pago === metodo.Nombre ? "label-pago-selected" : ""
+                  }`}
+                  key={metodo.IdMetodoPago}
+                >
+                  {metodo.Nombre}
+                  <input
+                    type="radio"
+                    name="pago"
+                    value={metodo.Nombre}
+                    onChange={seleccionarPago}
+                  />
+                </label>
+              ))
+            ) : (
+              <p>No hay metodos de pago</p>
+            )
+          }
+        </form>
         {
-          // si un checkbox esta seleccionado, mostrar el input para el descuento
-          descuento > 0 && (
-            <label className="flex gap-3">
+          //si el pago es efectivo, mostrar el input para el monto recibido y el cambio
+          pago === "efectivo" && (
+            <div className="flex gap-3">
+              <label>Monto recibido: </label>
               <input
                 type="number"
-                onChange={(e) => setDescuento(e.target.value)}
-                placeholder="$0"
-                value={descuento}
+                onChange={handleMontoRecibido}
+                placeholder="$$"
               />
-            </label>
+              <label>
+                Cambio:{" "}
+                <span className={montoCambio < 0 && "text-red-500"}>
+                  {formatPrecio(montoCambio)}
+                </span>
+              </label>
+            </div>
           )
         }
-      </div>
+        <div className="flex gap-3">
+          <label className="flex gap-3">
+            Descuento:
+            <input
+              type="checkbox"
+              onChange={(e) => setDescuento(e.target.checked)}
+            />
+          </label>
+          {
+            // si un checkbox esta seleccionado, mostrar el input para el descuento
+            descuento > 0 && (
+              <label className="flex gap-3">
+                <input
+                  type="number"
+                  onChange={(e) => setDescuento(e.target.value)}
+                  placeholder="$0"
+                  value={descuento}
+                />
+              </label>
+            )
+          }
+        </div>
 
-      <div className="flex flex-col">
-        <label className="label-total">
-          SubTotal: {formatPrecio(calcularTotal() - descuento)}
-        </label>
-      </div>
+        <div className="flex flex-col">
+          <label className="label-total">
+            SubTotal: {formatPrecio(calcularTotal() - descuento)}
+          </label>
+        </div>
 
-      <div className="flex justify-between">
-        <button onClick={() => setStep(1)} className=" btn-back">
-          Volver
-        </button>
-        <button
-          onClick={enviarFactura}
-          className="bg-shamrock-500 hover:bg-shamrock-600 w-1/3 py-2 px-4 text-white"
-        >
-          Pagar
-        </button>
+        <div className="flex justify-between">
+          <button onClick={() => setStep(1)} className=" btn-back">
+            Volver
+          </button>
+          <button
+            onClick={enviarFactura}
+            className="bg-shamrock-500 hover:bg-shamrock-600 w-1/3 py-2 px-4 text-white"
+          >
+            Pagar
+          </button>
+        </div>
       </div>
-    </div>
+      <ToastContainer />
+    </>
   );
 };
 
 export default CrearFactura;
+
+// <label
+// className={`label-metodo-pago ${
+//   pago === "efectivo" ? "label-pago-selected" : ""
+// }`}
+// >
+// Efectivo
+// <input
+//   type="radio"
+//   name="pago"
+//   value="efectivo"
+//   onChange={seleccionarPago}
+// />
+// </label>
+// <label
+// className={`label-metodo-pago ${
+//   pago === "tarjeta" ? "label-pago-selected" : ""
+// }`}
+// >
+// Tarjeta
+// <input
+//   type="radio"
+//   name="pago"
+//   value="tarjeta"
+//   onChange={seleccionarPago}
+// />
+// </label>
+// <label
+// className={`label-metodo-pago ${
+//   pago === "transferencia" ? "label-pago-selected" : ""
+// }`}
+// >
+// Transferencia
+// <input
+//   type="radio"
+//   name="pago"
+//   value="transferencia"
+//   onChange={seleccionarPago}
+// />
+// </label>

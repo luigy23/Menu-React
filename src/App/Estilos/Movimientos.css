@@ -1,0 +1,18 @@
+.contenedorMovimiento{
+
+    @apply
+    bg-white
+    flex
+    flex-wrap
+    w-fit
+    p-2
+    rounded-lg
+    shadow-md
+    gap-2;
+}
+
+.etiqueta {
+    @apply
+    p-1 flex justify-center items-center rounded-full text-xs font-medium;
+}
+

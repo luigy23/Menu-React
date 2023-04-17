@@ -10,3 +10,8 @@ export const inicializarCaja = async (saldo) => {
     return caja;
     }
 
+export const traerCaja = async () => {
+    const res = await axios(api + '/caja');
+    const caja = res.data;
+    return caja;
+    }
