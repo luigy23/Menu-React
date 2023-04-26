@@ -77,8 +77,8 @@ function App() {
               </Route>
               <Route path="/Cuenta" element={<Cuenta/>} />
             <Route path="/admin" element={<Admin />}>
-              <Route index element={<Pedidos />} />
-              <Route path="caja" element={<Caja/>} />
+              <Route path="pedidos" element={<Pedidos />} />
+              <Route  index element={<Caja/>} />
               <Route path="productos" element={<Productos />} />
               <Route path="categorias" element={<Categorias/>} />
               <Route path="metodosPago" element={<MetodosPagoAdmin/>} />

@@ -45,7 +45,7 @@ function Menu() {
       toast.error("No hay productos en el pedido");
       return;
     }
-    if (mesa.Estado === "Ocupado") {
+    if (mesa.Estado === "Ocupado" || mesa.Estado === "Sin Pagar") {
       try {
         const response = await toast.promise(
           añadirProductosPedido(mesa.idMesa,pedido.Productos),
@@ -59,6 +59,9 @@ function Menu() {
             },
           }
         );
+        dispatch(vaciarCanasta());
+        dispatch(calcularTotal());
+
         console.log("respuesta de añadir productos: ", response);
         
     }catch (error) {
@@ -94,7 +97,7 @@ function Menu() {
   const clickEnviarPedido = () => {
     let pedido = {}; //objeto pedido
     let mesero = "JPEREZ";
-    alert("tengo esta mesa: " + mesa.Estado);
+    //alert("tengo esta mesa: " + mesa.Estado);
 
     const productosPedido = canasta.map((item) => { //recorrer canasta y crear un objeto con los datos del pedido
       return {

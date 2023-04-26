@@ -4,8 +4,8 @@ import logo from "../../Assets/duo2.png"
 import { Link } from "react-router-dom";
 const NavBar = () => {
   const menu = [
-    { nombre: "Caja", icono: "💰", link:"caja" },
-    { nombre: "Pedidos", icono: "📝", link:"" },
+    { nombre: "Caja", icono: "💰", link:"" },
+    { nombre: "Pedidos", icono: "📝", link:"pedidos" },
     { nombre: "Productos", icono: "🍛", link:"productos" },
     { nombre: "Categorias", icono: "🍔", link:"categorias" },
     { nombre: "Mesas", icono: "🎲" },

@@ -184,7 +184,7 @@ const Pago = ({ setStep, pedido, mesa }) => {
   };
 
   const handleMontoRecibido = async (e) => {
-    if (pago === "efectivo") {
+    if (pago === "Efectivo") {
       calcularCambio(e.target.value);
     }
     setMontoRecibido(e.target.value);
