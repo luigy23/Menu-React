@@ -6,6 +6,9 @@ import { useModal } from "../../../../../Hooks/useModal";
 import { toast, ToastContainer } from "react-toastify";
 import { traerCaja } from "../../../../../Services/ApiCaja";
 import { formatPrecio } from "../../../../../Services/formatPrecio";
+import { ioSocket } from "../../../../../Socket";
+
+
 
 
 const Cajabtn = () => {
@@ -13,7 +16,12 @@ const Cajabtn = () => {
   const [caja, setCaja] = useState({});
 
 
-  const inicarCaja = async (saldo) => {
+  const recibirActualización = () => {
+    cargarCaja();
+    console.log("actualizado");
+  };
+
+  const iniciarCaja = async (saldo) => {
     const data = await toast.promise(inicializarCaja(saldo), {
         pending: "Iniciando Caja",
         success: "Caja Iniciada",
@@ -29,7 +37,7 @@ const Cajabtn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const saldo = e.target[0].value;
-    inicarCaja(saldo);
+    iniciarCaja(saldo);
     };
 
     //carga caja
@@ -51,6 +59,12 @@ const Cajabtn = () => {
 
     useEffect(() => {
         cargarCaja();
+
+        ioSocket.on("actualizarCaja", recibirActualización);
+
+        return () => {
+            ioSocket.off("actualizarCaja", recibirActualización);
+        };
         
     }, [])
 

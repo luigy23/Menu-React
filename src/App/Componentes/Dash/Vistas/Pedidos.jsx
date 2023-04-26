@@ -16,7 +16,13 @@ const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
 
   const traerLosPedidos = (estado) => {
-    traerPedidos(estado).then((pedidos) => {
+
+    let limit = null;
+    if (estado == "") {
+      limit = 15;
+    }
+
+    traerPedidos(estado,null,limit).then((pedidos) => {
       setPedidos(pedidos);
     });
   };

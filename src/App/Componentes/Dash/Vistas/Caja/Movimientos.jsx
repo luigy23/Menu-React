@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { traerMovimientos } from '../../../../Services/ApiMovimientos'
 import "../../../../Estilos/Movimientos.css"
 import Movimiento from './Movimiento'
+import { ioSocket } from '../../../../Socket'
 
 const Movimientos = () => {
 
     const [movimientos, setMovimientos] = useState([])
-
+    const recibirActualización = () => {
+        traerMovimientosCaja()
+        console.log("actualizado");
+    };
     const traerMovimientosCaja = async () => {
         const movimientos = await traerMovimientos()
         setMovimientos(movimientos)
@@ -14,6 +18,10 @@ const Movimientos = () => {
 
     useEffect(() => {
         traerMovimientosCaja()
+        ioSocket.on("actualizarCaja", recibirActualización);
+        return () => {
+            ioSocket.off("actualizarCaja", recibirActualización);
+        };
 
     }, [])
 

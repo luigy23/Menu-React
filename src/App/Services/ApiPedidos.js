@@ -8,13 +8,13 @@ export const nuevoPedido = async (pedido) => {
 };
 
 
-export const traerPedidos = async (estado, id=null) => {
+export const traerPedidos = async (estado, id=null, limit= null) => {
     if (id) {
-        const res = await axios(api + "/pedidos", { params: { estado, id } });
+        const res = await axios(api + "/pedidos", { params: { estado, id, limit } });
         const pedidos = res.data;
         return pedidos;
     }
-  const res = await axios(api + "/pedidos", { params: { estado } });
+  const res = await axios(api + "/pedidos", { params: { estado, limit:limit } });
   const pedidos = res.data;
   return pedidos;
 };

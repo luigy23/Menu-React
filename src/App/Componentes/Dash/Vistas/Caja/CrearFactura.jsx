@@ -8,6 +8,7 @@ import { formatPrecio } from "../../../../Services/formatPrecio";
 import { crearFactura } from "../../../../Services/ApiFacturas";
 import { ToastContainer, toast } from "react-toastify";
 import { obtenerMetodosPago } from "../../../../Services/ApiMetodosPago";
+import { useReactToPrint } from "react-to-print";
 
 const CrearFactura = () => {
   const [pedido, setPedido] = useState([]);
@@ -47,6 +48,7 @@ const CrearFactura = () => {
       setStep={setStep}
     />,
     <Pago setStep={setStep} pedido={pedido} mesa={mesa} />,
+  
   ];
 
   return (
@@ -104,6 +106,16 @@ const Pago = ({ setStep, pedido, mesa }) => {
     cargarMetodosPago();
   }, []);
 
+  //use ref
+  const impresion = useRef();
+
+  const imprimirFactura = useReactToPrint({
+      content: () => impresion.current,
+      copyStyles: true,
+    });
+
+
+
   const enviarFactura = async () => {
     //verificar que el monto recibido sea mayor al total
     if (montoRecibido < calcularTotal()) {
@@ -112,12 +124,10 @@ const Pago = ({ setStep, pedido, mesa }) => {
     }
 
     //sacar id de pago seleccionado:
-    const metodoPago = metodosPago.find((metodo) => metodo.Nombre === pago).idMetodoPago
+    const metodoPago = metodosPago.find(
+      (metodo) => metodo.Nombre === pago
+    ).idMetodoPago;
     console.log(metodoPago);
-
-
-
-
 
     const factura = {
       mesa: mesa,
@@ -139,13 +149,16 @@ const Pago = ({ setStep, pedido, mesa }) => {
     });
 
     console.log(response);
+    if (response) {
+      setStep(0);
+    }
+    imprimirFactura();
   };
 
   const seleccionarPago = (e) => {
     setPago(e.target.value);
     console.log(e.target.value);
     //extraer nombre del id del metodo de pago
- 
 
     //si no es efectivo, resetear el monto recibido y el cambio
     if (e.target.value.Nombre !== "Efectivo") {
@@ -209,7 +222,7 @@ const Pago = ({ setStep, pedido, mesa }) => {
         </form>
         {
           //si el pago es efectivo, mostrar el input para el monto recibido y el cambio
-          pago === "efectivo" && (
+          pago === "Efectivo" && (
             <div className="flex gap-3">
               <label>Monto recibido: </label>
               <input
@@ -265,51 +278,33 @@ const Pago = ({ setStep, pedido, mesa }) => {
           >
             Pagar
           </button>
+          <button
+          onClick={imprimirFactura}
+          >
+            imprimir
+          </button>
+
         </div>
       </div>
+      
       <ToastContainer />
+      <div
+          
+          style={{
+            display: "none",
+          }}
+        >
+          <Factura 
+          impresion={impresion}
+          pedido={pedido}
+          />
+
+        </div>
     </>
   );
 };
 
+
+
 export default CrearFactura;
 
-// <label
-// className={`label-metodo-pago ${
-//   pago === "efectivo" ? "label-pago-selected" : ""
-// }`}
-// >
-// Efectivo
-// <input
-//   type="radio"
-//   name="pago"
-//   value="efectivo"
-//   onChange={seleccionarPago}
-// />
-// </label>
-// <label
-// className={`label-metodo-pago ${
-//   pago === "tarjeta" ? "label-pago-selected" : ""
-// }`}
-// >
-// Tarjeta
-// <input
-//   type="radio"
-//   name="pago"
-//   value="tarjeta"
-//   onChange={seleccionarPago}
-// />
-// </label>
-// <label
-// className={`label-metodo-pago ${
-//   pago === "transferencia" ? "label-pago-selected" : ""
-// }`}
-// >
-// Transferencia
-// <input
-//   type="radio"
-//   name="pago"
-//   value="transferencia"
-//   onChange={seleccionarPago}
-// />
-// </label>
