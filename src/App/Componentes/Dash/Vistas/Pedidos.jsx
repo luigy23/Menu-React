@@ -85,7 +85,7 @@ const Pedidos = () => {
             ? "Cargando..."
             : pedidos.map((pedido, index) => (
                 <Pedido
-                  key={index}
+                  key={pedido.idPedido}
                   pedido={pedido}
                   hora={format(new Date(pedido.Fecha), "h:mm a")}
                 />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../Hooks/useModal";
@@ -8,18 +8,19 @@ import ItemPedido from "./ItemPedido";
 const Pedido = ({ hora, pedido }) => {
   const [isOpenModal, openModal, closeModal] = useModal(false);
   const state = useSelector((state) => state);
-  const [modal, setModal] = useState(false);
   const { canasta } = state.canasta;
   const dispatch = useDispatch();
 
   const click = () => {
     openModal();
-    setModal(true);
     console.log("abierto modal");
   };
   const clickDerecho = (e) => {
     e.preventDefault();
   };
+
+
+
 
   const { idMesa, Productos, Usuario, idPedido, Estado } = pedido;
 
@@ -104,12 +105,13 @@ const Pedido = ({ hora, pedido }) => {
         </div>
       </div>
 
-      {modal ? (
+      {isOpenModal && (
         <Modal
           estilo={"w-4/5   "}
           isOpen={isOpenModal}
           closeModal={closeModal}
-          setModal={setModal}
+          
+          
         >
           <div className="w-full h-full flex justify-center items-center flex-col p-4 overflow-hidden">
             <div className="pd-modal-info justify-center gap-9 w-full flex ">
@@ -128,15 +130,17 @@ const Pedido = ({ hora, pedido }) => {
                   codProducto={item.codProducto}
                   idRegistro={item.idRegistro}
                 ></ItemPedido>
+
               ))}
             </div>
           </div>
         </Modal>
-      ) : (
-        ""
-      )}
+      ) }
+
+      
     </>
   );
 };
+
 
 export default Pedido;
