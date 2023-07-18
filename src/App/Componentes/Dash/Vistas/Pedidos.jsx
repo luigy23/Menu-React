@@ -10,7 +10,6 @@ const Pedidos = () => {
   //const state = useSelector((state) => state); //estado
   //const { pedidos } = state.pedidos;
 
-  const dispatch = useDispatch(); //// Acciones de dispatch para modificar el estado de la canasta
   const [estadoPedido, setEstadoPedido] = useState("Pendiente");
 
   const [pedidos, setPedidos] = useState([]);
@@ -24,9 +23,12 @@ const Pedidos = () => {
 
     traerPedidos(estado,null,limit).then((pedidos) => {
       setPedidos(pedidos);
+      //cargar los pedidos en el estado de redux
+      dispatch({ type: "CARGAR_PEDIDOS", payload: pedidos });
     });
   };
 
+ const dispatch = useDispatch(); //esto es para hacer el dispacht
 
 
 
@@ -37,6 +39,7 @@ const Pedidos = () => {
 
   const recibirActualización = () => {
     traerLosPedidos(estadoPedido);
+
     console.log("actualizado");
   };
 
@@ -50,7 +53,8 @@ const Pedidos = () => {
       ioSocket.off("actualizado", recibirActualización);
     };
 
-    //dispacht
+    
+
   }, []);
   return (
     <>

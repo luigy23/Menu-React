@@ -32,6 +32,11 @@ const Cuenta = () => {
     });
   };
 
+
+
+
+
+
   useEffect(() => {
     cargarProductosMesa(); //cargar productos de la mesa al iniciar la pagina
     ioSocket.on("actualizado", (data) => {
