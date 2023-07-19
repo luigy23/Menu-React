@@ -4,15 +4,17 @@ import { useSelector } from "react-redux";
 
 import { formatPrecio } from "../../Services/formatPrecio";
 // este componente es el que se imprime
-const Factura = ({ pedido, impresion }) => {
+const Factura = ({ pedido, impresion, extra }) => {
   //use selector para traer el estado de la mesa: mesa, total, productos
   const state = useSelector((state) => state); //estado
   const { mesa } = state.canasta; //destructuración del estado
+  const {total, descuento, montoRecibido, montoCambio, metodoPago} = extra;
 
   return (
     <div className="factura" ref={impresion}>
       <div className="flex flex-col text-center gap-2">
         <h1>Factura</h1>
+        <h3>Metodo Pago:{metodoPago}</h3>
         <h2>Restaurante</h2>
         <h3>Fecha: {new Date().toLocaleDateString()}</h3>
         <h3>Mesa:{mesa.idMesa}</h3>
@@ -43,15 +45,20 @@ const Factura = ({ pedido, impresion }) => {
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center text-center gap-3 py-2 ">
+      <div className="flex flex-col justify-center items-center w-full  text-left gap-1 py-2 ">
+        {/* div para alinar los textos a la izquierda: */}
+
         <h7>
-          Total:
+          SubTotal:{" "}
           {formatPrecio(
             pedido.reduce((total, item) => {
               return total + item.Precio * item.Cantidad;
             }, 0)
           )}
         </h7>
+        <h7> Descuento: {formatPrecio(descuento)}</h7>
+        <h7> <b>Total</b>: {formatPrecio(total)}</h7>
+
       </div>
     </div>
   );

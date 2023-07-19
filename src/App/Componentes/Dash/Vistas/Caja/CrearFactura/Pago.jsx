@@ -274,6 +274,14 @@ const Pago = ({ setStep, pedido, mesa }) => {
             <Factura 
             impresion={impresion}
             pedido={pedido}
+            extra={{
+              total: total,
+              descuento: descuento,
+              metodoPago: pago,
+              montoRecibido: montoRecibido,
+              montoCambio: montoCambio,
+            
+            }}
             />
   
           </div>
