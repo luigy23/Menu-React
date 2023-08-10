@@ -19,7 +19,8 @@ export const iniciarSesion = async (usuario,pass) => {
     //controlamos posibles errores:
 
     //la cookie dura 1 dia:
-    Cookies.set('token', token, { expires: 1 })
+    Cookies.set('token', token, { expires: 1, sameSite: 'none', secure: true
+     })
     console.log(res.data);
     return res.data.message
     } catch (error) {
