@@ -21,10 +21,12 @@ const Caja = () => {
         <div className="grid grid-cols-8  gap-3">
           <Cajabtn />
           <NuevaFactura/>
+          
         </div>
- 
+        <div className="flex gap-2 w-full">
           <Movimientos />
-
+    
+        </div>
       </div>
 
     </>

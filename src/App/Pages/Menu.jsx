@@ -30,6 +30,7 @@ function Menu() {
   const state = useSelector((state) => state); //estado
   const dispatch = useDispatch(); //// Acciones de dispatch para modificar el estado de la canasta
   const { productos, canasta, total, mesa, filtro } = state.canasta; //destructuración del estado
+  const {user} = state.usuario;
   const [productosMenu, setProductosMenu] = useState([]); //productos del menu
   const [filtroActivo, setFiltroActivo] = useState(false); //texto de busqueda
 
@@ -96,7 +97,8 @@ function Menu() {
 
   const clickEnviarPedido = () => {
     let pedido = {}; //objeto pedido
-    let mesero = "JPEREZ";
+
+    let mesero = user;
     //alert("tengo esta mesa: " + mesa.Estado);
 
     const productosPedido = canasta.map((item) => { //recorrer canasta y crear un objeto con los datos del pedido

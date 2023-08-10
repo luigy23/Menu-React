@@ -6,10 +6,13 @@ import { obtenerMetodosPago } from "../../../../../Services/ApiMetodosPago";
 import { formatPrecio } from "../../../../../Services/formatPrecio";
 import Factura from "../../../../Funcionales/Factura";
 import { ca } from "date-fns/locale";
+import { useSelector } from "react-redux";
 
 
 
 const Pago = ({ setStep, pedido, mesa }) => {
+    const {user} = useSelector((state) => state.usuario);
+
     const [pago, setPago] = useState("efectivo");
     const [metodosPago, setMetodosPago] = useState([]);
     const [montoRecibido, setMontoRecibido] = useState(0);
@@ -66,7 +69,7 @@ const Pago = ({ setStep, pedido, mesa }) => {
       const factura = {
         mesa: mesa,
         idMetodoPago: metodoPago,
-        idUsuario: "JPEREZ",
+        idUsuario: user,
         recibido: montoRecibido,
         descuento: descuento,
       };

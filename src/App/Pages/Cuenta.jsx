@@ -94,7 +94,7 @@ const Cuenta = () => {
             display: "none",
           }}
         >
-          <Factura pedido={pedido} impresion={impresion} />
+         
         </div>
       </div>
     </>

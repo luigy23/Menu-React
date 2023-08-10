@@ -3,7 +3,7 @@ const api = process.env.REACT_APP_API;
 
 export const traerMesas = async () => {
   try {
-    const res = await axios(api + "/Mesas");
+    const res = await axios(api + "/mesas");
     const mesas = res.data;
     return mesas;
   } catch (error) {

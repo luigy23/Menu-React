@@ -26,8 +26,10 @@ const Cajabtn = () => {
         pending: "Iniciando Caja",
         success: "Caja Iniciada",
         error: {
+           
             render({ data }) {
-                return `Error: ${response.data.message}`;
+                console.log({data});
+                return ("Error al iniciar caja");
             },
         },
     });
