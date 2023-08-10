@@ -38,7 +38,7 @@ function App() {
   //Aquí guardamos los productros que llamamos de la pai
   const state = useSelector((state) => state);
   const [productos, setproductos] = useState(false)
-
+  //comentario de prueba
 
   const cargarProductos = () =>{
     traerProductos().then(
