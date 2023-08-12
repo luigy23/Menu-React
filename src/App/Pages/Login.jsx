@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { iniciarSesion } from '../Services/ApiLogin'
+import Cookies from 'js-cookie'
 
 
 const Login = () => {
@@ -46,6 +47,7 @@ const Login = () => {
             <h1
                 className='mb-4 text-4xl font-bold text-center text-white'
             >Login</h1>
+            <h2>{Cookies.get('token')}</h2>
             <form
             onSubmit={handleSubmit}
                 className="flex flex-col w-1/3 p-10 bg-white rounded-lg shadow-lg text-slate-700 "

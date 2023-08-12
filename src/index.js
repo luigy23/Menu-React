@@ -4,9 +4,20 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './App/Store';
-
+import axios from 'axios';
+import Cookies from 'js-cookie';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+axios.interceptors.request.use(config => {
+  //sacamos el token del localstorage:
+  const token = Cookies.get('token')
+  config.headers.Authorization = `Bearer ${token}`;
+  
+  return config;
+})
+
 root.render(
+  
   <React.StrictMode>
   <Provider store={store}>
 

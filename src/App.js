@@ -33,7 +33,7 @@ import RequireAuth from "./App/Login/RequiredAuth";
 
 function App() {
   const dispatch = useDispatch();
-  axios.defaults.withCredentials = true;
+  
 
   //Aquí guardamos los productros que llamamos de la pai
   const state = useSelector((state) => state);
