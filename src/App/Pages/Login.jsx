@@ -47,10 +47,10 @@ const Login = () => {
             <h1
                 className='mb-4 text-4xl font-bold text-center text-white'
             >Login</h1>
-            <h2>{Cookies.get('token')}</h2>
+            
             <form
             onSubmit={handleSubmit}
-                className="flex flex-col w-1/3 p-10 bg-white rounded-lg shadow-lg text-slate-700 "
+            className="flex flex-col md:w-1/3 p-10 bg-white rounded-lg shadow-lg text-slate-700 "
             >
                 <label htmlFor="usuario">Usuario</label>
                 <input onChange={handleChange}
