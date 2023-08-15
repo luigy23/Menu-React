@@ -9,6 +9,7 @@ const NavBar = () => {
     { nombre: "Productos", icono: "🍛", link:"productos" },
     { nombre: "Categorias", icono: "🍔", link:"categorias" },
     { nombre: "Mesas", icono: "🎲" },
+    { nombre: "Usuarios", icono: "👨‍💻", link:"usuarios" },
     { nombre: "Metodos de pago", icono: "💳", link:"metodosPago" },
   ];
 

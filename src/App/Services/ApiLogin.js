@@ -34,26 +34,61 @@ export const cerrarSesion = () => {
     Cookies.remove('token')
     localStorage.removeItem('usuario')
 }
+export const registrarUsuario = async (usuario) =>{
+    try {
+      const response = await axios.post(`${api}/registrar`, usuario);  // Reemplaza '/ruta-de-registro' con la ruta real de tu backend
+      return response.data.message;  // Devuelve el mensaje de éxito desde la respuesta del servidor
+    } catch (error) {
+      if (error.response) {
+        // Error con respuesta del servidor (código de estado diferente de 2xx)
+        if (error.response.status === 409) {
+          return 'El usuario ya existe';
+        } else {
+          return 'Error en el servidor';
+        }
+      } else if (error.request) {
+        // Error en la solicitud sin respuesta del servidor
+        return 'No se pudo comunicar con el servidor';
+      } else {
+        // Otros errores
+        return 'Error desconocido';
+      }
+    }
+  }
+
+export const traerUsuarios = async () => {
+    try {
+        const res = await axios.get(`${api}/usuarios/Activo`)
+        return res.data
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
+export const eliminarUsuario = async (usuario) => {
+    try {
+        const res = await axios.delete(`${api}/usuarios/${usuario}`)
+        return res.data.message
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-// const registrarUsuario = async (usuario) => {
-//   const { nombre, apellido, usuario, contraseña, fechaNacimiento } = usuario;
+export const obtenerUsuario = async (usuario) => {
+    try {
+        const res = await axios.get(`${api}/usuarios/usuario/${usuario}`)
+        return res.data
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-//   try {
-//     const response = await axios.post('/api/registrar', {
-//       nombre,
-//       apellido,
-//       usuario,
-//       contraseña,
-//       fechaNacimiento
-//     });
-    
-//     return response.data;
-
-//   } catch (error) {
-//     console.error(error);
-//     return { message: 'Error al registrar usuario' }; 
-//   }
-// }
-
+export const modificarUsuario = async (usuario) => {
+    try {
+        const res = await axios.put(`${api}/usuarios`, usuario)
+        return res.data.message
+    } catch (error) {
+        console.log(error);
+    }
+}

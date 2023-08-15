@@ -30,6 +30,7 @@ import axios from "axios";
 import Login from "./App/Pages/Login";
 import { loginSuccess, logout } from "./App/Reducers/usuarioReducer";
 import RequireAuth from "./App/Login/RequiredAuth";
+import Usuarios from "./App/Componentes/Dash/Vistas/Usuarios/Usuarios";
 
 function App() {
   const dispatch = useDispatch();
@@ -152,6 +153,13 @@ verificarLogueo()
                 <MetodosPagoAdmin/>
               </RequireAuth>
             } />
+
+            <Route path="usuarios" element={
+              <RequireAuth>
+                <Usuarios/>
+              </RequireAuth>
+            } />
+
             
           </Route>
           
