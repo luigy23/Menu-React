@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './App/Store';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { NextUIProvider } from '@nextui-org/system';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 axios.interceptors.request.use(config => {
@@ -20,8 +21,9 @@ root.render(
   
   <React.StrictMode>
   <Provider store={store}>
-
+  <NextUIProvider>
     <App />
+    </NextUIProvider>
 
   </Provider>
  </React.StrictMode>

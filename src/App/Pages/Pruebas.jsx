@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Usuario from '../Componentes/Usuario/Usuario'
 const Pruebas = () => {
 
 
@@ -50,6 +51,7 @@ const cerrarSesion = () => {
         className='bg-scooter-500 hover:bg-scooter-600 text-white font-bold py-2 px-4 rounded'
         >Cerrar Sesion
         </button>
+        <Usuario/>
 
 
 

@@ -1,11 +1,12 @@
 
 
-
+const {nextui} = require("@nextui-org/theme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}",
-  "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js"
+  "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
+  './node_modules/@nextui-org/theme/dist/components/(dropdown|button).js'
 ],
   theme: {
     fontFamily: {
