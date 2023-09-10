@@ -31,6 +31,7 @@ import Login from "./App/Pages/Login";
 import { loginSuccess, logout } from "./App/Reducers/usuarioReducer";
 import RequireAuth from "./App/Login/RequiredAuth";
 import Usuarios from "./App/Componentes/Dash/Vistas/Usuarios/Usuarios";
+import Configuracion from "./App/Pages/Configuracion";
 
 function App() {
   const dispatch = useDispatch();
@@ -168,6 +169,7 @@ verificarLogueo()
           <Route path="/pedidos" element={<Admin />} />
           
           <Route path="/login" element={<Login />} />
+          <Route path="/config" element={<Configuracion/>} />
           
         </Routes>
         </div>

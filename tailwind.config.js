@@ -6,7 +6,7 @@ const {nextui} = require("@nextui-org/theme");
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}",
   "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
-  './node_modules/@nextui-org/theme/dist/components/(dropdown|button).js'
+  './node_modules/@nextui-org/theme/dist/components/(dropdown|button|dropdownitem|badge).js'
 ],
   theme: {
     fontFamily: {
@@ -80,5 +80,7 @@ colors: {
       
     },
   },
-  plugins: [require('tailwindcss-neumorphism')],
+  darkMode: "class",
+
+  plugins: [nextui()],
 }

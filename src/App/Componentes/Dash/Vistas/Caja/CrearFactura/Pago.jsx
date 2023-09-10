@@ -50,6 +50,11 @@ const Pago = ({ setStep, pedido, mesa }) => {
         content: () => impresion.current,
         copyStyles: true,
       });
+    
+
+
+
+
   
   
   

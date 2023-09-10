@@ -1,12 +1,14 @@
 import React from "react";
-import "../Estilos/MenuNav.scss";
+import "../Estilos/MenuNav.css";
 
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import  {ReactComponent as IconoSilla } from "../Assets/sillas.svg" 
 import  {ReactComponent as IconoMenu } from "../Assets/menu.svg" 
+
 import { useSelector } from "react-redux";
 import Usuario from "./Usuario/Usuario";
+import Notificaciones from "./Notificaciones";
 
 
 
@@ -20,17 +22,19 @@ const MenuNav = () => {
 
 
   return (
-    <div className="menu-nav">
+    <div className="menu-nav ">
       <ul>
         <Link className="Link" to={"/admin"}>
-          <IconoSilla className="icon"/>
+          <IconoSilla className="iconoMenu "/>
         </Link>
         
         <Link className="Link" to={"/"}>
-        <IconoMenu className="icon"/>
+        <IconoMenu className="iconoMenu "/>
 
         </Link>
         <Usuario/>
+        <Notificaciones/>
+
 
         
       </ul>

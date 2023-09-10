@@ -5,7 +5,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon as Icono } from "@fortawesome/react-fontawesome";
 import { faUser} from "@fortawesome/free-solid-svg-icons";
-
+import { Link } from 'react-router-dom';
 
 
 const Usuario = () => {
@@ -21,21 +21,27 @@ const Usuario = () => {
     className=''
     >
 
-<Dropdown>
-      <DropdownTrigger>
+<Dropdown >
+      <DropdownTrigger className=''>
       <Button 
       startContent={<Icono icon={faUser} />}
-          variant="bordered" className='bg-shamrock-300 text-shamrock-700 py-1 px-2 rounded-lg gap-2 justify-center items-center hover:bg-shamrock-400 transition-colors'
+          color='success' className='bg-shamrock-400 text-shamrock-800'
         >
           {state.user}
         </Button>
       </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions" className='bg-shamrock-300 rounded-b-lg items-center justify-center'>
-        <DropdownItem key="new"  >
-            <Button className='hover:bg-shamrock-400 transition-colors w-full rounded-2xl py-1 px-2 ' onClick={cerrarSesion}>
-            Cerrar Sesion
-            </Button>
-            </DropdownItem>
+      <DropdownMenu aria-label="Static Actions" color='success' className='bg-shamrock-200'>
+        <DropdownItem key="configuracion" color='success'  className='transition-colors ease-in-out'  >
+            <Link to='/config' >
+            Configuracion
+            </Link>
+        </DropdownItem>
+        <DropdownItem key="logout" color='success' className='transition-colors ease-in-out' >
+          <button onClick={cerrarSesion}>
+          Cerrar Sesion
+          </button>
+
+        </DropdownItem>
 
       </DropdownMenu>
     </Dropdown>

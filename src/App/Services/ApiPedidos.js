@@ -19,6 +19,13 @@ export const traerPedidos = async (estado, id=null, limit= null) => {
   return pedidos;
 };
 
+export const traerPedido = async (id, estado=null, limit=null) => {
+  const res = await axios(api + "/pedidos", { params: { estado, id, limit } });
+  const pedidos = res.data;
+  return pedidos;
+}
+
+
 export const añadirProductosPedido = async (idMesa, productos) => {
   const res = await axios.put(api + "/pedidos/", { idMesa, productos });
   const pedidoActualizado = res.data;
