@@ -1,11 +1,14 @@
 // Types
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGOUT = 'LOGOUT'
+const AGREGAR_NOTIFICACION = 'AGREGAR_NOTIFICACION'
+const LIMPIAR_NOTIFICACIONES = 'LIMPIAR_NOTIFICACIONES'
 
 // Estado inicial
 const initialState = {
   isAuthenticated: false,
-  user: null
+  user: null,
+  notificaciones: []
 }
 
 // Reducer
@@ -27,6 +30,17 @@ export default function usuarioReducer(state = initialState, action) {
         user: null
       }
 
+    case AGREGAR_NOTIFICACION:
+      return {
+        ...state,
+        notificaciones: [...state.notificaciones, action.payload]
+      }
+    case LIMPIAR_NOTIFICACIONES:
+      return {
+        ...state,
+        notificaciones: []
+      }
+
     default:
       return state
 
@@ -42,4 +56,12 @@ export const loginSuccess = (user) => ({
 
 export const logout = () => ({
   type: LOGOUT
+})
+
+export const agregarNotificacion = (notificacion) => ({
+  type: AGREGAR_NOTIFICACION,
+  payload: notificacion
+})
+export const limpiarNotificaciones = () => ({
+  type: LIMPIAR_NOTIFICACIONES
 })
