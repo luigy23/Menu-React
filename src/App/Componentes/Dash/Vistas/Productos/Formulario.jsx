@@ -3,23 +3,14 @@ import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import {
   actualizarProductos,
-  crearProducto, deleteProducto
+  crearProducto,
+  deleteProducto,
 } from "../../../../Services/ApiProductos";
 //llamamos la api de categorias
 import { traerCategorias } from "../../../../Services/ApiCategorias";
 
 const Formulario = ({ data, nuevo }) => {
-
- const  [categorias, setCategorias] = useState([])
-
-useEffect(() => {
-  traerCategorias().then((data) => setCategorias(data));
-
-  return () => {
-    setCategorias([]);
-  }
-}, []);
-
+  
   const {
     codProducto,
     Nombre,
@@ -28,11 +19,11 @@ useEffect(() => {
     Precio,
     Estado,
     Imagen,
+    Stock
   } = data;
-
+  const [categorias, setCategorias] = useState([]);
   const [imagenFile, setImagenFile] = useState(null);
-  const [imagenPreview, setImagenPreview] = useState(Imagen);
-  
+
   const [producto, setProducto] = useState({
     codigo: codProducto,
     nombre: Nombre,
@@ -41,7 +32,22 @@ useEffect(() => {
     precio: Precio,
     estado: Estado,
     imagen: Imagen,
+    stock: Stock,
   });
+  const [imagenPreview, setImagenPreview] = useState(Imagen);
+
+
+
+  useEffect(() => {
+    traerCategorias().then((data) => setCategorias(data));
+
+    return () => {
+      setCategorias([]);
+    };
+  }, []);
+
+
+
 
   const handleChange = (e) => {
     setProducto({
@@ -93,7 +99,7 @@ useEffect(() => {
     console.log(response);
   };
 
-  const handleDelete = async() => {
+  const handleDelete = async () => {
     console.log("eliminando");
 
     await toast.promise(deleteProducto(codProducto), {
@@ -105,8 +111,8 @@ useEffect(() => {
         },
       },
     });
-   
-  }
+  };
+
   return (
     <>
       <div className="text-base">
@@ -128,9 +134,12 @@ useEffect(() => {
                 backgroundPosition: "center",
               }}
             >
-              <label htmlFor="imagenInput"  className="text-sm font-semibold
+              <label
+                htmlFor="imagenInput"
+                className="text-sm font-semibold
               cursor-pointer
-              bg-green-400  p-1 rounded-xl ">
+              bg-green-400  p-1 rounded-xl "
+              >
                 Arrastra o da Click para seleccionar imagen:
               </label>
 
@@ -141,9 +150,7 @@ useEffect(() => {
                 name="imagen"
                 placeholder="Imagen"
                 onChange={changeImage}
-              /> 
-
-
+              />
             </div>
 
             <div id="Principal" className="">
@@ -160,7 +167,7 @@ useEffect(() => {
                       onChange={handleChange}
                     />
                   </div>
-                ) }
+                )}
                 <div id="nombre" className="flex flex-col items-start">
                   <label className="text-sm font-semibold">Nombre:</label>
                   <input
@@ -214,16 +221,16 @@ useEffect(() => {
                   />
                 </span>
               </div>
-              <div id="estado" className="flex flex-col items-start">
+              <div id="stock" className="flex flex-col items-start">
                 <label className="text-sm font-semibold" htmlFor="">
-                  Estado:
+                  Stock:
                 </label>
                 <input
                   className="inputText"
-                  type="text"
-                  name="estado"
-                  placeholder="Estado"
-                  value={producto.estado}
+                  type="number"
+                  name="stock"
+                  placeholder="Stock"
+                  value={producto.stock}
                   onChange={handleChange}
                 />
               </div>
@@ -238,20 +245,28 @@ useEffect(() => {
                   value={producto.categoria}
                   onChange={handleChange}
                 >
-                  {/* traemos las categorias */
-                  categorias.map((categoria) => (
-                    <option key={categoria.idCategoria} value={categoria.idCategoria}>
-                      {categoria.Nombre}
-                    </option>
-                  ))}
+                  {
+                    /* traemos las categorias */
+                    categorias.map((categoria) => (
+                      <option
+                        key={categoria.idCategoria}
+                        value={categoria.idCategoria}
+                      >
+                        {categoria.Nombre}
+                      </option>
+                    ))
+                  }
                 </select>
               </div>
-                  {
-                  !nuevo&&
-              <button onClick={handleDelete}
-                className="btn border-2 hover:bg-red-300"
-                type="button">Eliminar</button>
-                }
+              {!nuevo && (
+                <button
+                  onClick={handleDelete}
+                  className="btn border-2 hover:bg-red-300"
+                  type="button"
+                >
+                  Eliminar
+                </button>
+              )}
               <button className="btn border-2 hover:bg-lime-300" type="submit">
                 Guardar
               </button>

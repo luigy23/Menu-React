@@ -18,7 +18,11 @@ import Buscador from "../Componentes/Buscador";
 import MenuNav from "../Componentes/MenuNav";
 // Contexto de socket
 
-import { calcularTotal, seleccionarMesa, vaciarCanasta } from "../Actions/canastaActions"; // Acciones de canasta
+import {
+  calcularTotal,
+  seleccionarMesa,
+  vaciarCanasta,
+} from "../Actions/canastaActions"; // Acciones de canasta
 import axios from "axios";
 import MenuCategorias from "../Componentes/MenuCategorias";
 import { nuevoPedido, añadirProductosPedido } from "../Services/ApiPedidos";
@@ -30,7 +34,7 @@ function Menu() {
   const state = useSelector((state) => state); //estado
   const dispatch = useDispatch(); //// Acciones de dispatch para modificar el estado de la canasta
   const { productos, canasta, total, mesa, filtro } = state.canasta; //destructuración del estado
-  const {user} = state.usuario;
+  const { user } = state.usuario;
   const [productosMenu, setProductosMenu] = useState([]); //productos del menu
   const [filtroActivo, setFiltroActivo] = useState(false); //texto de busqueda
 
@@ -41,7 +45,6 @@ function Menu() {
 
   //METODOS
   const enviarPedidoAPI = async (pedido) => {
-
     if (pedido.Productos.length === 0) {
       toast.error("No hay productos en el pedido");
       return;
@@ -49,7 +52,7 @@ function Menu() {
     if (mesa.Estado === "Ocupado" || mesa.Estado === "Sin Pagar") {
       try {
         const response = await toast.promise(
-          añadirProductosPedido(mesa.idMesa,pedido.Productos),
+          añadirProductosPedido(mesa.idMesa, pedido.Productos),
           {
             pending: "Promise is pending",
             success: "Pedido Enviado 👌",
@@ -64,44 +67,36 @@ function Menu() {
         dispatch(calcularTotal());
 
         console.log("respuesta de añadir productos: ", response);
-        
-    }catch (error) {
-      console.log("error al enviar pedido: ", error);
+      } catch (error) {
+        console.log("error al enviar pedido: ", error);
+      }
+      return;
     }
-    return;
-  }
 
     try {
-      const response = await toast.promise(
-        nuevoPedido(pedido),
-        {
-          pending: "Promise is pending",
-          success: "Pedido Enviado 👌",
-          error: {
-            render({ data }) {
-              return `Error: ${data.response.data}`;
-            },
+      const response = await toast.promise(nuevoPedido(pedido), {
+        pending: "Promise is pending",
+        success: "Pedido Enviado 👌",
+        error: {
+          render({ data }) {
+            return `Error: ${data.response.data}`;
           },
-        }
-       
-      );
+        },
+      });
       console.log("respuesta de nuevo pedido: ", response);
-      dispatch(seleccionarMesa({idMesa:mesa.idMesa,Estado:"Ocupado"}))
+      dispatch(seleccionarMesa({ idMesa: mesa.idMesa, Estado: "Ocupado" }));
       dispatch(vaciarCanasta());
       dispatch(calcularTotal());
-      
     } catch (error) {
       console.log("error al enviar pedido: ", error);
     }
   };
 
   const clickEnviarPedido = () => {
-    let pedido = {}; //objeto pedido
-
+    let pedido = {};
     let mesero = user;
-    //alert("tengo esta mesa: " + mesa.Estado);
-
-    const productosPedido = canasta.map((item) => { //recorrer canasta y crear un objeto con los datos del pedido
+    const productosPedido = canasta.map((item) => {
+      //recorrer canasta y crear un objeto con los datos del pedido
       return {
         id: item.codProducto,
         cantidad: item.Cantidad,
@@ -110,7 +105,8 @@ function Menu() {
       };
     });
 
-    pedido = { //objeto pedido con los datos del pedido
+    pedido = {
+      //objeto pedido con los datos del pedido
       Mesero: mesero,
       Mesa: mesa.idMesa,
       Productos: productosPedido,
@@ -159,7 +155,9 @@ function Menu() {
       >
         <div className="flex flex-col px-2">
           <div className="flex justify-center text-center gap-3 py-2 ">
-            <span className="bg-elm-200 px-2 rounded-md">Mesa: {mesa.idMesa}</span>
+            <span className="bg-elm-200 px-2 rounded-md">
+              Mesa: {mesa.idMesa}
+            </span>
             <span className="bg-shamrock-300 px-2 rounded-md">
               {formatPrecio(total)}
             </span>
@@ -167,20 +165,14 @@ function Menu() {
 
           <ul className="lista-confirmar">
             {/* una lista de los productos en la canasta Solo los que tengan Pendiente en su propiedad Estado: */}
-            {canasta
+            {canasta.map((item) => (
+              <ItemCanasta key={item.codProducto} data={item} />
+            ))}
 
-              .map((item) => (
-                <ItemCanasta key={item.codProducto} data={item} />
-              ))}
-
-
-
-              
-{/* {canasta.map((producto, index) => (
+            {/* {canasta.map((producto, index) => (
               //<li key={index}>{producto.titulo} x{producto.cantidad}</li>
               <ItemCanasta key={index} data={producto} index={index} />
             ))} */}
-
           </ul>
         </div>
 

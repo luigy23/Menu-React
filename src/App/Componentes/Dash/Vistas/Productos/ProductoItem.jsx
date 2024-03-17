@@ -4,8 +4,7 @@ import { imagenProducto } from "../../../../Services/ApiProductos";
 import { formatPrecio } from "../../../../Services/formatPrecio";
 import Modal from "../../../Modal";
 
-import Formulario from "./Formulario"
-
+import Formulario from "./Formulario";
 
 export const ProductoItem = ({ producto }) => {
   const [isOpenModal, openModal, closeModal] = useModal(false);
@@ -16,7 +15,8 @@ export const ProductoItem = ({ producto }) => {
     idCategoria,
     Precio,
     Estado,
-    Imagen
+    Imagen,
+    Stock,
   } = producto;
 
   return (
@@ -34,27 +34,25 @@ export const ProductoItem = ({ producto }) => {
           <h2 className="font-semibold">{Nombre}</h2>
           <p>{formatPrecio(Precio)}</p>
 
-          <span className="inline-flex items-center justify-center rounded-full bg-emerald-400 px-2.5 py-0.2 text-white">
-            <p>{Estado}</p>
+          <span className={Stock>0? "inline-flex items-center justify-center rounded-full bg-emerald-400 px-2.5 py-0.2 text-white"
+          : "inline-flex items-center justify-center rounded-full bg-red-400 px-2.5 py-0.2 text-white " }>
+            <p>Stock: {Stock}</p>
           </span>
         </div>
       </div>
-      {isOpenModal 
-      && (
-        <Modal estilo={"w-4/5 overflow-scroll scrollbar"} isOpen={isOpenModal} closeModal={closeModal}>
-            
-            <div className="   flex flex-column flex-wrap  w-full justify-center p-2 gap-1">
+      {isOpenModal && (
+        <Modal
+          estilo={"w-4/5 overflow-scroll scrollbar"}
+          isOpen={isOpenModal}
+          closeModal={closeModal}
+        >
+          <div className="   flex flex-column flex-wrap  w-full justify-center p-2 gap-1">
             {/* <FormProducto/> */}
-             <Formulario data={producto} ></Formulario> 
+            <Formulario data={producto}></Formulario>
             {/* <ToggleButton/> */}
-            </div>
-            
-
-
-
-
+          </div>
         </Modal>
-)}
+      )}
     </>
   );
 };

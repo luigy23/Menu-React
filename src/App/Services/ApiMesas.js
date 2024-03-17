@@ -21,4 +21,30 @@ export const traerProductosMesa = async (id) => {
     }
 };
 
-    
+export const CrearMesa = async (mesa) => {
+  try {
+    const res = await axios.post(api + "/mesas", mesa);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+export const ActualizarEstadoMesa = async (mesa) => {
+  try {
+    const res = await axios.put(api + "/mesas/estado", mesa);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const ActualizarMesa = async (mesa) => {
+  try {
+    const res = await axios.put(api + "/mesas", mesa);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

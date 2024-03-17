@@ -32,16 +32,15 @@ import { loginSuccess, logout } from "./App/Reducers/usuarioReducer";
 import RequireAuth from "./App/Login/RequiredAuth";
 import Usuarios from "./App/Componentes/Dash/Vistas/Usuarios/Usuarios";
 import Configuracion from "./App/Pages/Configuracion";
+import MesasAdmin from "./App/Componentes/Dash/Vistas/Mesas/MesasAdmin.jsx";
 
 function App() {
   const dispatch = useDispatch();
   
 
-  //Aquí guardamos los productros que llamamos de la pai
-  const state = useSelector((state) => state);
-  const [productos, setproductos] = useState(false)
-  //comentario de prueba
 
+
+  //cargo los productos en el estado global
   const cargarProductos = () =>{
     traerProductos().then(
       (data)=>    { console.log("return de la api: ", data)
@@ -52,6 +51,7 @@ function App() {
     //setCargado(!cargado)
     }
   
+    //recibe la actualizacion de productos en caso de que se modifique alguno
   const recibirActualización = () =>{
     cargarProductos()
     console.log("Productos Actualizados")
@@ -59,17 +59,17 @@ function App() {
   }
   
   const verificarLogueo = async () => {
+    //verifico si el usuario esta logueado en el servidor
     const res = await axios.get(`${process.env.REACT_APP_API}/login/verificar`)
     console.log("respuesta", res.data)
-
+    //si el usuario esta logueado, guardo el usuario en el estado global
     if (res.data.message === "ok") {
+        //guardar el usuario en el estado global
         dispatch(loginSuccess(res.data.usuario))
-        //setLogueado(true)
         console.log("logueado")
         
     } else {
         dispatch(logout())
-    //setLogueado(false)
         console.log("no logueado")
     }
 }
@@ -86,7 +86,7 @@ function App() {
     });
     ioSocket.on("productos",recibirActualización);
 
-verificarLogueo()
+    verificarLogueo()
 
     cargarProductos()
  
@@ -158,6 +158,12 @@ verificarLogueo()
             <Route path="usuarios" element={
               <RequireAuth>
                 <Usuarios/>
+              </RequireAuth>
+            } />
+
+            <Route path="mesas" element={
+              <RequireAuth>
+                <MesasAdmin/>
               </RequireAuth>
             } />
 

@@ -19,10 +19,22 @@ const Producto = ({ producto }) => {
   };
 
   const confirmarClick = (e) => {
-    //console.log(producto)
-    // add_to_cart(producto.id, parseInt(cantidad))
     e.preventDefault();
+    if (cantidad > producto.Stock) {
+      toast.error(`No hay suficiente stock Numero de Disponibles: ${producto.Stock}`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      return;
+    }
 
+
+
+
+    dispatch(addToCart(producto.codProducto, parseInt(cantidad), 0, comentario))
     toast.success("Producto agregado al carrito", {
       position: "top-center",
       autoClose: 1000,
@@ -32,7 +44,7 @@ const Producto = ({ producto }) => {
      
       
       })
-      dispatch(addToCart(producto.codProducto, parseInt(cantidad), 0, comentario))
+      
 
 
 
@@ -42,22 +54,38 @@ const Producto = ({ producto }) => {
 
   return (
     <>
-      <div onClick={click} id={producto.codProducto} className="contenedor-p ">
+    {
+      producto.Stock > 0 ?
+      <div onClick={click} id={producto.codProducto} className="contenedor-p      cursor-pointer">
         <div className="w-4/5 overflow-hidden max-sm:w-3/4 items-center">
         <img className="  imgProducto " src={producto.Imagen} alt="Imagen" />
         </div>
         <h3 className="titulo">{producto.Nombre}</h3>
         <p className="producto-precio">{formatPrecio(producto.Precio)}</p>
       </div>
-      
+      :
+      <div  id={producto.codProducto} className="contenedor-p cursor-not-allowed opacity-50 ">
+        <div className="w-4/5 overflow-hidden max-sm:w-3/4 items-center">
+        <img className="  imgProducto " src={producto.Imagen} alt="Imagen" />
+        </div>
+        <h3 className="titulo">{producto.Nombre}</h3>
+        <p className="producto-precio">Sin Stock</p>
+      </div>
+
+}
       {
       
       isOpenModal ? (
         <Modal estilo={"max-w-xs"} isOpen={isOpenModal} closeModal={closeModal}>
           <h3 className="modal-titulo py-3">{producto.Nombre}</h3>
-          <div className="descripcion-contenedor">
-            <p className="producto-descripcion">{producto.Descripcion}</p>
+          <div className=" flex flex-col px-4 text-center p-2 no-scrollbar  text-slate-600 font-light">
+          <p className="text-scooter-500 text-sm">Stock: {producto.Stock}</p>
+            <p >{producto.Descripcion}</p>
+           
+       
+           
           </div>
+          
           <form className="formulario" onSubmit={confirmarClick}>
             <input
               onChange={(e) => {

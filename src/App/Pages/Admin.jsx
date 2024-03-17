@@ -8,13 +8,7 @@ import { Productos } from "../Componentes/Dash/Vistas/Productos/Productos";
 
 
 const Admin = (props) => {
-useEffect(() => {
-  console.log("cargando admin")
 
-  return () => {
-    console.log("cargado")
-  }
-}, [])
 
 
   return (

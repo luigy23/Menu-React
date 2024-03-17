@@ -14,6 +14,9 @@ const Mesa = ({Mesa}) => {
 
   // Define las funciones para los eventos click de la mesa
   const click = () => {
+   
+
+
     Estado == "Disponible" ? disponible() : ocupada();
 
   };
@@ -43,14 +46,18 @@ const Mesa = ({Mesa}) => {
     Disponible: "text-emerald-400",
     Ocupado: "text-red-400",
     "Sin Pagar": "text-yellow-400",
+    "Inactiva": "hidden"
   };
+
+
   const color = estadoColorMap[Estado];
 
   // Define el contenido de la mesa
   const MesaContent = (
     <div
             onClick={click}
-            className={`flex items-start rounded-xl bg-white p-4 shadow-lg cursor-pointer hover:scale-105 transition-transform`}
+            className={`flex items-start rounded-xl bg-white p-4 shadow-lg cursor-pointer hover:scale-105 transition-transform 
+            ${Estado == "Inactiva" ? "hidden" : ""}`}
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-full border border-blue-100 bg-blue-50">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

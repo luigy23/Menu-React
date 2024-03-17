@@ -30,13 +30,13 @@ const Usuario = () => {
           {state.user}
         </Button>
       </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions" color='success' className='bg-shamrock-200'>
-        <DropdownItem key="configuracion" color='success'  className='transition-colors ease-in-out'  >
+      <DropdownMenu aria-label="Static Actions" color='success' >
+        <DropdownItem key="configuracion" color='primary'  className='transition-colors ease-in-out'  >
             <Link to='/config' >
             Configuracion
             </Link>
         </DropdownItem>
-        <DropdownItem key="logout" color='success' className='transition-colors ease-in-out' >
+        <DropdownItem key="logout" color='danger' className='transition-colors ease-in-out' >
           <button onClick={cerrarSesion}>
           Cerrar Sesion
           </button>
