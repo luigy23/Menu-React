@@ -1,9 +1,9 @@
 .menu-nav {
-    @apply bg-scooter-700 shadow-lg flex h-12 items-center justify-center sticky  top-0 z-50;
+    @apply bg-scooter-700 shadow-lg flex h-12 items-center justify-center sticky pt-1  top-0 z-50;
   }
 
   .menu-nav ul {
-    @apply text-slate-800  flex flex-wrap justify-center items-center gap-12 ;
+    @apply text-slate-800  flex flex-wrap justify-center gap-5 items-center ;
   }
 
   .menu-nav li {
