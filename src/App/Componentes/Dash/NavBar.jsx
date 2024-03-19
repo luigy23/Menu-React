@@ -1,6 +1,6 @@
 import React from "react";
 import Item from "./NavBar/Item";
-import logo from "../../Assets/duo2.png"
+import logo from "../../Assets/Logo.jpg";
 import { Link } from "react-router-dom";
 const NavBar = () => {
   const menu = [
@@ -20,7 +20,7 @@ const NavBar = () => {
       <Link  to={"/"}>
       <img className=" object-cover rounded-3xl  w-32" src={logo} alt="Imagen" />
       </Link>
-      <h3>una App Cualquiera</h3>
+      <h3>Casa Blanca</h3>
       </div>
 
       {menu.map((item, index) => (
