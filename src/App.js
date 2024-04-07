@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {  Route, Routes, useNavigate } from "react-router-dom";
 
 import "./App.scss";
 
@@ -33,6 +33,7 @@ import RequireAuth from "./App/Login/RequiredAuth";
 import Usuarios from "./App/Componentes/Dash/Vistas/Usuarios/Usuarios";
 import Configuracion from "./App/Pages/Configuracion";
 import MesasAdmin from "./App/Componentes/Dash/Vistas/Mesas/MesasAdmin.jsx";
+import { NextUIProvider } from '@nextui-org/system';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ function App() {
     //si el usuario esta logueado, guardo el usuario en el estado global
     if (res.data.message === "ok") {
         //guardar el usuario en el estado global
-        dispatch(loginSuccess(res.data.usuario))
+        dispatch(loginSuccess(res.data))
         console.log("logueado")
         
     } else {
@@ -97,20 +98,22 @@ function App() {
     //dispatch(cargadeProductos(productList));
   }, []);
 
+
   return (
     <>
-      <Router>
+     
+      <NextUIProvider  navigate={ useNavigate()}>
         <div id="principal">
         <Routes>
           <Route path="/" element={
             <RequireAuth>
-              <Menu/>
+              <Mesas></Mesas>
             </RequireAuth>  
           } />
           
-          <Route path="/Mesas" element={
+          <Route path="/Menu" element={
             <RequireAuth>
-              <Mesas></Mesas>
+               <Menu/>
             </RequireAuth>
           } />
           
@@ -179,7 +182,8 @@ function App() {
           
         </Routes>
         </div>
-      </Router>
+        </NextUIProvider>
+      
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/button'
+import { Button } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 
 import { faBell } from '@fortawesome/free-solid-svg-icons'

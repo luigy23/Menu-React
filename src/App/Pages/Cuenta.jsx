@@ -59,7 +59,7 @@ const Cuenta = () => {
             name="Info"
             className="flex justify-center text-center gap-3 py-2 "
           >
-            <Link to="/Mesas">
+            <Link to="/">
               <span className="bg-elm-200 px-2 rounded-md">
                 Mesa:{mesa.idMesa}
               </span>

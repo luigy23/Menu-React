@@ -8,6 +8,7 @@ const LIMPIAR_NOTIFICACIONES = 'LIMPIAR_NOTIFICACIONES'
 const initialState = {
   isAuthenticated: false,
   user: null,
+  idCargo: null,
   notificaciones: []
 }
 
@@ -17,10 +18,13 @@ export default function usuarioReducer(state = initialState, action) {
   switch(action.type) {
     
     case LOGIN_SUCCESS:
+
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload // usuario logueado
+        user: action.payload.usuario,
+        idCargo: action.payload.idCargo
+
       }
 
     case LOGOUT: 

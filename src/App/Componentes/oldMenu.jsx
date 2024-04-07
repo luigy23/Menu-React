@@ -43,7 +43,7 @@ const oldMenu = () => {
   <ToastContainer autoClose={1600} />
   <div className="contenedor-detalles">
     <h3>Total = ${total}</h3>
-    <Link className="Link" to={"/Mesas"}>
+    <Link className="Link" to={"/"}>
       <div>
         <h3>{mesa.idMesa}</h3>
       </div>

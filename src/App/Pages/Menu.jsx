@@ -210,7 +210,7 @@ function Menu() {
               <Icarro fill={"#fff"} />
               <span className="">Canasta</span>
             </li>
-            <Link className="Link" to={"/Mesas"}>
+            <Link className="Link" to={"/"}>
               <li
                 className="shadow-lg btnIcon hoverNavMenu "
                 onClick={() => openModal()}

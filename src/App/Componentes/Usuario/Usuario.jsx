@@ -1,5 +1,4 @@
-import { Button } from '@nextui-org/button';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,} from '@nextui-org/dropdown';
+import {Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,} from '@nextui-org/react';
 import Cookies from 'js-cookie';
 import React from 'react'
 import { useSelector } from 'react-redux';
@@ -27,19 +26,36 @@ const Usuario = () => {
       startContent={<Icono icon={faUser} />}
           color='success' className='bg-shamrock-400 text-shamrock-800'
         >
-          {state.user}
+          {state.user} : {state.idCargo}
         </Button>
       </DropdownTrigger>
+
+        
+
+
       <DropdownMenu aria-label="Static Actions" color='success' >
-        <DropdownItem key="configuracion" color='primary'  className='transition-colors ease-in-out'  >
-            <Link to='/config' >
-            Configuracion
-            </Link>
+
+    {state.idCargo === 1 &&
+        <DropdownItem key="Administración"
+        href="/admin"
+        color='primary' className='transition-colors ease-in-out' >
+            Administración
         </DropdownItem>
-        <DropdownItem key="logout" color='danger' className='transition-colors ease-in-out' >
-          <button onClick={cerrarSesion}>
+}
+
+        <DropdownItem key="configuracion" href="/config" color='primary'  className='transition-colors ease-in-out relative'   >
+            Configuracion
+        </DropdownItem>
+
+
+
+
+        <DropdownItem key="logout"
+        onPress={cerrarSesion}
+        color='danger' className='transition-colors ease-in-out' >
+       
           Cerrar Sesion
-          </button>
+
 
         </DropdownItem>
 

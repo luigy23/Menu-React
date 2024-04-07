@@ -6,12 +6,15 @@ import { Provider } from 'react-redux';
 import store from './App/Store';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { NextUIProvider } from '@nextui-org/system';
-const root = ReactDOM.createRoot(document.getElementById('root'));
 
+import { BrowserRouter as Router } from 'react-router-dom';
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 axios.interceptors.request.use(config => {
   //sacamos el token del localstorage:
   const token = Cookies.get('token')
+ 
   config.headers.Authorization = `Bearer ${token}`;
   
   return config;
@@ -21,9 +24,10 @@ root.render(
   
   <React.StrictMode>
   <Provider store={store}>
-  <NextUIProvider>
+  <Router>
     <App />
-    </NextUIProvider>
+  </Router>
+
 
   </Provider>
  </React.StrictMode>

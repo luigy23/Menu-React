@@ -24,11 +24,11 @@ const MenuNav = () => {
   return (
     <div className="menu-nav ">
       <ul>
-        <Link className="Link" to={"/admin"}>
+        <Link title="Mesas"  className="Link" to={"/"}>
           <IconoSilla className="iconoMenu "/>
         </Link>
         
-        <Link className="Link" to={"/"}>
+        <Link title="Productos" className="Link" to={"/Menu"}>
         <IconoMenu className="iconoMenu "/>
 
         </Link>
