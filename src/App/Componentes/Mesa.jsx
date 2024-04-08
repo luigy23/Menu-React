@@ -71,7 +71,7 @@ const Mesa = ({Mesa}) => {
             </div>
     
             <div className="ml-4">
-              <h2 className="font-semibold">Mesa {Descripcion}</h2>
+              <h2 className="font-semibold">{Descripcion}</h2>
               <p className={`mt-2 text-sm font-semibold ${color}`}>{Estado}</p>
             </div>
           </div>
