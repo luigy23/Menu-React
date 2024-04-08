@@ -70,8 +70,9 @@ const Mesa = ({Mesa}) => {
               </svg>
             </div>
     
-            <div className="ml-4">
+            <div className="ml-4  ">
               <h2 className="font-semibold">{Descripcion}</h2>
+              <p className={` text-xs text-slate-600`}>id:{idMesa}</p>
               <p className={`mt-2 text-sm font-semibold ${color}`}>{Estado}</p>
             </div>
           </div>
