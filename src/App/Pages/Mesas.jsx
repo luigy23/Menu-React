@@ -41,7 +41,7 @@ export const Mesas = () => {
         <div className='p-4'>
           {/* Campo de búsqueda */}
           <input
-            type="number"
+            type="text"
             placeholder="Buscar mesa"
             className="p-2 rounded w-full md:w-96"
             onChange={(e) => setFiltro(e.target.value)}
