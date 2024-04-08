@@ -37,7 +37,7 @@ import { NextUIProvider } from '@nextui-org/system';
 
 function App() {
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
 
 
 
@@ -102,7 +102,7 @@ function App() {
   return (
     <>
      
-      <NextUIProvider  navigate={ useNavigate()}>
+      <NextUIProvider  navigate={ navigate}>
         <div id="principal">
         <Routes>
           <Route path="/" element={
