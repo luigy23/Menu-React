@@ -33,9 +33,7 @@ const Usuario = () => {
         
 
 
-      <DropdownMenu aria-label="Static Actions" color='success' onClose={
-        (e)=>{e.preventDefault()}
-      } >
+      <DropdownMenu aria-label="Static Actions" color='success'  >
 
     {state.idCargo === 1 &&
         <DropdownItem key="Administración"
