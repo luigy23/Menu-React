@@ -39,6 +39,7 @@ const Usuario = () => {
         <DropdownItem key="Administración"
         href="/admin"
         color='primary' className='transition-colors ease-in-out' >
+         
             Administración
         </DropdownItem>
 }
