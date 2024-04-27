@@ -30,6 +30,9 @@ const Factura = ({ pedido, impresion, extra }) => {
           </thead>
           <tbody>
             {pedido.map((item) => {
+              if (item.Estado === "Cancelado") return null;
+              if (item.Estado === "Pendiente") return null;
+
               const subtotal = item.Precio * item.Cantidad;
               return (
                 <tr
@@ -52,6 +55,8 @@ const Factura = ({ pedido, impresion, extra }) => {
           SubTotal:{" "}
           {formatPrecio(
             pedido.reduce((total, item) => {
+              if (item.Estado === "Cancelado") return total;
+              if (item.Estado === "Pendiente") return total;
               return total + item.Precio * item.Cantidad;
             }, 0)
           )}
