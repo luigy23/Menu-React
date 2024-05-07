@@ -79,7 +79,7 @@ export const Productos = ({}) => {
           isOpen={isOpenModal}
           closeModal={closeModal}
         >
-          asas
+          
           <Formulario data={nuevoProducto} nuevo={true} />
         </Modal>
       ) : (

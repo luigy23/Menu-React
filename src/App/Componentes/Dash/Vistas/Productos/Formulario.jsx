@@ -39,7 +39,16 @@ const Formulario = ({ data, nuevo }) => {
 
 
   useEffect(() => {
-    traerCategorias().then((data) => setCategorias(data));
+    traerCategorias().then((data) =>{ 
+      setCategorias(data)
+      //colocamos la primera categoria si es nuevo
+      if (nuevo)
+      setProducto({
+        ...producto,
+        categoria: data[0].idCategoria,
+      });
+
+    });
 
     return () => {
       setCategorias([]);
@@ -71,6 +80,7 @@ const Formulario = ({ data, nuevo }) => {
     const formData = new FormData();
     formData.append("imagen", imagenFile);
     formData.append("producto", JSON.stringify(producto));
+    
 
     if (nuevo) {
       const response = await toast.promise(crearProducto(formData), {
@@ -237,8 +247,9 @@ const Formulario = ({ data, nuevo }) => {
 
               <div id="categoria" className="flex flex-col items-start">
                 <label className="text-sm font-semibold" htmlFor="">
-                  Categoria:
+                  Categoria: 
                 </label>
+
                 <select
                   className="inputText"
                   name="categoria"
