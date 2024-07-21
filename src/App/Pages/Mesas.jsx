@@ -35,7 +35,7 @@ export const Mesas = () => {
   return (
     <>
       <MenuNav/>
-      <main className=' flex flex-col items-center text-center w-full bg-slate-700 h-screen py-8'>
+      <main className=' flex flex-col items-center text-center w-full bg-slate-700 min-h-screen py-8'>
 
         <h2 className='text-xl  text-white'>Selecciona una Mesa</h2>
         <div className='p-4'>
