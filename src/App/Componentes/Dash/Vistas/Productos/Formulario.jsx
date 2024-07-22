@@ -25,14 +25,17 @@ const Formulario = ({ data, nuevo }) => {
   const [imagenFile, setImagenFile] = useState(null);
 
   const [producto, setProducto] = useState({
-    codigo: codProducto,
+    codigo: codProducto || 
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15),
+
     nombre: Nombre,
-    descripcion: Descripcion,
+    descripcion: Descripcion || "",
     categoria: idCategoria,
-    precio: Precio,
-    estado: Estado,
+    precio: Precio ,
+    estado: Estado ,
     imagen: Imagen,
-    stock: Stock,
+    stock: Stock ,
   });
   const [imagenPreview, setImagenPreview] = useState(Imagen);
 
@@ -173,6 +176,9 @@ const Formulario = ({ data, nuevo }) => {
                       type="text"
                       name="codigo"
                       placeholder="pollo1"
+        
+                      required
+                      maxLength={15}
                       value={producto.codProducto}
                       onChange={handleChange}
                     />
@@ -184,6 +190,7 @@ const Formulario = ({ data, nuevo }) => {
                     className="inputText"
                     type="text"
                     name="nombre"
+                    required
                     placeholder="Nombre del producto"
                     value={producto.nombre}
                     onChange={handleChange}
@@ -197,6 +204,7 @@ const Formulario = ({ data, nuevo }) => {
                   name="descripcion"
                   placeholder="Descripción del producto"
                   value={producto.descripcion}
+                  required
                   onChange={handleChange}
                 />
               </div>
@@ -225,6 +233,7 @@ const Formulario = ({ data, nuevo }) => {
                     className="inputText"
                     type="number"
                     name="precio"
+                    required
                     placeholder="Precio"
                     value={producto.precio}
                     onChange={handleChange}
@@ -239,6 +248,7 @@ const Formulario = ({ data, nuevo }) => {
                   className="inputText"
                   type="number"
                   name="stock"
+                  required
                   placeholder="Stock"
                   value={producto.stock}
                   onChange={handleChange}
