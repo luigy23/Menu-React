@@ -185,7 +185,7 @@ function Menu() {
         <Buscador buscar={buscar} />
         <MenuCategorias filtrar={filtrarCategoria} />
       </HeaderMenu>
-      <div className="flex flex-col items-center justify-start bg-white min-h-screen">
+      <div className="flex flex-col items-center justify-start bg-white min-h-screen pb-8">
         <div className="productosContenedor flex flex-wrap gap-2 py-2 items-center justify-center">
           {productosMenu.map((producto) => (
             <Producto
