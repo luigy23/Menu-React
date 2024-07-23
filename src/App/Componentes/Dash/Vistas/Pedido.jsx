@@ -22,7 +22,7 @@ const Pedido = ({ hora, pedido }) => {
 
 
 
-  const { idMesa, Productos, Usuario, idPedido, Estado } = pedido;
+  const { idMesa, Productos, Usuario, idPedido, Estado, Descripcion } = pedido;
 
   return (
     <>
@@ -101,7 +101,7 @@ const Pedido = ({ hora, pedido }) => {
           </div>
         </div>
         <div className="Mesa rounded-md text-center bg-slate-white shadow-slate- shadow-md w-full">
-          <p className="text-slate-700 font-semibold">Mesa: {idMesa}</p>
+          <p className="text-slate-700 font-semibold">{Descripcion /* Mesa */}</p>
         </div>
       </div>
 

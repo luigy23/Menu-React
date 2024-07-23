@@ -16,6 +16,7 @@ export const traerPedidos = async (estado, id=null, limit= null) => {
     }
   const res = await axios(api + "/pedidos", { params: { estado, limit:limit } });
   const pedidos = res.data;
+ 
   return pedidos;
 };
 
