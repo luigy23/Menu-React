@@ -185,8 +185,8 @@ function Menu() {
         <Buscador buscar={buscar} />
         <MenuCategorias filtrar={filtrarCategoria} />
       </HeaderMenu>
-      <div className="flex flex-col items-center justify-start bg-white min-h-screen pb-8">
-        <div className="productosContenedor flex flex-wrap gap-2 py-2 items-center justify-center">
+      <div className="flex flex-col items-center justify-start bg-white min-h-screen ">
+        <div className="productosContenedor flex flex-wrap gap-2 py-2 items-center justify-center pb-8">
           {productosMenu.map((producto) => (
             <Producto
               key={producto.codProducto}
@@ -216,10 +216,10 @@ function Menu() {
                 onClick={() => openModal()}
               >
                 <span className="font-medium">
-                  Mesa:{" "}
+                  
                   <span className="font-semibold text-shamrock-600">
                     {" "}
-                    #{mesa.idMesa}
+                    #{mesa.Descripcion}
                   </span>{" "}
                 </span>
               </li>
