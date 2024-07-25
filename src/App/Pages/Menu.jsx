@@ -168,11 +168,6 @@ function Menu() {
             {canasta.map((item) => (
               <ItemCanasta key={item.codProducto} data={item} />
             ))}
-
-            {/* {canasta.map((producto, index) => (
-              //<li key={index}>{producto.titulo} x{producto.cantidad}</li>
-              <ItemCanasta key={index} data={producto} index={index} />
-            ))} */}
           </ul>
         </div>
 

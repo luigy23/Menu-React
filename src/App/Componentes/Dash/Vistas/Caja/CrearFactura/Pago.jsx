@@ -8,7 +8,7 @@ import Factura from "../../../../Funcionales/Factura";
 import { ca } from "date-fns/locale";
 import { useSelector } from "react-redux";
 
-const Pago = ({ setStep, pedido, mesa }) => {
+const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   const { user } = useSelector((state) => state.usuario);
 
   const [pago, setPago] = useState("efectivo");
@@ -253,6 +253,7 @@ const Pago = ({ setStep, pedido, mesa }) => {
             metodoPago: pago,
             montoRecibido: montoRecibido,
             montoCambio: montoCambio,
+            mesaDescripcion: mesaDescripcion,
           }}
         />
       </div>

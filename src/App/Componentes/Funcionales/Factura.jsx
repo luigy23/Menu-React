@@ -6,9 +6,7 @@ import { formatPrecio } from "../../Services/formatPrecio";
 // este componente es el que se imprime
 const Factura = ({ pedido, impresion, extra }) => {
   //use selector para traer el estado de la mesa: mesa, total, productos
-  const state = useSelector((state) => state); //estado
-  const { mesa } = state.canasta; //destructuración del estado
-  const {total, descuento, montoRecibido, montoCambio, metodoPago} = extra;
+  const {total, descuento, montoRecibido, montoCambio, metodoPago, mesaDescripcion} = extra;
 
   return (
     <div className="factura" ref={impresion}>
@@ -17,7 +15,7 @@ const Factura = ({ pedido, impresion, extra }) => {
         <h3>Metodo Pago:{metodoPago}</h3>
         <h2>Restaurante</h2>
         <h3>Fecha: {new Date().toLocaleDateString()}</h3>
-        <h3>Mesa:{mesa.idMesa}</h3>
+        <h3>Mesa:{mesaDescripcion}</h3>
       </div>
       <div className="flex justify-center  items-center  flex-col text-center gap-3 py-2 ">
         <table className="flex justify-center flex-col text-center gap-3 py-2 border-collapse w-3/4">

@@ -59,7 +59,7 @@ const ItemPedido = ({
       Listo <Icono className="icono-listo" icon={faCheck}></Icono>
     </button>
     <button onClick={clicCancelado} className="btn w-full boton-eliminar">
-      Eliminar <Icono className="icono-eliminar" icon={faXmark}></Icono>
+      Cancelar <Icono className="icono-eliminar" icon={faXmark}></Icono>
     </button>
   </div>
 </div>
@@ -67,7 +67,7 @@ const ItemPedido = ({
   ) 
   : Estado == "Listo" ?
  
-<div className="pedido bg-slate-300">
+<div className="pedido bg-shamrock-300">
   <div className="space-y-2">
     <h2 className="titulo-pedido-listo  titulo-pedido line-through">
       X{Cantidad} {Nombre}
@@ -76,12 +76,25 @@ const ItemPedido = ({
   </div>
   <div className="space-y-1">
     Listo <Icono className="w-5" icon={faCheck}></Icono>
-    <button onClick={clicCancelado} className="btn w-full boton-eliminar">
-      Eliminar <Icono className="w-5" icon={faXmark}></Icono>
-    </button>
+    {/* <button onClick={clicCancelado} className="btn w-full boton-eliminar">
+      Cancelar <Icono className="w-5" icon={faXmark}></Icono>
+    </button> */}
   </div>
 </div>
-  : null
+  : Estado == "Cancelado" ?
+  <div className="pedido bg-red-300">
+    <div className="space-y-2">
+      <h2 className="titulo-pedido-listo  titulo-pedido line-through">
+        X{Cantidad} {Nombre}
+      </h2>
+      <p className="comentario-pedido">{Comentario}</p>
+    </div>
+    <div className="space-y-1">
+      Cancelado <Icono className="w-5" icon={faXmark}></Icono>
+
+    </div>
+  </div>
+  : null;
  
 };
 

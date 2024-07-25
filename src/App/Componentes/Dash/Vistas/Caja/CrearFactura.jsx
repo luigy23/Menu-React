@@ -26,6 +26,7 @@ const CrearFactura = () => {
   const [pedido, setPedido] = useState([]);
   const [step, setStep] = useState(0);
   const [mesa, setMesaId] = useState("mesa22"); 
+  const [mesaDescripcion, setMesaDescripcion] = useState("Mesa 22");
 
 
   const cargarPedido = async (mesa) => { //se usa en el componente SeleccionarMesa
@@ -43,14 +44,16 @@ const CrearFactura = () => {
       cargarPedido={cargarPedido}
       setStep={setStep}
       setMesaId={setMesaId}
+      setMesaDescripcion={setMesaDescripcion}
     />,
     <Cuenta
       pedido={pedido}
       setPedido={setPedido}
       mesa={mesa}
+      mesaDescripcion={mesaDescripcion}
       setStep={setStep}
     />,
-    <Pago setStep={setStep} pedido={pedido} mesa={mesa} />,
+    <Pago setStep={setStep} pedido={pedido} mesa={mesa} mesaDescripcion={mesaDescripcion} />,
   ];
 
   return (
@@ -75,7 +78,7 @@ const CrearFactura = () => {
   );
 };
 
-const SeleccionarMesa = ({ cargarPedido, setStep, setMesaId }) => {
+const SeleccionarMesa = ({ cargarPedido, setStep, setMesaId, setMesaDescripcion }) => {
   const [mesas, setMesas] = useState([]);
   const [filtro, setFiltro] = useState("");
 
@@ -93,6 +96,7 @@ const SeleccionarMesa = ({ cargarPedido, setStep, setMesaId }) => {
   const handleMesaClick = (mesa) => {
     cargarPedido(mesa.idMesa);
     setMesaId(mesa.idMesa);
+    setMesaDescripcion(mesa.Descripcion);
     setStep(1);
   };
 
@@ -122,10 +126,10 @@ const SeleccionarMesa = ({ cargarPedido, setStep, setMesaId }) => {
 };
 
 
-const Cuenta = ({ setStep, mesa, pedido }) => {
+const Cuenta = ({ setStep, mesa, pedido, mesaDescripcion }) => {
   return (
     <div className="flex flex-col gap-4 p-2">
-      <p>Mesa: {mesa}</p>
+      <p>Mesa: {mesaDescripcion}</p>
       <TablaFactura pedido={pedido} />
 
       <div className="flex justify-between">

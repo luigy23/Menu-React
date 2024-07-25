@@ -59,7 +59,18 @@ const Pedido = ({ hora, pedido }) => {
                   >
                     <b>x{item.Cantidad}</b> {item.Nombre}
                   </li>
-                ) : null
+                ) : item.Estado == "Cancelado" ? (
+                  <li
+                    className=" line-through decoration-solid decoration-black	"
+                    key={index}
+                  >
+                    <b>x{item.Cantidad}</b> {item.Nombre}
+                  </li>
+                ) : (
+                  <li className="" key={index}>
+                    <b>x{item.Cantidad}</b> {item.Nombre}
+                  </li>
+                )
               )}
             </ul>
           </div>
@@ -115,7 +126,7 @@ const Pedido = ({ hora, pedido }) => {
         >
           <div className="w-full h-full flex justify-center items-center flex-col p-4 overflow-hidden">
             <div className="pd-modal-info justify-center gap-9 w-full flex ">
-              <p>{`Mesa: ${idMesa}`}</p>
+              <p>{Descripcion}</p>
               <p>{`Hora: ${hora}`}</p>
             </div>
             <div className=" w-full  space-y-2 lg:w-3/5 overflow-scroll scrollbar px-2">

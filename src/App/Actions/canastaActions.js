@@ -17,6 +17,8 @@ export const cargadeProductos = (listaProductos) => {
 export const addToCart = (idProducto, cantidadProducto, opcionAñadir, comentario) => {
   if (opcionAñadir === 1) {
     cantidadProducto = 1;
+    comentario = "";
+   
   }
 
   // Crea un array con el ID del producto y la cantidad a añadir a la canasta
