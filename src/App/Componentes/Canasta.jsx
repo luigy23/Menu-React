@@ -26,7 +26,7 @@ const Canasta = () => {
         {
           canasta.map((producto, index)=>
        
-          <ItemCanasta  key={index}  data={producto} index={producto.Nombre}/>
+          <ItemCanasta  key={index}  producto={producto} index={producto.Nombre}/>
   
           
           )

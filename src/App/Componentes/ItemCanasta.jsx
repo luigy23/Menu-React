@@ -5,22 +5,27 @@ import { useDispatch } from "react-redux"
 import { addToCart, calcularTotal, delToCart } from "../Actions/canastaActions";
 import { useEffect } from 'react';
 import "../Estilos/Canasta.scss"
-const ItemCanasta = ({ data }) => {
+const ItemCanasta = ({ data: producto }) => {
 
   const dispatch = useDispatch()
-  const {Nombre, Cantidad} = data
+  const {Nombre, Cantidad} = producto
   const restar = () => {
 
   
-    dispatch(delToCart(data.codProducto, data.Cantidad, 2))
+    dispatch(delToCart(producto.codProducto, producto.Cantidad, 2))
     dispatch(calcularTotal())
   }
   const sumar = () => {
-    dispatch(addToCart(data.codProducto, data.Cantidad, 1))
+    if(producto.Cantidad >= producto.Stock){
+      alert('No hay suficiente stock')
+      return
+    }
+
+    dispatch(addToCart(producto.codProducto, producto.Cantidad, 1))
     dispatch(calcularTotal())
   }
   const borrar = () => {
-    dispatch(delToCart(data.codProducto, data.Cantidad, 1))
+    dispatch(delToCart(producto.codProducto, producto.Cantidad, 1))
     dispatch(calcularTotal())
   }
 
