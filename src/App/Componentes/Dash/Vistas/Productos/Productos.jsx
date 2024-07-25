@@ -28,6 +28,7 @@ export const Productos = ({}) => {
     imagen: "",
   };
   const [productos, setProductos] = useState([]);
+  const [filtro, setFiltro] = useState("");
   const [isOpenModal, openModal, closeModal] = useModal(false);
 
   const cargadeProductos = () => {
@@ -43,47 +44,52 @@ export const Productos = ({}) => {
     };
   }, []);
 
+  const handleSearch = (e) => {
+    setFiltro(e.target.value);
+  };
+
+  const productosFiltrados = productos.filter((producto) =>
+    producto.Nombre.toLowerCase().includes(filtro.toLowerCase())
+  );
+
   return (
     <>
-      <div className="bg-slate-50 min-h-full w-full text-2xl items-center justify-center  flex-column flex   flex-wrap p-5">
-        <div className=" w-full ">
+      <div className="bg-slate-50 min-h-full w-full text-2xl items-center justify-center flex-column flex flex-wrap p-5">
+        <div className="w-full flex justify-between items-center mb-4">
+          <input
+            type="text"
+            value={filtro}
+            onChange={handleSearch}
+            placeholder="Buscar productos..."
+            className=" p-2 text-base border border-gray-300 rounded-md shadow-sm"
+          />
           <button
             onClick={openModal}
-            className="btn text-base bg-emerald-400 shadow-sm  text-white hover:shadow-md hover:transition-shadow ease-in-out active:shadow-sm "
+            className="btn text-base bg-emerald-400 shadow-sm text-white hover:shadow-md hover:transition-shadow ease-in-out active:shadow-sm"
           >
-            {
-              <span>
-                {" "}
-                <Icono icon={faPlus} />{" "}
-              </span>
-            }{" "}
+            <span>
+              <Icono icon={faPlus} />
+            </span>
             Nuevo Producto
           </button>
         </div>
         <div
-          className=" flex w-full
-      h-full
-      flex-wrap justify-start 
-      items-center content-start 
-      p-3 gap-2 "
+          className="flex w-full h-full flex-wrap justify-start items-center content-start p-3 gap-2"
         >
-          {productos.map((producto, index) => (
+          {productosFiltrados.map((producto, index) => (
             <ProductoItem key={index} producto={producto} />
           ))}
         </div>
       </div>
 
-      {isOpenModal ? (
+      {isOpenModal && (
         <Modal
           estilo={"w-4/5 overflow-scroll scrollbar"}
           isOpen={isOpenModal}
           closeModal={closeModal}
         >
-          
           <Formulario data={nuevoProducto} nuevo={true} />
         </Modal>
-      ) : (
-        ""
       )}
     </>
   );
