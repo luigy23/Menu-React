@@ -98,6 +98,7 @@ function Menu() {
     const productosPedido = canasta.map((item) => {
       //recorrer canasta y crear un objeto con los datos del pedido
       return {
+        nombre: item.Nombre,
         id: item.codProducto,
         cantidad: item.Cantidad,
         precio: item.Precio,
@@ -109,6 +110,7 @@ function Menu() {
       //objeto pedido con los datos del pedido
       Mesero: mesero,
       Mesa: mesa.idMesa,
+      MesaDescripcion: mesa.Descripcion,
       Productos: productosPedido,
       Total: total,
     };
