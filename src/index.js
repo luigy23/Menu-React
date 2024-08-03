@@ -13,9 +13,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 axios.interceptors.request.use(config => {
   //sacamos el token del localstorage:
-  const token = Cookies.get('token')
+
+
+  const token = localStorage.getItem('token');
  
   config.headers.Authorization = `Bearer ${token}`;
+  //para que funcione en local con la ip de la pc:
+  config.headers['Access-Control-Allow-Origin'] = '*';
+
+
+
   
   return config;
 })

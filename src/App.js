@@ -61,7 +61,9 @@ function App() {
   
   const verificarLogueo = async () => {
     //verifico si el usuario esta logueado en el servidor
+    const token = localStorage.getItem("token")
     const res = await axios.get(`${process.env.REACT_APP_API}/login/verificar`)
+
     console.log("respuesta", res.data)
     //si el usuario esta logueado, guardo el usuario en el estado global
     if (res.data.message === "ok") {
