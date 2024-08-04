@@ -15,6 +15,9 @@ import Notificaciones from "./Notificaciones";
 const MenuNav = () => {
   const cerrarSesion = () => {
     Cookies.remove('token')
+    //eliminamos del token del localstorage
+    localStorage.removeItem('token')
+    
 }
 
 //importar estado de usuario de redux

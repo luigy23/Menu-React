@@ -9,6 +9,7 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   idCargo: null,
+  nombre: null,
   notificaciones: []
 }
 
@@ -23,7 +24,8 @@ export default function usuarioReducer(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         user: action.payload.usuario,
-        idCargo: action.payload.idCargo
+        idCargo: action.payload.idCargo,
+        nombre: action.payload.nombre
 
       }
 
@@ -60,6 +62,7 @@ export const loginSuccess = (user) => ({
 
 export const logout = () => ({
   type: LOGOUT
+
 })
 
 export const agregarNotificacion = (notificacion) => ({

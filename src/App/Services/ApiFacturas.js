@@ -16,3 +16,10 @@ export const traerFacturas = async () => {
     const facturaCreada = res.data;
     return facturaCreada;
     }
+
+
+    export const imprimirCuenta = async (pedido) => {
+    const res = await axios.post(api + '/cuenta/imprimir', pedido);
+    const factura = res.data;
+    return factura;
+    }

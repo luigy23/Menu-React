@@ -11,6 +11,9 @@ const Usuario = () => {
     const state = useSelector((state) => state.usuario); //estado
     const cerrarSesion = () => {
         Cookies.remove('token')
+        //eliminamos del token del localstorage
+        localStorage.removeItem('token')
+        
         //actualizamos la pagina
         window.location.href = '/'
     }

@@ -12,12 +12,15 @@ import { formatPrecio } from "../Services/formatPrecio";
 import { traerProductosMesa } from "../Services/ApiMesas";
 
 import "../Estilos/Cuenta.css";
+import { imprimirCuenta } from "../Services/ApiFacturas";
 
 const Cuenta = () => {
   const [pedido, setPedido] = useState([]);
   const state = useSelector((state) => state); //estado
   const { mesa } = state.canasta; //destructuración del estado
   const impresion = useRef(); //referencia para imprimir se usa en el componente factura
+
+  const mesero = useSelector((state) => state.usuario); //mesero
 
   const handlePrint = useReactToPrint({
     content: () => impresion.current,
@@ -33,7 +36,32 @@ const Cuenta = () => {
   };
 
 
+  const clicImprimir = () => {
 
+      //confirmamos que haya productos en la mesa
+    if (pedido.length === 0) {
+      return;
+    }
+    //confirmacion de impresion
+    if (!window.confirm("¿Desea imprimir la cuenta? Todos los productos pendientes se marcarán como servidos.")) {
+      return;
+    }
+
+
+    const pedidoImprimir = {
+      idMesa: mesa.idMesa,
+      productos: pedido,
+      mesa: mesa.Descripcion,
+      Mesero: mesero,
+      
+    };
+    imprimirCuenta(pedidoImprimir).then((res) => {
+      console.log(res);
+    });
+
+    }
+
+    
 
 
 
@@ -61,25 +89,30 @@ const Cuenta = () => {
           >
             <Link to="/">
               <span className="bg-elm-200 px-2 rounded-md">
-                Mesa:{mesa.idMesa}
+                Mesa:{mesa.Descripcion}
               </span>
             </Link>
             <span className="bg-shamrock-300 px-2 rounded-md">
-              {formatPrecio(
-                pedido.reduce((total, item) => {
-                  return total + item.Precio * item.Cantidad;
-                }, 0)
-              )}
+            {formatPrecio(
+            pedido.reduce((total, item) => {
+              //no sumar si el item esta cancelado
+              if (item.Estado === "Cancelado") {
+                return total;
+              }
+     
+              return total + item.Precio * item.Cantidad;
+            }, 0)
+          )}
             </span>
           </div>
-          <TablaFactura pedido={pedido} />
+          <TablaFactura isMesero={true} pedido={pedido} />
         </div>
         <div
           name="botones"
           className="flex justify-center text-center gap-3 py-2 "
         >
           <button
-            onClick={handlePrint}
+            onClick={clicImprimir}
             className="bg-elm-200 px-2 rounded-md cursor-pointer hover:bg-elm-300"
           >
             Imprimir

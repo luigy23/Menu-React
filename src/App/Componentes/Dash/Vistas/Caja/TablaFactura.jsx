@@ -5,7 +5,7 @@ import { useModal } from '../../../../Hooks/useModal';
 import Modal from '../../../Modal';
 import { ToastContainer, toast } from 'react-toastify';
 
-const TablaFactura = ({pedido}) => {
+const TablaFactura = ({pedido, isMesero}) => {
 
 
       const cancelarProducto = (e) => {
@@ -48,9 +48,13 @@ const TablaFactura = ({pedido}) => {
               if (item.Estado === "Cancelado") {
                 return total;
               }
-              if (item.Estado === "Pendiente") {
-                return total
+
+              if (!isMesero) {
+                if (item.Estado === "Pendiente") {
+                  return total
+                }
               }
+           
               return total + item.Precio * item.Cantidad;
             }, 0)
           )}
