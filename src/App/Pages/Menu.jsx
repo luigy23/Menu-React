@@ -2,7 +2,7 @@ import React from "react";
 import { useModal } from "../Hooks/useModal";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { formatPrecio } from "../Services/formatPrecio";
@@ -41,84 +41,95 @@ function Menu() {
   //
   //utilidades :
   const [isOpenModal, openModal, closeModal] = useModal(false);
-  // Mensajes Toast
+// METODOS
+const enviarPedidoAPI = async (pedido) => {
+  if (!pedido || !Array.isArray(pedido.Productos) || pedido.Productos.length === 0) {
+    toast.error("No hay productos válidos en el pedido");
+    return;
+  }
 
-  //METODOS
-  const enviarPedidoAPI = async (pedido) => {
-    if (pedido.Productos.length === 0) {
-      toast.error("No hay productos en el pedido");
-      return;
-    }
-    if (mesa.Estado === "Ocupado" || mesa.Estado === "Sin Pagar") {
-      try {
-        const response = await toast.promise(
-          añadirProductosPedido(mesa.idMesa, pedido.Productos),
-          {
-            pending: "Promise is pending",
-            success: "Pedido Enviado 👌",
-            error: {
-              render({ data }) {
-                return `Error: ${data.response.data}`;
-              },
-            },
-          }
-        );
-        dispatch(vaciarCanasta());
-        dispatch(calcularTotal());
+  if (!mesa || !mesa.idMesa) {
+    toast.error("No se ha seleccionado una mesa válida");
+    return;
+  }
 
-        console.log("respuesta de añadir productos: ", response);
-      } catch (error) {
-        console.log("error al enviar pedido: ", error);
-      }
-      return;
-    }
+  const esMesaOcupada = mesa.Estado === "Ocupado" || mesa.Estado === "Sin Pagar";
 
-    try {
-      const response = await toast.promise(nuevoPedido(pedido), {
-        pending: "Promise is pending",
-        success: "Pedido Enviado 👌",
-        error: {
-          render({ data }) {
-            return `Error: ${data.response.data}`;
-          },
-        },
-      });
-      console.log("respuesta de nuevo pedido: ", response);
+  try {
+    let response;
+    if (esMesaOcupada) {
+      response = await toast.promise(
+        añadirProductosPedido(mesa.idMesa, pedido.Productos),
+        {
+          pending: "Enviando productos adicionales...",
+          success: "Productos añadidos al pedido existente 👌",
+          error: "Error al añadir productos al pedido",
+        }
+      );
+    } else {
+      response = await toast.promise(
+        nuevoPedido(pedido),
+        {
+          pending: "Creando nuevo pedido...",
+          success: "Nuevo pedido creado exitosamente 👌",
+          error: "Error al crear nuevo pedido",
+        }
+      );
       dispatch(seleccionarMesa({ idMesa: mesa.idMesa, Estado: "Ocupado" }));
-      dispatch(vaciarCanasta());
-      dispatch(calcularTotal());
-    } catch (error) {
-      console.log("error al enviar pedido: ", error);
     }
+
+    console.log("Respuesta del servidor:", response);
+    dispatch(vaciarCanasta());
+    dispatch(calcularTotal());
+  } catch (error) {
+    console.error("Error al procesar el pedido:", error);
+    toast.error(error.response?.data || "Error desconocido al procesar el pedido");
+  }
+};
+
+const clickEnviarPedido = () => {
+  if (!user) {
+    toast.error("No se ha identificado al mesero");
+    return;
+  }
+
+  if (!mesa || !mesa.idMesa) {
+    toast.error("No se ha seleccionado una mesa válida");
+    return;
+  }
+
+  if (!Array.isArray(canasta) || canasta.length === 0) {
+    toast.error("La canasta está vacía");
+    return;
+  }
+
+  const productosPedido = canasta.map((item) => ({
+    nombre: item.Nombre,
+    id: item.codProducto,
+    cantidad: item.Cantidad,
+    precio: item.Precio,
+    comentario: item.comentario,
+  }));
+
+  const pedido = {
+    Mesero: user,
+    Mesa: mesa.idMesa,
+    MesaDescripcion: mesa.Descripcion,
+    Productos: productosPedido,
+    Total: total,
   };
 
-  const clickEnviarPedido = () => {
-    let pedido = {};
-    let mesero = user;
-    const productosPedido = canasta.map((item) => {
-      //recorrer canasta y crear un objeto con los datos del pedido
-      return {
-        nombre: item.Nombre,
-        id: item.codProducto,
-        cantidad: item.Cantidad,
-        precio: item.Precio,
-        comentario: item.comentario,
-      };
-    });
-
-    pedido = {
-      //objeto pedido con los datos del pedido
-      Mesero: mesero,
-      Mesa: mesa.idMesa,
-      MesaDescripcion: mesa.Descripcion,
-      Productos: productosPedido,
-      Total: total,
-    };
-    //console.log("pedido=", pedido);
-    enviarPedidoAPI(pedido); //enviar pedido a la API
-    closeModal(); //cerrar modal
-    dispatch(calcularTotal()); //calcular total
+  enviarPedidoAPI(pedido);
+  closeModal();
+  dispatch(calcularTotal());
+};
+  const resetEstado = () => {
+    dispatch(vaciarCanasta());
+    dispatch(calcularTotal());
+    dispatch(seleccionarMesa({ idMesa: "", Estado: "" }));
   };
+
+
 
   useEffect(() => {
     setProductosMenu(productos);
