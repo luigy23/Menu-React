@@ -40,19 +40,6 @@ export const delToCart = (id, cantidad, opcion) => {
   }
 };
 
-/*export const enviarPedido = () => {
-    let O_pedido = {}
-    let productos = []
-    const pedido = canasta.map((item) =>
-        //("-" + item.titulo.replace(" ", "%20")) + `%20(${item.cantidad})`)
-        (`Titulo: ${item.titulo} Cantidad ${item.cantidad} precio: ${(item.precio * item.cantidad)}`))
-    //let pedidoWhatsapp = pedido.join("%0A")
-    //console.log(pedido)
-    //window.open(`https://api.whatsapp.com/send?phone=573193896000&text=Hola%20mi%20pedido%20es%3A%0A${pedidoWhatsapp}%0AGracias❤`);
-    O_pedido = { Mesa: "5", Productos: pedido }
-    console.log("pedido=", O_pedido)
-    calcularTotal()
-}*/
 
 export const calcularTotal = () => {
   return { type: CALCULAR_TOTAL };

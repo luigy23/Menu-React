@@ -75,7 +75,10 @@ const enviarPedidoAPI = async (pedido) => {
           error: "Error al crear nuevo pedido",
         }
       );
-      dispatch(seleccionarMesa({ idMesa: mesa.idMesa, Estado: "Ocupado" }));
+
+      dispatch(seleccionarMesa({ idMesa: mesa.idMesa, Estado: "Ocupado", Descripcion: mesa.Descripcion }));
+      // Actualizar el estado de la mesa a ocupado
+      
     }
 
     console.log("Respuesta del servidor:", response);

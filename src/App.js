@@ -34,6 +34,7 @@ import Usuarios from "./App/Componentes/Dash/Vistas/Usuarios/Usuarios";
 import Configuracion from "./App/Pages/Configuracion";
 import MesasAdmin from "./App/Componentes/Dash/Vistas/Mesas/MesasAdmin.jsx";
 import { NextUIProvider } from '@nextui-org/system';
+import Reportes from "./App/Componentes/Dash/Reportes/Reportes.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -169,6 +170,12 @@ function App() {
             <Route path="mesas" element={
               <RequireAuth>
                 <MesasAdmin/>
+              </RequireAuth>
+            } />
+
+            <Route path="reportes" element={
+              <RequireAuth>
+                <Reportes/>
               </RequireAuth>
             } />
 

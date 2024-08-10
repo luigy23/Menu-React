@@ -66,6 +66,7 @@ const Cuenta = () => {
 
 
   useEffect(() => {
+
     cargarProductosMesa(); //cargar productos de la mesa al iniciar la pagina
     ioSocket.on("actualizado", (data) => {
       //escuchar el evento actualizado del socket y actualizar la mesa

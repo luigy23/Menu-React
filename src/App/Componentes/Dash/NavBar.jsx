@@ -11,6 +11,7 @@ const NavBar = () => {
     { nombre: "Mesas", icono: "🎲", link:"mesas" },
     { nombre: "Usuarios", icono: "👨‍💻", link:"usuarios" },
     { nombre: "Metodos de pago", icono: "💳", link:"metodosPago" },
+    { nombre: "Reportes", icono: "📊", link:"reportes" },
 
   ];
 
