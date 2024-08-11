@@ -7,6 +7,7 @@ import { formatPrecio } from "../../../../../Services/formatPrecio";
 import Factura from "../../../../Funcionales/Factura";
 import { ca } from "date-fns/locale";
 import { useSelector } from "react-redux";
+import { parse, set, sub } from "date-fns";
 
 const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   const { user } = useSelector((state) => state.usuario);
@@ -18,24 +19,49 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   const [descuento, setDescuento] = useState(0);
   const [descuentoActivo, setDescuentoActivo] = useState(false);
   const [total, setTotal] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
+  const [propina, setPropina] = useState(0);
+  const [propinaActiva, setPropinaActiva] = useState(false);
 
   useEffect(() => {
     const cargarMetodosPago = async () => {
       const resultado = await obtenerMetodosPago();
       setMetodosPago(resultado.metodos_pago);
     };
-
     cargarMetodosPago();
 
-    calcularTotal();
+    setSubtotal(calcularTotal());
   }, []);
 
   useEffect(() => {
-    calcularTotal();
+    calcularSubtotal();
     calcularCambio();
-  }, [descuento, pedido]);
+    
+  }, [descuentoActivo, descuento, propina, propinaActiva]); //descuento, propinaActiva,propina, total
+
+  const calcularSubtotal = () => {
+    let sub_total = total;
 
 
+
+    if (descuentoActivo) {
+
+      sub_total -= parseInt(descuento) ? parseInt(descuento) : 0;
+    }else{
+      setDescuento(0);
+    }
+
+
+    if (propinaActiva) {
+      sub_total += parseInt(propina) ? parseInt(propina) : 0;
+    }
+    setSubtotal(sub_total);
+    return sub_total;
+  };
+
+  const calcularPropina = () => {
+    setPropina(calcularTotal() * 0.1);
+  };
 
   const seleccionarPago = (e) => {
     setPago(e.target.value);
@@ -65,19 +91,16 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
       }
     });
 
-    if (descuento && descuentoActivo) {
-      totalCalculado -= parseInt(descuento);
+    if (totalCalculado !== total) {
+      setTotal(totalCalculado);
     }
-
-    // Guardar el total calculado en el estado
-
-    setTotal(totalCalculado);
-    // Retornar el total calculado (por si se quiere usar en otro lado)
+    setSubtotal(totalCalculado);
     return totalCalculado;
   };
 
   const calcularCambio = (recibido = montoRecibido) => {
-    const cambio = recibido - calcularTotal();
+    const sub_total = calcularSubtotal();
+    const cambio = recibido - sub_total;
     setMontoCambio(cambio);
   };
 
@@ -88,23 +111,30 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
     }
   };
   const handleDescuento = (e) => {
-    // if (descuentoActivo) {
+   const descuento = parseInt(e.target.value);
+   setDescuento(descuento);
+   
 
-    // setDescuento(e.target.value);
-    // calcularTotal();
-
-    // //para asegurarnos que el cambio se actualice en tiempo real al cambiar el descuento es:
-    // //calcularCambio(montoRecibido); esto no funciona porque el monto recibido no se actualiza en tiempo real
-    // //por lo que se debe obtener el monto recibido del input
-    // calcularCambio(document.querySelector('input[name="montoRecibido"]').value);
-    // }
-
-    setDescuento(e.target.value);
   };
+
+  const handlePropinaActiva = (e) => {
+    setPropinaActiva(e.target.checked);
+    calcularPropina();
+    if (!e.target.checked) {
+      setPropina(0);
+    }
+  };
+  const handlePropina = (e) => { 
+    const propina = parseInt(e.target.value);
+    setPropina(propina);
+  };
+
+
+  
 
   const enviarFactura = async () => {
     //verificar que el monto recibido sea mayor al total
-    if (montoRecibido < total) {
+    if (montoRecibido < subtotal) {
       alert("El monto recibido debe ser mayor al total");
       return;
     }
@@ -120,6 +150,9 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
       idUsuario: user,
       recibido: montoRecibido,
       descuento: descuento,
+      propina: propina,
+      subtotal: subtotal,
+      total: total,
     };
 
     const response = await toast.promise(crearFactura(factura), {
@@ -140,15 +173,13 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
     imprimirFactura();
   };
 
-    //use ref
-    const impresion = useRef();
+  //use ref
+  const impresion = useRef();
 
-    const imprimirFactura = useReactToPrint({
-      content: () => impresion.current,
-      copyStyles: true,
-    });
-
-
+  const imprimirFactura = useReactToPrint({
+    content: () => impresion.current,
+    copyStyles: true,
+  });
 
   return (
     <>
@@ -200,10 +231,12 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             </div>
           )
         }
-        <div className="flex gap-3">
+        <div className="flex gap-3 bg-scooter-200  p-2">
           <label className="flex gap-3">
             Descuento:
-            <input type="checkbox" onChange={handleDescuentoActivo} />
+            <input type="checkbox" 
+            checked={descuentoActivo}
+            onChange={handleDescuentoActivo} />
           </label>
           {
             // si un checkbox esta seleccionado, mostrar el input para el descuento
@@ -219,9 +252,39 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             )
           }
         </div>
+        <div className="flex gap-3 bg-shamrock-100 p-2 items-center">
+          <label className="flex gap-3 ">
+            Propina (10%){" "}
+            <input
+              type="checkbox"
+              checked={propinaActiva}
+              onChange={handlePropinaActiva}
+            />
+          </label>
+          {propinaActiva && (
+            <label className="flex gap-3 ">
+              <input
+                type="number"
+                className="bg-transparent px-2 rounded-md border-2 border-shamrock-500"
+                value={propina}
+                onChange={handlePropina}
+                placeholder="Propina (10% por defecto)"
+              />
+            </label>
+          )}
+        </div>
 
         <div className="flex flex-col">
-          <label className="label-total">SubTotal: {formatPrecio(total)}</label>
+          {/* Subtotal con propina */}
+          <div className="flex justify-between bg-shamrock-700 text-white px-3 py-1 text-lg">
+            <p>Subtotal:</p>
+            <p>{formatPrecio(subtotal)}</p>
+
+          </div>
+          <div className="flex justify-between bg-shamrock-700 text-white px-3 py-1 text-lg">
+            <p>Total:</p>
+            <p>{formatPrecio(total)}</p>
+          </div>
         </div>
 
         <div className="flex justify-between">
