@@ -312,7 +312,9 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
           pedido={pedido}
           extra={{
             total: total,
+            subtotal: subtotal,
             descuento: descuento,
+            propina: propina,
             metodoPago: pago,
             montoRecibido: montoRecibido,
             montoCambio: montoCambio,
