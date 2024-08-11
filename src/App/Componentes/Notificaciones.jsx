@@ -25,7 +25,7 @@ const Notificaciones = () => {
       'Cancelado': 'fue cancelado❌',
     }
     const texto = `(${mensaje.codProducto}) de la mesa (${mensaje.mesa}) ${estados[mensaje.estado]}`
-    toast(texto)
+    //toast(texto)
 
     dispatch(agregarNotificacion(texto))
     setNotificaciones((notificaciones) => [...notificaciones, texto])
@@ -79,6 +79,7 @@ const Notificaciones = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent className='bg-slate-100'>
+        <Button onClick={limpiar} size='sm' variant='light' color='success'>Limpiar</Button>
         <div className='flex justify-center flex-col items-start gap-4 py-2 px-1 overflow-y-scroll scrollbar'>
             {
               notificaciones.map((mensaje) => (
@@ -89,7 +90,7 @@ const Notificaciones = () => {
               ))
 
             }
-            <Button onClick={limpiar} size='sm' variant='light' color='success'>Limpiar</Button>
+          
             </div>
         </PopoverContent>
       </Popover>

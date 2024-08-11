@@ -57,21 +57,23 @@ export const traerProductos = async()=>{
  }
 
 export const productoListo = async (producto) => {
-  const { codProducto, idPedido, idRegistro } = producto;
+  const { codProducto, idPedido, idRegistro, Nombre } = producto;
   const res = await axios.put(api+"/productos/listo", {
     codProducto,
     idPedido,
     idRegistro,
+    Nombre,
   });
   return res.data;
 }
 
 export const productoCancelado = async (producto) => {
-  const { codProducto, idPedido, idRegistro } = producto;
+  const { codProducto, idPedido, idRegistro, Nombre } = producto;
   const res = await axios.put(api+"/productos/cancelado", {
     codProducto,
     idPedido,
     idRegistro,
+    Nombre,
   });
   return res.data;
 }
