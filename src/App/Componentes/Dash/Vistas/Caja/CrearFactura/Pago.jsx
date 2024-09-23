@@ -314,6 +314,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             total: total,
             subtotal: subtotal,
             descuento: descuento,
+            mesero: user,
             propina: propina,
             metodoPago: pago,
             montoRecibido: montoRecibido,
