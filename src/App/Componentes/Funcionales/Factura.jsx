@@ -12,19 +12,19 @@ const Factura = ({ pedido, impresion, extra }) => {
   return (
     <div className="w-60 " ref={impresion}>
 
-      <div className="flex flex-col text-center gap-2 items-center">
+      <div className="flex flex-col text-center text-xs gap-2 items-center">
       <img className=" object-cover rounded-3xl  w-32" src={logo} alt="Imagen" />
 
 
       <h2 className="font-semibold">Restaurante Casa Blanca</h2>
 
-        <h3>Metodo Pago: {metodoPago}</h3>
-        <h3>Fecha: {new Date().toLocaleDateString()}</h3>
+        <p>Metodo Pago: {metodoPago}</p>
+        <p>Fecha: {new Date().toLocaleString()}</p>
         <h3>Mesa:{mesaDescripcion}</h3>
         <h3>Atendido por: {extra.mesero}</h3>
       </div>
       <div className="flex justify-center  items-center  flex-col text-center gap-3 py-2 ">
-        <table className="flex justify-center text-sm flex-col text-center gap-3 py-2 border-collapse w-3/4">
+        <table className="flex justify-center text-xs flex-col text-center gap-3 py-2 border-collapse w-3/4">
           <thead>
             <tr className="flex gap-2 justify-center items-center font-semibold">
               <th className=" w-1/3 mr-1">Producto</th>
@@ -52,17 +52,22 @@ const Factura = ({ pedido, impresion, extra }) => {
           </tbody>
         </table>
       </div>
-      <div className="flex flex-col justify-center items-center w-full  text-left gap-1 py-2 ">
+      <div className="flex flex-col justify-center text-xs items-center w-full  text-left gap-1 py-2 ">
         {/* div para alinar los textos a la izquierda: */}
-
-        <h7>
-          SubTotal:{formatPrecio(extra.subtotal)}
-        </h7>
-        <h7> Descuento: {formatPrecio(descuento)}</h7>
         <h7> <b>Total</b>: {formatPrecio(total)}</h7>
-        <h7> Propina: {formatPrecio(extra.propina)}</h7>
+        {
+          descuento > 0 &&
+        <h7> Descuento: {formatPrecio(descuento)}</h7>
+}
+        <h7> Propina: {formatPrecio(extra.propina)}</h7>        
+        <h7>
+         <b>SubTotal</b>: {formatPrecio(extra.subtotal)}
+        </h7>
+        <p>------------------------------------</p>
         <h7> Recibido: {formatPrecio(montoRecibido)}</h7>
-        <h7> Cambio: {formatPrecio(montoCambio)}</h7>
+        {
+          montoCambio > 0 &&
+        <h7> Cambio: {formatPrecio(montoCambio)}</h7>}
         
 
       </div>

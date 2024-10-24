@@ -71,7 +71,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
     //si no es efectivo, resetear el monto recibido y el cambio
     if (e.target.value.Nombre !== "Efectivo") {
       setMontoCambio(0);
-      setMontoRecibido(total);
+      setMontoRecibido(subtotal);
     }
   };
 
