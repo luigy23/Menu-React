@@ -109,7 +109,7 @@ const Formulario = ({ data, nuevo }) => {
 
     //actualizarProductos(formData)
 
-    console.log(response);
+    //console.log(response);
   };
 
   const handleDelete = async () => {

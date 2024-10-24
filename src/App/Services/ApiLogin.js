@@ -34,28 +34,12 @@ export const cerrarSesion = () => {
     localStorage.removeItem('usuario')
     localStorage.removeItem('token')
 }
-export const registrarUsuario = async (usuario) =>{
-    try {
-      const response = await axios.post(`${api}/registrar`, usuario);  // Reemplaza '/ruta-de-registro' con la ruta real de tu backend
-      return response.data.message;  // Devuelve el mensaje de éxito desde la respuesta del servidor
-    } catch (error) {
-      if (error.response) {
-        // Error con respuesta del servidor (código de estado diferente de 2xx)
-        if (error.response.status === 409) {
-          return 'El usuario ya existe';
-        } else {
-          return 'Error en el servidor';
-        }
-      } else if (error.request) {
-        // Error en la solicitud sin respuesta del servidor
-        return 'No se pudo comunicar con el servidor';
-      } else {
-        // Otros errores
-        return 'Error desconocido';
-      }
-    }
-  }
-
+export const registrarUsuario = async (usuario) => {
+      const response = await axios.post(`${api}/registrar`, usuario);  
+      return response;  // Devolver toda la respuesta completa para manejarla en el front
+   
+  };
+  
 export const traerUsuarios = async () => {
     try {
         const res = await axios.get(`${api}/usuarios/Activo`)

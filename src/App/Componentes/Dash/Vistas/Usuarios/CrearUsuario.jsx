@@ -29,14 +29,13 @@ const CrearUsario = ({ actualizar }) => {
         setPassword('');
     }
     const handleCreate = () => {
-        //validar datos
+        // Validar datos
         if (nombre.trim() === '' || apellido.trim() === '' || userName.trim() === '' || cargo.trim() === '' || fechaNacimiento.trim() === '' || password.trim() === '') {
-            alert('Todos los campos son obligatorios');
+            toast.error('Todos los campos son obligatorios');
             return;
         }
-
-
-        //crear objeto usuario
+    
+        // Crear objeto usuario
         const usuario = {
             nombre,
             apellido,
@@ -44,33 +43,46 @@ const CrearUsario = ({ actualizar }) => {
             cargo,
             fechaNacimiento,
             contraseña: password
-        }
-
-        console.log(usuario)
-        //enviar el objeto
+        };
+    
+        console.log(usuario);
+    
+        // Enviar el objeto
         registrarUsuario(usuario)
             .then(res => {
-                console.log(res)
-                toast.success(res)
-                if (res === "Usuario registrado exitosamente") {
+                if (res.status === 201) {  // Verifica si el registro fue exitoso
+                    toast.success(res.data.message);  // Mensaje de éxito desde el back
                     limpiarFormulario();
                     actualizar();
-                }
-
-
-
-            }
-            )
+                } 
+                    
+                 
+            
+            })
             .catch(err => {
-                console.log(err)
-                toast.error(res)
-            }
-            )
-
-
-
+                console.log(err);
+    
+                // Verificar si el error tiene una respuesta del servidor con detalles
+                if (err.response) {
+                    const { data } = err.response;
+    
+                    // Si el error es de validación y tiene errores detallados
+                    if (data.errores && Array.isArray(data.errores)) {
+                        data.errores.forEach(error => {
+                            toast.error(`${error.campo}: ${error.mensaje}`);
+                        });
+                    } else if (data.message) {
+                        // Si hay un mensaje general de error
+                        toast.error(data.message);
+                    } else {
+                        toast.error('Error desconocido. Intente de nuevo más tarde.');
+                    }
+                } else {
+                    toast.error('Error de conexión. Verifique su red.');
+                }
+            });
     };
-
+    
     return (
         <div className="max-w-md mx-auto  flex flex-col gap-2 ">
             <h2 className="text-xl font-semibold mb-4 ">Crear Usuario</h2>
