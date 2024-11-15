@@ -27,6 +27,8 @@ const ItemPedido = ({
 
   const clicListo = async () => {
     try {
+      console.log("clicListo");
+      console.log({ codProducto, idPedido, idRegistro, Nombre });
       await productoListo({ codProducto, idPedido, idRegistro, Nombre });
     } catch (error) {
       console.log(error);

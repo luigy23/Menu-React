@@ -2,14 +2,11 @@ import axios from "axios";
 
 const api = process.env.REACT_APP_API;
 
-// Configuración de axios
-const axiosInstance = axios.create({
-  baseURL: api,
-  timeout: 10000, // 10 segundos de timeout
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+// Configuración base para axios global
+axios.defaults.baseURL = api;
+axios.defaults.timeout = 10000;
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
 
 // Manejador global de errores
 const handleError = (error, customMessage) => {
@@ -48,8 +45,7 @@ export const imagenProducto = (imagen) => {
  */
 export const traerProductos = async () => {
   try {
-    const { data } = await axiosInstance.get(ENDPOINTS.PRODUCTOS);
-    
+    const { data } = await axios.get(ENDPOINTS.PRODUCTOS);
     return data.map(producto => ({
       ...producto,
       Imagen: imagenProducto(producto.Imagen)
@@ -59,14 +55,9 @@ export const traerProductos = async () => {
   }
 };
 
-/**
- * Actualiza un producto
- * @param {FormData} formData - Datos del producto a actualizar
- * @returns {Promise<Object>} Producto actualizado
- */
 export const actualizarProductos = async (formData) => {
   try {
-    const { data } = await axiosInstance.put(ENDPOINTS.PRODUCTOS, formData, {
+    const { data } = await axios.put(ENDPOINTS.PRODUCTOS, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -77,14 +68,9 @@ export const actualizarProductos = async (formData) => {
   }
 };
 
-/**
- * Crea un nuevo producto
- * @param {FormData} formData - Datos del nuevo producto
- * @returns {Promise<Object>} Producto creado
- */
 export const crearProducto = async (formData) => {
   try {
-    const { data } = await axiosInstance.post(ENDPOINTS.PRODUCTOS, formData, {
+    const { data } = await axios.post(ENDPOINTS.PRODUCTOS, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -95,30 +81,20 @@ export const crearProducto = async (formData) => {
   }
 };
 
-/**
- * Elimina un producto
- * @param {string|number} id - ID del producto a eliminar
- * @returns {Promise<Object>} Resultado de la eliminación
- */
 export const deleteProducto = async (id) => {
   try {
     if (!id) throw new Error('ID de producto no proporcionado');
-    const { data } = await axiosInstance.delete(`${ENDPOINTS.PRODUCTOS}/${id}`);
+    const { data } = await axios.delete(`${ENDPOINTS.PRODUCTOS}/${id}`);
     return data;
   } catch (error) {
     handleError(error, 'Error al eliminar producto');
   }
 };
 
-/**
- * Marca un producto como listo
- * @param {Object} producto - Datos del producto a marcar como listo
- * @returns {Promise<Object>} Resultado de la operación
- */
 export const productoListo = async (producto) => {
   try {
     validateProductoStatus(producto);
-    const { data } = await axiosInstance.put(ENDPOINTS.PRODUCTO_LISTO, {
+    const { data } = await axios.put(ENDPOINTS.PRODUCTO_LISTO, {
       codProducto: producto.codProducto,
       idPedido: producto.idPedido,
       idRegistro: producto.idRegistro,
@@ -130,15 +106,10 @@ export const productoListo = async (producto) => {
   }
 };
 
-/**
- * Marca un producto como cancelado
- * @param {Object} producto - Datos del producto a cancelar
- * @returns {Promise<Object>} Resultado de la operación
- */
 export const productoCancelado = async (producto) => {
   try {
     validateProductoStatus(producto);
-    const { data } = await axiosInstance.put(ENDPOINTS.PRODUCTO_CANCELADO, {
+    const { data } = await axios.put(ENDPOINTS.PRODUCTO_CANCELADO, {
       codProducto: producto.codProducto,
       idPedido: producto.idPedido,
       idRegistro: producto.idRegistro,
@@ -152,16 +123,19 @@ export const productoCancelado = async (producto) => {
 
 // Funciones auxiliares
 function validateProductoStatus(producto) {
+  console.log(producto);
   const requiredFields = ['codProducto', 'idPedido', 'idRegistro', 'Nombre'];
-  const missingFields = requiredFields.filter(field => !producto[field]);
+  const missingFields = requiredFields.filter(field => 
+    producto[field] === undefined || producto[field] === null || producto[field] === ''
+  );
   
   if (missingFields.length > 0) {
     throw new Error(`Campos requeridos faltantes: ${missingFields.join(', ')}`);
   }
 }
 
-// Interceptor para manejar errores de red
-axiosInstance.interceptors.response.use(
+// Agregar el interceptor de respuesta al axios global
+axios.interceptors.response.use(
   response => response,
   error => {
     if (error.code === 'ECONNABORTED') {
