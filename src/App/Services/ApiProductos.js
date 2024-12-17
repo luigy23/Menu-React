@@ -56,6 +56,13 @@ export const traerProductos = async () => {
 };
 
 export const actualizarProductos = async (formData) => {
+  
+  const producto = typeof formData.get('producto') === 'string'
+    ? JSON.parse(formData.get('producto'))
+    : formData.get('producto');
+  console.log("producto = ", producto);
+
+
   try {
     const { data } = await axios.put(ENDPOINTS.PRODUCTOS, formData, {
       headers: {
