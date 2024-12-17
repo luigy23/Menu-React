@@ -21,7 +21,7 @@ const Factura = ({ pedido, impresion, extra }) => {
         <p>Metodo Pago: {metodoPago}</p>
         <p>Fecha: {new Date().toLocaleString()}</p>
         <h3>Mesa:{mesaDescripcion}</h3>
-        <h3>Atendido por: {extra.mesero}</h3>
+       
       </div>
       <div className="flex justify-center  items-center  flex-col text-center gap-3 py-2 ">
         <table className="flex justify-center text-xs flex-col text-center gap-3 py-2 border-collapse w-3/4">

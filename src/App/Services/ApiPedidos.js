@@ -32,3 +32,10 @@ export const añadirProductosPedido = async (idMesa, productos) => {
   const pedidoActualizado = res.data;
   return pedidoActualizado;
 }
+
+
+export const obtenerMeseroDePedido = async (idPedido) => {
+  const res = await axios.get(api + "/pedidos/mesero/" + idPedido);
+  const mesero = res.data;
+  return mesero;
+}

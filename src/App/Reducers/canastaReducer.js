@@ -27,31 +27,31 @@ export function canastaReducer(state = inicialState, action) {
       
     }
     case AÑADIR_A_CANASTA: {
-      const [codProducto, Cantidad, comentario] = action.payload;
+      const [codProducto, Cantidad, comentario, idCategoria] = action.payload;
       const producto = state.productos.find((producto) => producto.codProducto === codProducto);
       const productoEnCanasta = state.canasta.find(
-        (item) => item.codProducto === producto.codProducto
+      (item) => item.codProducto === producto.codProducto
       );
 
       return productoEnCanasta
-        ? // Si el producto ya está en la canasta, actualiza la Cantidad
-          {
-            ...state, // Crea una copia del estado actual
-            canasta: state.canasta.map( // Crea una copia del array canasta
-              (item) => 
-                item.codProducto === producto.codProducto // Si el ID del producto coincide con el ID del item en la canasta
-                  ? { ...item, Cantidad: item.Cantidad + Cantidad, comentario:(item.comentario? item.comentario+`\n ${comentario}`:comentario) } // Crea una copia del item y actualiza la Cantidad
-                  : item // Si no coincide, devuelve el item sin cambios
-            ),
-          }
-        : // Si el producto no está en la canasta, añádelo
-          {
-            ...state, // Crea una copia del estado actual
-            canasta: [
-              ...state.canasta, // Crea una copia del array canasta
-              { ...producto, Cantidad:Cantidad, comentario }, // Añade un nuevo elemento a la canasta con la copia del producto y la Cantidad proporcionada
-            ],
-          };
+      ? // Si el producto ya está en la canasta, actualiza la Cantidad
+        {
+        ...state, // Crea una copia del estado actual
+        canasta: state.canasta.map( // Crea una copia del array canasta
+          (item) => 
+          item.codProducto === producto.codProducto // Si el ID del producto coincide con el ID del item en la canasta
+            ? { ...item, Cantidad: item.Cantidad + Cantidad, comentario:(item.comentario? item.comentario+`\n ${comentario}`:comentario), idCategoria } // Crea una copia del item y actualiza la Cantidad y idCategoria
+            : item // Si no coincide, devuelve el item sin cambios
+        ),
+        }
+      : // Si el producto no está en la canasta, añádelo
+        {
+        ...state, // Crea una copia del estado actual
+        canasta: [
+          ...state.canasta, // Crea una copia del array canasta
+          { ...producto, Cantidad:Cantidad, comentario, idCategoria }, // Añade un nuevo elemento a la canasta con la copia del producto, la Cantidad proporcionada y idCategoria
+        ],
+        };
     }
     case BORRAR_TODOS_CANASTA: {
       return {

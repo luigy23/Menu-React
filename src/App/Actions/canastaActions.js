@@ -14,7 +14,7 @@ export const cargadeProductos = (listaProductos) => {
   return { type: CARGAR_PRODUCTOS, payload: listaProductos }; //Guardamos los productos en el estado del Reducer
 };
 
-export const addToCart = (idProducto, cantidadProducto, opcionAñadir, comentario) => {
+export const addToCart = (idProducto, cantidadProducto, opcionAñadir, comentario, idCategoria) => {
   if (opcionAñadir === 1) {
     cantidadProducto = 1;
     comentario = "";
@@ -22,7 +22,7 @@ export const addToCart = (idProducto, cantidadProducto, opcionAñadir, comentari
   }
 
   // Crea un array con el ID del producto y la cantidad a añadir a la canasta
-  const datos = [idProducto, cantidadProducto, comentario];
+  const datos = [idProducto, cantidadProducto, comentario, idCategoria];
 
   // Devuelve una acción con el tipo AÑADIR_A_CANASTA y el array de datos como payload
   return { type: AÑADIR_A_CANASTA, payload: datos };

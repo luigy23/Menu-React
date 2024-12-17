@@ -23,6 +23,12 @@ export const Categorias = () => {
     traerCategorias().then((data) => setCategorias(data));
   }, []);
 
+  // Función para actualizar categorías
+  const actualizarCategorias = async () => {
+    const data = await traerCategorias();
+    setCategorias(data);
+  };
+
   const clickEditar = (idCategoria, Nombre) => {
     //
     setIdCategoria(idCategoria);
@@ -30,17 +36,23 @@ export const Categorias = () => {
 
     openModal();
   };
-  const guardarCategoria = (idCategoria, Nombre) => {
+
+  // Modificar guardarCategoria
+  const guardarCategoria = async (idCategoria, Nombre) => {
     console.log("Categoria a enviar:", idCategoria, Nombre);
-    toast.promise(editarCategoria(idCategoria, Nombre), {
+    await toast.promise(editarCategoria(idCategoria, Nombre), {
       pending: "Guardando...",
       success: "Guardado",
       error: "Error al guardar",
     });
+    closeModal();
+    actualizarCategorias();
   };
-  const borrarCategoria = (idCategoria) => {
+
+  // Modificar borrarCategoria
+  const borrarCategoria = async (idCategoria) => {
     console.log("Categoria a borrar:", idCategoria);
-    toast.promise(eliminarCategoria(idCategoria), {
+    await toast.promise(eliminarCategoria(idCategoria), {
       pending: "Eliminando...",
       success: "Eliminado",
       error: {
@@ -49,10 +61,13 @@ export const Categorias = () => {
         },
       },
     });
+    actualizarCategorias();
   };
-  const crearCategoria = (e,Nombre, Descripcion) => {
+
+  // Modificar crearCategoria
+  const crearCategoria = async (e, Nombre, Descripcion) => {
     e.preventDefault();
-    toast.promise(agregarCategoria(Nombre, Descripcion), {
+    await toast.promise(agregarCategoria(Nombre, Descripcion), {
       pending: "Creando...",
       success: "Creado",
       error: {
@@ -61,6 +76,10 @@ export const Categorias = () => {
         },
       },
     });
+    closeModal2();
+    setNombre("");
+    setDescripcion("");
+    actualizarCategorias();
   };
 
   return (

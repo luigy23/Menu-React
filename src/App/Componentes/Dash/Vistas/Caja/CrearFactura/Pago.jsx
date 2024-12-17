@@ -8,6 +8,7 @@ import Factura from "../../../../Funcionales/Factura";
 import { ca } from "date-fns/locale";
 import { useSelector } from "react-redux";
 import { parse, set, sub } from "date-fns";
+import { obtenerMeseroDePedido } from "../../../../../Services/ApiPedidos";
 
 const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   const { user } = useSelector((state) => state.usuario);
@@ -22,12 +23,16 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   const [subtotal, setSubtotal] = useState(0);
   const [propina, setPropina] = useState(0);
   const [propinaActiva, setPropinaActiva] = useState(false);
+  const [mesero, setMesero] = useState(user);
 
   useEffect(() => {
     const cargarMetodosPago = async () => {
       const resultado = await obtenerMetodosPago();
       setMetodosPago(resultado.metodos_pago);
     };
+
+
+
     cargarMetodosPago();
 
     setSubtotal(calcularTotal());
@@ -60,19 +65,27 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   };
 
   const calcularPropina = () => {
-    setPropina(calcularTotal() * 0.1);
+
+    let propinaCalculada = 0;
+    propinaCalculada = calcularTotal() * 0.1;
+    //redondeamos a 2 decimales
+    propinaCalculada = Math.round(propinaCalculada * 100) / 100;
+    setPropina(propinaCalculada);
+
   };
 
   const seleccionarPago = (e) => {
     setPago(e.target.value);
-    console.log(e.target.value);
+    //alert(e.target.value);
     //extraer nombre del id del metodo de pago
 
-    //si no es efectivo, resetear el monto recibido y el cambio
+    //si no es efectivo, el monto recibido es igual al total
     if (e.target.value.Nombre !== "Efectivo") {
-      setMontoCambio(0);
       setMontoRecibido(subtotal);
+      calcularCambio(subtotal);
     }
+  
+
   };
 
   const handleMontoRecibido = async (e) => {
@@ -120,23 +133,40 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   const handlePropinaActiva = (e) => {
     setPropinaActiva(e.target.checked);
     calcularPropina();
+    
     if (!e.target.checked) {
       setPropina(0);
     }
+
+
   };
   const handlePropina = (e) => { 
     const propina = parseInt(e.target.value);
     setPropina(propina);
+
+
+
   };
 
 
   
 
   const enviarFactura = async () => {
+
+    //si el metodo de pago es transferencia o tarjeta se asume que el monto recibido es igual al total
+   
+
+
     //verificar que el monto recibido sea mayor al total
     if (montoRecibido < subtotal) {
-      alert("El monto recibido debe ser mayor al total");
+      if (pago !== "Efectivo") {
+        setMontoRecibido(subtotal);
+        setMontoCambio(0);
+      
+      } else {
+      alert("El monto recibido debe ser mayor al total, recibido: " + montoRecibido + " total: " + subtotal);
       return;
+      }
     }
 
     //sacar id de pago seleccionado:
@@ -203,6 +233,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
                     name="pago"
                     value={metodo.Nombre}
                     onChange={seleccionarPago}
+                    
                   />
                 </label>
               ))
@@ -212,13 +243,15 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
           }
         </form>
         {
-          //si el pago es efectivo, mostrar el input para el monto recibido y el cambio
-          pago === "Efectivo" && (
+          //si el pago es efectivo, mostrar el input para el monto recibido y el cambio  
+          pago === "Efectivo" && 
+         (
             <div className="flex gap-3">
               <label>Monto recibido: </label>
               <input
                 type="number"
                 onChange={handleMontoRecibido}
+                value={montoRecibido}
                 placeholder="$$"
                 name="montoRecibido"
               />
@@ -275,15 +308,16 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
         </div>
 
         <div className="flex flex-col">
-          {/* Subtotal con propina */}
-          <div className="flex justify-between bg-shamrock-700 text-white px-3 py-1 text-lg">
-            <p>Subtotal:</p>
-            <p>{formatPrecio(subtotal)}</p>
-
-          </div>
+  
           <div className="flex justify-between bg-shamrock-700 text-white px-3 py-1 text-lg">
             <p>Total:</p>
             <p>{formatPrecio(total)}</p>
+          </div>
+                  {/* Subtotal con propina */}
+                  <div className="flex justify-between bg-shamrock-700 text-white px-3 py-1 text-lg">
+            <p>Subtotal:</p>
+            <p>{formatPrecio(subtotal)}</p>
+
           </div>
         </div>
 
