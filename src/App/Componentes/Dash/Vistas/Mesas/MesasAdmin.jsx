@@ -43,9 +43,7 @@ const MesasAdmin = () => {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-
-  const CrearMesaApi = () => {
-
+  const CrearMesaApi = async () => {
     if (nuevaMesa.Descripcion == "") {
       toast.error("Ingrese un nombre");
       return;
@@ -55,15 +53,25 @@ const MesasAdmin = () => {
       return;
     }
 
-    console.log(nuevaMesa);
+    try {
+      await toast.promise(CrearMesa(nuevaMesa), {
+        pending: "Creando Mesa",
+        success: "Mesa Creada",
+        error: "Error al crear",
+      });
 
-    toast.promise(CrearMesa(nuevaMesa), {
-      pending: "Creando Mesa",
-      success: "Mesa Creada",
-      error: "Error al crear",
-    });
+      // Cerrar el modal y recargar las mesas
+      onOpenChange(false);
+      cargarMesas();
 
-
+      // Limpiar el formulario
+      setNuevaMesa({
+        Descripcion: "",
+        Estado: "Disponible"
+      });
+    } catch (error) {
+      console.error("Error al crear mesa:", error);
+    }
   }
 
   return (
@@ -85,7 +93,12 @@ const MesasAdmin = () => {
 
         <div className="flex gap-2 w-full items-center justify-center flex-wrap">
           {mesas.map((mesa, index) => (
-            <ItemMesa index={index} mesa={mesa} key={index} />
+            <ItemMesa
+              index={index}
+              mesa={mesa}
+              key={index}
+              actualizarMesas={cargarMesas}
+            />
           ))}
         </div>
       </div>
@@ -100,17 +113,17 @@ const MesasAdmin = () => {
             <>
               <ModalHeader className="flex flex-col gap-1">
                 Añadir Mesa
-        
+
               </ModalHeader>
               <ModalBody>
 
                 <div className="flex items-center gap-2">
                   <Input
-                  label="Nombre"
-                  value={nuevaMesa.Descripcion}
-                  onChange={(e) => setNuevaMesa({ ...nuevaMesa, Descripcion: e.target.value })}
-                  placeholder="Nombre" />
-                  
+                    label="Nombre"
+                    value={nuevaMesa.Descripcion}
+                    onChange={(e) => setNuevaMesa({ ...nuevaMesa, Descripcion: e.target.value })}
+                    placeholder="Nombre" />
+
                 </div>
 
 
@@ -131,7 +144,13 @@ const MesasAdmin = () => {
           )}
         </ModalContent>
       </Modal>
-      <ToastContainer />
+      <ToastContainer 
+        limit={1} // Limita el número de toasts visibles
+        enableMultiContainer={false}
+        preventDuplicates
+        newestOnTop
+      
+      />
     </>
   );
 };

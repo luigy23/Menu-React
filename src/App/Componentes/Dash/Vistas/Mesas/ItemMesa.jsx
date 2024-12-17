@@ -15,7 +15,7 @@ import { IPen } from "../../../../Assets/Icons/IPen";
 import { ActualizarMesa } from "../../../../Services/ApiMesas";
 import { ToastContainer, toast } from "react-toastify";
 
-const ItemMesa = ({ index, mesa }) => {
+const ItemMesa = ({ index, mesa, actualizarMesas }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [estado, setEstado] = useState(mesa.Estado);
@@ -46,6 +46,7 @@ const ItemMesa = ({ index, mesa }) => {
     
     ActualizarMesa(mesaActualizada).then((res) => {
         toast.success("Mesa Actualizada");
+        actualizarMesas();
         onOpenChange();
     })
     .catch((err) => {

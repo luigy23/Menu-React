@@ -112,6 +112,7 @@ const clickEnviarPedido = () => {
     cantidad: item.Cantidad,
     precio: item.Precio,
     comentario: item.comentario,
+    idCategoria: item.idCategoria,
   }));
 
   const pedido = {
@@ -172,7 +173,7 @@ const clickEnviarPedido = () => {
         <div className="flex flex-col px-2">
           <div className="flex justify-center text-center gap-3 py-2 ">
             <span className="bg-elm-200 px-2 rounded-md">
-              Mesa: {mesa.idMesa}
+              Mesa: {mesa.Descripcion}
             </span>
             <span className="bg-shamrock-300 px-2 rounded-md">
               {formatPrecio(total)}
@@ -197,7 +198,7 @@ const clickEnviarPedido = () => {
         <MenuCategorias filtrar={filtrarCategoria} />
       </HeaderMenu>
       <div className="flex flex-col items-center justify-start bg-white min-h-screen ">
-        <div className="productosContenedor flex flex-wrap gap-2 py-2 items-center justify-center pb-8">
+        <div className="productosContenedor flex flex-wrap gap-2 py-2 items-center justify-center pb-24">
           {productosMenu.map((producto) => (
             <Producto
               key={producto.codProducto}

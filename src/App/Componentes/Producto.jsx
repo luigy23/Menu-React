@@ -34,13 +34,18 @@ const Producto = ({ producto }) => {
 
 
 
-    dispatch(addToCart(producto.codProducto, parseInt(cantidad), 0, comentario))
+    dispatch(addToCart(producto.codProducto, parseInt(cantidad), 0, comentario, producto.idCategoria));
+    console.log("__________________________-");
+    console.log("Producto agregado al carrito");
+    console.log(producto);
+    console.log("__________________________-");
+    
     toast.success("Producto agregado al carrito", {
       position: "top-center",
       autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,
-      pauseOnHover: true,
+   
      
       
       })
