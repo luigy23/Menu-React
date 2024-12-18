@@ -93,10 +93,30 @@ function App() {
     verificarLogueo()
 
     cargarProductos()
+
+
+    let startY = 0;
+
+    const onTouchStart = (e) => {
+      startY = e.touches[0].clientY;
+    };
+
+    const preventPullToRefresh = (e) => {
+      const currentY = e.touches[0].clientY;
+      if (window.scrollY === 0 && currentY > startY) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchmove', preventPullToRefresh, { passive: false });
+
+    
  
     return () => {
       ioSocket.off("productos", recibirActualización);
-    };
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', preventPullToRefresh);    };
       
     //dispatch(cargadeProductos(productList));
   }, []);
