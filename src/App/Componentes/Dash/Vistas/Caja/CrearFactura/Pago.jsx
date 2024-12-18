@@ -213,8 +213,10 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
 
   return (
     <>
-      <div className="flex flex-col p-4 gap-4">
+      <div className="flex flex-col  items-center justify-center p-4 gap-4">
         <form className="flex  gap-4">
+          <div className="flex gap-2 md:flex-row flex-col items-center 
+          justify-center">
           <label className="font-semibold">Seleccionar tipo de pago: </label>
           {
             //si hay metodos de pago, mostrarlos
@@ -241,12 +243,13 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
               <p>No hay metodos de pago</p>
             )
           }
+          </div>
         </form>
         {
           //si el pago es efectivo, mostrar el input para el monto recibido y el cambio  
           pago === "Efectivo" && 
          (
-            <div className="flex gap-3">
+            <div className="flex gap-3 md:flex-row flex-col border-t-3 ">
               <label>Monto recibido: </label>
               <input
                 type="number"
@@ -264,8 +267,8 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             </div>
           )
         }
-        <div className="flex gap-3 bg-scooter-200  p-2">
-          <label className="flex gap-3">
+        <div className="flex gap-3 md:w-[100%] bg-scooter-200  p-2">
+          <label className="flex   gap-3">
             Descuento:
             <input type="checkbox" 
             checked={descuentoActivo}
@@ -285,7 +288,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             )
           }
         </div>
-        <div className="flex gap-3 bg-shamrock-100 p-2 items-center">
+        <div className="flex gap-3 md:w-[100%] bg-shamrock-100 p-2 items-center">
           <label className="flex gap-3 ">
             Propina (10%){" "}
             <input
@@ -307,7 +310,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
           )}
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col md:w-[100%]">
   
           <div className="flex justify-between bg-shamrock-700 text-white px-3 py-1 text-lg">
             <p>Total:</p>
@@ -321,8 +324,8 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
           </div>
         </div>
 
-        <div className="flex justify-between">
-          <button onClick={() => setStep(1)} className=" btn-back">
+        <div className="flex gap-4">
+          <button onClick={() => setStep(1)} className=" btn-back ">
             Volver
           </button>
           <button

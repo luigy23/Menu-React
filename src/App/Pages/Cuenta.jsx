@@ -13,7 +13,7 @@ import { traerProductosMesa } from "../Services/ApiMesas";
 
 import "../Estilos/Cuenta.css";
 import { imprimirCuenta } from "../Services/ApiFacturas";
-
+import NuevaFactura from "../Componentes/Dash/Vistas/Caja/botones/NuevaFactura";
 const Cuenta = () => {
   const [pedido, setPedido] = useState([]);
   const state = useSelector((state) => state); //estado
@@ -121,6 +121,7 @@ const Cuenta = () => {
           <button className="bg-shamrock-300 px-2 rounded-md cursor-pointer hover:bg-shamrock-400">
             Pagar
           </button>
+          <NuevaFactura />
         </div>
         <div
           

@@ -58,8 +58,8 @@ const CrearFactura = () => {
 
   return (
     <div className="flex flex-col min-h-[400px] gap-4">
-      <h1 className="text-2xl font-semibold">Nueva Factura</h1>
-      <div className="items-center justify-center absolute left-3 top-3 p-2">
+      <h1 className=" text-xl md:text-2xl font-semibold">Nueva Factura</h1>
+      <div className="items-center justify-center  p-2">
         {/* barra de progreso para los pasos: */}
         <ul className="stepsul">
           <li className={step === 0 ? "active" : ""} onClick={() => setStep(0)}>
@@ -128,19 +128,22 @@ const SeleccionarMesa = ({ cargarPedido, setStep, setMesaId, setMesaDescripcion 
 
 const Cuenta = ({ setStep, mesa, pedido, mesaDescripcion }) => {
   return (
-    <div className="flex flex-col gap-4 p-2">
+    <div className="flex flex-col w-full">
+    <div className="flex flex-col  p-2 items-center justify-center">
       <p>Mesa: {mesaDescripcion}</p>
+      <div className=" w-1/2 md:w-full overflow-scroll">
       <TablaFactura pedido={pedido} />
-
-      <div className="flex justify-between">
-        <button onClick={() => setStep(0)} className="btn-back">
+      </div>
+      <div className="flex justify-between mt-2">
+        <button onClick={() => setStep(0)} className="btn-back ">
           Volver
         </button>
-        <button onClick={() => setStep(2)} className="btn-next w-1/4">
+        <button onClick={() => setStep(2)} className="btn-next ml-2">
           Continuar
         </button>
       </div>
     </div>
+  </div>
   );
 };
 
