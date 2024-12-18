@@ -249,9 +249,10 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
           //si el pago es efectivo, mostrar el input para el monto recibido y el cambio  
           pago === "Efectivo" && 
          (
-            <div className="flex gap-3 md:flex-row flex-col border-t-3 ">
-              <label>Monto recibido: </label>
+            <div className="flex gap-3  w-full md:flex-row flex-col  ">
+              <label className="" >Monto recibido: </label>
               <input
+              className="w-full px-2  md:p-0"
                 type="number"
                 onChange={handleMontoRecibido}
                 value={montoRecibido}
@@ -267,7 +268,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             </div>
           )
         }
-        <div className="flex gap-3 md:w-[100%] bg-scooter-200  p-2">
+        <div className="flex gap-3 md:flex-row flex-col items-center md:w-[100%] bg-scooter-200  p-2">
           <label className="flex   gap-3">
             Descuento:
             <input type="checkbox" 
@@ -280,6 +281,8 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
               <label className="flex gap-3">
                 <input
                   type="number"
+                  className="w-full px-2  md:p-0"
+
                   onChange={handleDescuento}
                   placeholder="$0"
                   value={descuento}
@@ -288,7 +291,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             )
           }
         </div>
-        <div className="flex gap-3 md:w-[100%] bg-shamrock-100 p-2 items-center">
+        <div className="flex flex-col md:flex-row gap-3 md:w-[100%] bg-shamrock-100 p-2 items-center">
           <label className="flex gap-3 ">
             Propina (10%){" "}
             <input
@@ -301,7 +304,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             <label className="flex gap-3 ">
               <input
                 type="number"
-                className="bg-transparent px-2 rounded-md border-2 border-shamrock-500"
+                className="bg-transparent w-full  px-2 rounded-md border-2 border-shamrock-500"
                 value={propina}
                 onChange={handlePropina}
                 placeholder="Propina (10% por defecto)"

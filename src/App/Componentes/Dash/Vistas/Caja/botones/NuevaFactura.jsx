@@ -31,7 +31,7 @@ ease-in-out
         <Modal
           isOpen={isOpenModal}
           closeModal={closeModal}
-          estilo={"w-4/5 overflow-scroll scrollbar"}
+          estilo={" overflow-scroll relative scrollbar"}
         >
           <CrearFactura />
         </Modal>

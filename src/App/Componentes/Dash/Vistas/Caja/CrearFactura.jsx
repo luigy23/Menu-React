@@ -101,14 +101,14 @@ const SeleccionarMesa = ({ cargarPedido, setStep, setMesaId, setMesaDescripcion 
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col bg-red-100 w-full gap-4">
       <input
         type="text"
         placeholder="Buscar mesa por descripción..."
         className="border-2 p-2 rounded-md"
         onChange={e => setFiltro(e.target.value)}
       />
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {mesasVisibles.map(mesa => (
           <div
             key={mesa.idMesa}
@@ -131,7 +131,7 @@ const Cuenta = ({ setStep, mesa, pedido, mesaDescripcion }) => {
     <div className="flex flex-col w-full">
     <div className="flex flex-col  p-2 items-center justify-center">
       <p>Mesa: {mesaDescripcion}</p>
-      <div className=" w-1/2 md:w-full overflow-scroll">
+      <div className="relative w-full overflow-scroll">
       <TablaFactura pedido={pedido} />
       </div>
       <div className="flex justify-between mt-2">
