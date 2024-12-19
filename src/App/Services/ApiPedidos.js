@@ -27,8 +27,8 @@ export const traerPedido = async (id, estado=null, limit=null) => {
 }
 
 
-export const añadirProductosPedido = async (idMesa, productos) => {
-  const res = await axios.put(api + "/pedidos/", { idMesa, productos });
+export const añadirProductosPedido = async (idMesa, productos, Imprimir) => {
+  const res = await axios.put(api + "/pedidos/", { idMesa, productos, Imprimir });
   const pedidoActualizado = res.data;
   return pedidoActualizado;
 }

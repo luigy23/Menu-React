@@ -59,7 +59,7 @@ const enviarPedidoAPI = async (pedido) => {
     let response;
     if (esMesaOcupada) {
       response = await toast.promise(
-        añadirProductosPedido(mesa.idMesa, pedido.Productos),
+        añadirProductosPedido(mesa.idMesa, pedido.Productos, pedido.Imprimir),
         {
           pending: "Enviando productos adicionales...",
           success: "Productos añadidos al pedido existente 👌",
@@ -90,7 +90,7 @@ const enviarPedidoAPI = async (pedido) => {
   }
 };
 
-const clickEnviarPedido = () => {
+const clickEnviarPedido = (imprimir) => {
   if (!user) {
     toast.error("No se ha identificado al mesero");
     return;
@@ -121,6 +121,8 @@ const clickEnviarPedido = () => {
     MesaDescripcion: mesa.Descripcion,
     Productos: productosPedido,
     Total: total,
+    Imprimir: imprimir || true,
+   
   };
 
   enviarPedidoAPI(pedido);
@@ -188,7 +190,18 @@ const clickEnviarPedido = () => {
           </ul>
         </div>
 
-        <button onClick={() => clickEnviarPedido()} className="btn-confimar">
+        <button onContextMenu={
+          (e) => {
+            e.preventDefault();
+            //confirmacion de envio de pedido
+            const confirmar = window.confirm("¿Desea enviar el pedido sin imprimir?");
+            if (confirmar) {
+
+            clickEnviarPedido(false);
+            }
+
+          }
+        }  onClick={() => clickEnviarPedido()} className="btn-confimar">
           confirmar Pedido
         </button>
       </Modal>
