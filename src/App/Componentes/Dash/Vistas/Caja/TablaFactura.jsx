@@ -17,51 +17,93 @@ const TablaFactura = ({pedido, isMesero}) => {
 
   return (
     <table className="Tabla_Factura">
-    <thead>
-      <tr>
-        <th>E</th>
-        <th>Producto</th>
-        <th>Cant.</th>
-        <th>Precio u.</th>
-        <th>Subtotal</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {
-        //codigo de una forma de hacerlo en la que si se repite el nombre del item se suman las cantidades:
-        pedido.map((item) => {
-          const subtotal = item.Precio * item.Cantidad;
-          return (
-            <ItemTablaFactura item={item} subtotal={subtotal} />
-          );
-        })
-      }
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colSpan="4">Total</td>
-        <td>
-          {formatPrecio(
-            pedido.reduce((total, item) => {
-              //no sumar si el item esta cancelado
-              if (item.Estado === "Cancelado") {
-                return total;
-              }
-
-              if (!isMesero) {
-                if (item.Estado === "Pendiente") {
-                  return total
+      <thead>
+        <tr>
+          <th>E</th>
+          <th>Producto</th>
+          <th>Cant.</th>
+          <th>Precio u.</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          //codigo de una forma de hacerlo en la que si se repite el nombre del item se suman las cantidades:
+          pedido.map((item) => {
+            const subtotal = item.Precio * item.Cantidad;
+            return (
+              <ItemTablaFactura item={item} subtotal={subtotal} />
+            );
+          })
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colSpan="4">Total</td>
+          <td>
+            {formatPrecio(
+              pedido.reduce((total, item) => {
+                //no sumar si el item esta cancelado
+                if (item.Estado === "Cancelado") {
+                  return total;
                 }
-              }
-           
-              return total + item.Precio * item.Cantidad;
-            }, 0)
-          )}
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+
+                if (!isMesero) {
+                  if (item.Estado === "Pendiente") {
+                    return total
+                  }
+                }
+             
+                return total + item.Precio * item.Cantidad;
+              }, 0)
+            )}
+          </td>
+        </tr>
+        <tr>
+          <td colSpan="4">Propina (10%)</td>
+          <td>
+            {formatPrecio(
+              pedido.reduce((total, item) => {
+                //no sumar si el item esta cancelado
+                if (item.Estado === "Cancelado") {
+                  return total;
+                }
+
+                if (!isMesero) {
+                  if (item.Estado === "Pendiente") {
+                    return total
+                  }
+                }
+             
+                return total + item.Precio * item.Cantidad;
+              }, 0) * 0.1
+            )}
+          </td>
+        </tr>
+        <tr>
+          <td colSpan="4">Subtotal</td>
+          <td>
+            {formatPrecio(
+              pedido.reduce((total, item) => {
+                //no sumar si el item esta cancelado
+                if (item.Estado === "Cancelado") {
+                  return total;
+                }
+
+                if (!isMesero) {
+                  if (item.Estado === "Pendiente") {
+                    return total
+                  }
+                }
+             
+                return total + item.Precio * item.Cantidad;
+              }, 0) * 1.1
+            )}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   )
 }
 

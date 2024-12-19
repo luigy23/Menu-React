@@ -118,9 +118,7 @@ const Cuenta = () => {
           >
             Imprimir
           </button>
-          <button className="bg-shamrock-300 px-2 rounded-md cursor-pointer hover:bg-shamrock-400">
-            Pagar
-          </button>
+
           <NuevaFactura />
         </div>
         <div
