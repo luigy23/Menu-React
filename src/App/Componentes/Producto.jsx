@@ -63,7 +63,7 @@ const Producto = ({ producto }) => {
       producto.Stock > 0 ?
       <div onClick={click} id={producto.codProducto} className="contenedor-p      cursor-pointer">
         <div className="w-4/5 overflow-hidden max-sm:w-3/4 items-center">
-        <img className="  imgProducto " src={producto.Imagen} alt="Imagen" />
+        <img className="  imgProducto " src={producto.Imagen} alt="Imagen"  loading="lazy" />
         </div>
         <h3 className="titulo">{producto.Nombre}</h3>
         <p className="producto-precio">{formatPrecio(producto.Precio)}</p>
@@ -71,7 +71,7 @@ const Producto = ({ producto }) => {
       :
       <div  id={producto.codProducto} className="contenedor-p cursor-not-allowed opacity-50 ">
         <div className="w-4/5 overflow-hidden max-sm:w-3/4 items-center">
-        <img className="  imgProducto " src={producto.Imagen} alt="Imagen" />
+        <img className="  imgProducto " src={producto.Imagen} alt="Imagen" loading="lazy" />
         </div>
         <h3 className="titulo">{producto.Nombre}</h3>
         <p className="producto-precio">Sin Stock</p>

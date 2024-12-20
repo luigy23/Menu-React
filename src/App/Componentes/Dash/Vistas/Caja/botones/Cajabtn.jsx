@@ -83,7 +83,9 @@ const Cajabtn = () => {
       <IconCashCoin className="w-10 h-10 text-shamrock-600" />
       <div className="flex flex-col items-start">
         <h2 className="font-normal text-rhino-300">Saldo Disponible:</h2>
-        <span className="font-medium ">{formatPrecio(caja.Saldo)}</span>
+        {/* <span className="font-medium ">{formatPrecio(caja.Saldo)}</span> */}
+        <span className="font-medium ">xxx</span>
+
       </div>
     </div>
     {
