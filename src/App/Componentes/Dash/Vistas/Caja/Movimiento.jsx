@@ -9,6 +9,8 @@ const Movimiento = ({movimiento}) => {
         "Egreso": "💸"
     }
 
+    
+
 
   return (
     <div className='contenedorMovimiento' key={movimiento.idMovimiento}>
@@ -20,10 +22,7 @@ const Movimiento = ({movimiento}) => {
     <span className='etiqueta bg-lime-200 text-lime-600' >propina {formatPrecio(movimiento.Propina)}</span>
     <span className='etiqueta bg-violet-200 text-violet-600' >total {formatPrecio(movimiento.Monto)}</span>
     <span className='font-semibold text-shamrock-500' >{formatPrecio(movimiento.Subtotal)}</span>
-
-
-
-  
+    <span className='etiqueta bg-blue-200 text-blue-600' >{movimiento.MetodoPago}</span>
     </div>
   )
 }
