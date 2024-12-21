@@ -196,6 +196,7 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
       propina: propina,
       subtotal: subtotal,
       total: total,
+      comentario: comentario,
     };
 
     const response = await toast.promise(crearFactura(factura), {
