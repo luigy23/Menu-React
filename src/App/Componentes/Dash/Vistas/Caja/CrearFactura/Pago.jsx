@@ -23,6 +23,9 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
   const [subtotal, setSubtotal] = useState(0);
   const [propina, setPropina] = useState(0);
   const [propinaActiva, setPropinaActiva] = useState(false);
+  const [comentario, setComentario] = useState("");
+  const [comentarioActivo, setComentarioActivo] = useState(false);
+
   const [mesero, setMesero] = useState(user);
 
   useEffect(() => {
@@ -148,6 +151,16 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
 
   };
 
+  const handleComentarioActivo = (e) => {
+    setComentarioActivo(e.target.checked);
+    if (!e.target.checked) {
+      setComentario("");
+    }
+  };
+  
+  const handleComentario = (e) => {
+    setComentario(e.target.value);
+  };
 
   
 
@@ -312,7 +325,28 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
             </label>
           )}
         </div>
-
+        <div className="flex flex-col md:flex-row gap-3 md:w-[100%] bg-shamrock-100 p-2 items-center">
+          <label className="flex gap-3 ">
+            Comentario{" "}
+            <input
+              type="checkbox"
+              checked={comentarioActivo}
+              onChange={handleComentarioActivo}
+            />
+          </label>
+          {comentarioActivo && (
+            <label className="flex gap-3 ">
+              <textarea
+                className="bg-transparent w-full  px-2 rounded-md border-2 border-shamrock-500"
+                value={comentario}
+                onChange={handleComentario}
+                placeholder="Escribe un comentario"
+              />
+     
+            </label>
+          )}
+        </div>
+  
         <div className="flex flex-col md:w-[100%]">
   
           <div className="flex justify-between bg-shamrock-700 text-white px-3 py-1 text-lg">
@@ -368,3 +402,5 @@ const Pago = ({ setStep, pedido, mesa, mesaDescripcion }) => {
 };
 
 export default Pago;
+
+
