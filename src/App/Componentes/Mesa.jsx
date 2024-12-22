@@ -25,7 +25,7 @@ const Mesa = ({Mesa}) => {
   const disponible = () => {
     console.log("Mesa disponible");
     dispatch(seleccionarMesa(Mesa));
-    dispatch(vaciarCanasta())
+    // dispatch(vaciarCanasta())
     dispatch(calcularTotal())
   }
   const bloqueada = () => {
@@ -34,7 +34,7 @@ const Mesa = ({Mesa}) => {
 
   const ocupada = () => {
     traerProductosMesa(idMesa).then((productos) => {
-      dispatch(vaciarCanasta());
+      // dispatch(vaciarCanasta());
       dispatch(seleccionarMesa(Mesa));
       dispatch(calcularTotal());
 
