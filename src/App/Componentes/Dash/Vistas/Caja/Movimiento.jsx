@@ -23,6 +23,7 @@ const Movimiento = ({movimiento}) => {
       <span className='etiqueta bg-violet-200 text-violet-600' >total {formatPrecio(movimiento.Monto)}</span>
       <span className='font-semibold text-shamrock-500' >{formatPrecio(movimiento.Subtotal)}</span>
       <span className='etiqueta bg-blue-200 text-blue-600' >{movimiento.MetodoPago}</span>
+      <span className='etiqueta bg-rose-200 text-rose-600' >{movimiento.Comentario}</span>
     </div>
   )
 }
