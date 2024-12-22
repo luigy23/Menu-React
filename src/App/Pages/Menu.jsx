@@ -121,7 +121,7 @@ const clickEnviarPedido = (imprimir) => {
     MesaDescripcion: mesa.Descripcion,
     Productos: productosPedido,
     Total: total,
-    Imprimir: imprimir || true,
+    Imprimir: imprimir || 1,
    
   };
 
@@ -197,7 +197,7 @@ const clickEnviarPedido = (imprimir) => {
             const confirmar = window.confirm("¿Desea enviar el pedido sin imprimir?");
             if (confirmar) {
 
-            clickEnviarPedido(false);
+            clickEnviarPedido(2);
             }
 
           }
