@@ -41,10 +41,16 @@ useEffect(() => {
 
   return (
     <>
-      <div className='item-canasta' >{Nombre}<b>x{Cantidad}</b>
+      <div className='item-canasta' >
+        <div className='flex flex-row justify-start gap-1 items-center'>
+          <span className='text-sm'>{Nombre}</span>
+          <span className='font-bold'>x{Cantidad}</span>
+        </div>
+      <div className='flex flex-row justify-end gap-2 ml-2 items-center'>
         <button className='btnItem btnRestar' onClick={() => restar()}><Icono icon={faMinus} /></button>
         <button className='btnItem btnSumar' onClick={() => sumar()}><Icono icon={faPlus} /></button>
         <button className='btnItem btnBorrar' onClick={() => borrar()}><Icono icon={faXmark} /></button>
+      </div>
       </div>
     </>
   )

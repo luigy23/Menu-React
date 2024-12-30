@@ -32,11 +32,10 @@ const Pedido = ({ hora, pedido }) => {
         className="contenedorPedido w-44 hover:scale-105 transition-transform m-5 cursor-pointer"
       >
         <div
-          className={`xl:w-full p-4 rounded-3xl divide-y-2  font-semibold ${
-            Estado == "Pendiente"
+          className={`xl:w-full p-4 rounded-3xl divide-y-2  font-semibold ${Estado == "Pendiente"
               ? "cardPedidoPendiente"
               : "cardPedidoEntregado"
-          }`}
+            }`}
         >
           <div
             name="pedidoDatos"
@@ -121,15 +120,15 @@ const Pedido = ({ hora, pedido }) => {
           estilo={"w-4/5   "}
           isOpen={isOpenModal}
           closeModal={closeModal}
-          
-          
+
+
         >
           <div className="w-full h-full flex justify-center items-center flex-col p-4 overflow-hidden">
-            <div className="pd-modal-info justify-center gap-9 w-full flex ">
+            <div className="pd-modal-info justify-center  gap-9 w-full flex ">
               <p>{Descripcion}</p>
               <p>{`Hora: ${hora}`}</p>
             </div>
-            <div className=" w-full  space-y-2 lg:w-3/5 overflow-scroll scrollbar px-2">
+            <div className="w-full lg:w-3/5 max-h-[calc(100vh-200px)] overflow-y-auto space-y-3 px-4">
               {Productos.map((item, index) => (
                 <ItemPedido
                   Estado={item.Estado}
@@ -140,15 +139,14 @@ const Pedido = ({ hora, pedido }) => {
                   idPedido={pedido.idPedido}
                   codProducto={item.codProducto}
                   idRegistro={item.idRegistro}
-                ></ItemPedido>
-
+                />
               ))}
             </div>
           </div>
         </Modal>
-      ) }
+      )}
 
-      
+
     </>
   );
 };

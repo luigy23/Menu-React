@@ -172,7 +172,9 @@ const clickEnviarPedido = (imprimir) => {
         isOpen={isOpenModal}
         closeModal={closeModal}
       >
-        <div className="flex flex-col px-2">
+    
+        <div className="flex flex-col px-2 text-sm">
+              {/* Header */}
           <div className="flex justify-center text-center gap-3 py-2 ">
             <span className="bg-elm-200 px-2 rounded-md">
               Mesa: {mesa.Descripcion}
@@ -182,7 +184,8 @@ const clickEnviarPedido = (imprimir) => {
             </span>
           </div>
 
-          <ul className="lista-confirmar">
+          <ul className=" min-h-[100px] max-h-[calc(100vh-200px)] bg-slate-500
+           flex-grow overflow-y-auto">
             {/* una lista de los productos en la canasta Solo los que tengan Pendiente en su propiedad Estado: */}
             {canasta.map((item) => (
               <ItemCanasta key={item.codProducto} data={item} />
