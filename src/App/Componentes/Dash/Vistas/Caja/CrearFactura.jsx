@@ -131,7 +131,7 @@ const Cuenta = ({ setStep, mesa, pedido, mesaDescripcion }) => {
     <div className="flex flex-col w-full">
     <div className="flex flex-col  p-2 items-center justify-center">
       <p>Mesa: {mesaDescripcion}</p>
-      <div className="relative w-full overflow-scroll">
+      <div className="relative w-full max-h-64 overflow-auto">
       <TablaFactura pedido={pedido} />
       </div>
       <div className="flex justify-between mt-2">
