@@ -21,3 +21,8 @@ export const traerCaja = async () => {
     return caja;
     }
 
+
+    export const testImpresora = async () => {
+        const res = await axios.get(api + '/test');
+        return res
+    }
