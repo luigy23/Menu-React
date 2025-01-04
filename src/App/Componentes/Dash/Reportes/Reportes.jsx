@@ -10,6 +10,7 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
+import ChatBot from "../../Chat/ChatBot";
 
 const Reportes = () => {
   const [fecha, setFecha] = useState({
@@ -125,6 +126,8 @@ const Reportes = () => {
           </Table>
 
         </div>
+
+        <ChatBot />
       </main>
     </>
   );
