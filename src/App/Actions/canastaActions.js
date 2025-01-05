@@ -59,3 +59,8 @@ export const actualizarCanasta = (canasta) => {
 export const vaciarCanasta = () => {
   return { type: VACIAR_CANASTA };
 };
+
+export const updateItemComment = (codProducto, comentario) => ({
+  type: 'UPDATE_ITEM_COMMENT',
+  payload: { codProducto, comentario }
+})

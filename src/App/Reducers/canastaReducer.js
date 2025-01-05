@@ -10,6 +10,7 @@ import {
   BUSCAR_PRODUCTOS,
   ACTUALIZAR_CANASTA,
   VACIAR_CANASTA,
+  UPDATE_ITEM_COMMENT,
 } from "../Types";
 
 export const inicialState = {
@@ -110,6 +111,16 @@ export function canastaReducer(state = inicialState, action) {
     }
     case "VACIAR_CANASTA": {
       return { ...state, canasta: [] };
+    }
+    case "UPDATE_ITEM_COMMENT": {
+      return {
+        ...state,
+        canasta: state.canasta.map(item => 
+          item.codProducto === action.payload.codProducto
+            ? { ...item, comentario: action.payload.comentario }
+            : item
+        )
+      }
     }
 
     default:
