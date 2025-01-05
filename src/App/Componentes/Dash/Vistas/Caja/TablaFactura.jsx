@@ -124,11 +124,13 @@ const ItemTablaFactura = ({item, subtotal}) => {
 
   const clicDerecho = (e) => {
     e.preventDefault();
+    //objeto a cadena json
+
     openModal();
   };
 
   const cancelarProducto = () => {
-    productoCancelado({ codProducto: item.codProducto, idPedido: item.idPedido, idRegistro: item.idRegistro });
+    productoCancelado({Nombre:item.Nombre, codProducto: item.codProducto, idPedido: item.idPedido, idRegistro: item.idRegistro });
     toast.success("Producto Cancelado");
 
   }
