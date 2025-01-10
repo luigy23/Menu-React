@@ -14,6 +14,7 @@ import { traerProductosMesa } from "../Services/ApiMesas";
 import "../Estilos/Cuenta.css";
 import { imprimirCuenta } from "../Services/ApiFacturas";
 import NuevaFactura from "../Componentes/Dash/Vistas/Caja/botones/NuevaFactura";
+import { reeimprimirPedido } from "../Services/ApiPedidos";
 const Cuenta = () => {
   const [pedido, setPedido] = useState([]);
   const state = useSelector((state) => state); //estado
@@ -22,10 +23,7 @@ const Cuenta = () => {
 
   const mesero = useSelector((state) => state.usuario); //mesero
 
-  const handlePrint = useReactToPrint({
-    content: () => impresion.current,
-    copyStyles: true,
-  });
+
 
 
   const cargarProductosMesa = () => {
@@ -35,6 +33,38 @@ const Cuenta = () => {
     });
   };
 
+
+   const  reimprimirComanda = async (e) => {
+    e.preventDefault();
+
+    //confirmamos que haya productos en la mesa
+    if (pedido.length === 0) {
+      return;
+    }
+    //confirmacion de impresion
+    if (!window.confirm("¿Desea reimprimir la comanda?")) {
+      return;
+    }
+
+    const pedidoImprimir = {
+      idMesa: mesa.idMesa,
+      productos: pedido,
+      mesa: mesa.Descripcion,
+      Mesero: mesero,
+    };
+
+    try {
+      const res = await reeimprimirPedido(pedidoImprimir);
+      console.log(res);
+      alert("Comanda Reimpresa");
+    }
+    catch (error) {
+      console.error(error);
+      alert("Error al reimpimir la comanda");
+    }
+
+
+  }
 
   const clicImprimir = () => {
 
@@ -113,6 +143,7 @@ const Cuenta = () => {
           className="flex justify-center text-center gap-3 py-2 "
         >
           <button
+            onContextMenu={reimprimirComanda}
             onClick={clicImprimir}
             className="bg-elm-200 px-2 rounded-md cursor-pointer hover:bg-elm-300"
           >

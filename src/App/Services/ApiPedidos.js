@@ -39,3 +39,8 @@ export const obtenerMeseroDePedido = async (idPedido) => {
   const mesero = res.data;
   return mesero;
 }
+export const reeimprimirPedido = async (pedido) => {
+  const res = await axios.post(api + "/pedidos/imprimir", pedido);
+  const factura = res.data;
+  return factura;
+}
